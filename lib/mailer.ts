@@ -1,31 +1,43 @@
 import nodemailer from 'nodemailer';
-import { env } from '../config/env.js';
-import { LeadData } from '../types/index.js';
 
-let transporter: nodemailer.Transporter | null = null;
-
-export function initMailer(): void {
-  if (env.SMTP_USER && env.SMTP_PASS && env.SMTP_HOST) {
-    try {
-      transporter = nodemailer.createTransport({
-        host: env.SMTP_HOST,
-        port: env.SMTP_PORT,
-        secure: env.SMTP_SECURE,
-        auth: {
-          user: env.SMTP_USER,
-          pass: env.SMTP_PASS,
-        },
-      });
-      console.log('✅ Nodemailer configured with SMTP credentials.');
-    } catch (err) {
-      console.warn('⚠️ Failed to initialize SMTP transporter:', err);
-    }
-  } else {
-    console.log('ℹ️ SMTP credentials not provided. Emails will be logged to console in mock mode.');
-  }
+export interface LeadEmailData {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  message?: string;
+  source?: string;
+  createdAt?: string | Date;
 }
 
-export async function sendLeadNotifications(lead: LeadData): Promise<void> {
+function getTransporter() {
+  const host = process.env.SMTP_HOST;
+  const port = parseInt(process.env.SMTP_PORT || '587', 10);
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  const secure = process.env.SMTP_SECURE === 'true';
+
+  if (user && pass && host) {
+    try {
+      return nodemailer.createTransport({
+        host,
+        port,
+        secure,
+        auth: { user, pass },
+      });
+    } catch (err) {
+      console.warn('⚠️ Failed to initialize SMTP transporter:', err);
+      return null;
+    }
+  }
+  return null;
+}
+
+export async function sendLeadNotifications(lead: LeadEmailData): Promise<void> {
+  const adminEmail = process.env.ADMIN_EMAIL || 'leads@leadsgrow.com';
+  const smtpUser = process.env.SMTP_USER || 'no-reply@leadsgrow.com';
+  const createdAtStr = lead.createdAt ? new Date(lead.createdAt).toLocaleString() : new Date().toLocaleString();
+
   const adminSubject = `🔥 New Lead Alert: ${lead.name} (${lead.service})`;
   const adminHtml = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #16A34A; border-radius: 8px;">
@@ -36,8 +48,8 @@ export async function sendLeadNotifications(lead: LeadData): Promise<void> {
         <tr><td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Email:</td><td style="padding: 8px; border-bottom: 1px solid #eee;"><a href="mailto:${lead.email}">${lead.email}</a></td></tr>
         <tr><td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Phone:</td><td style="padding: 8px; border-bottom: 1px solid #eee;"><a href="tel:${lead.phone}">${lead.phone}</a></td></tr>
         <tr><td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Service:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${lead.service}</td></tr>
-        <tr><td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Source:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${lead.source}</td></tr>
-        <tr><td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Date:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${new Date(lead.createdAt).toLocaleString()}</td></tr>
+        <tr><td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Source:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${lead.source || 'modal'}</td></tr>
+        <tr><td style="padding: 8px; font-weight: bold; border-bottom: 1px solid #eee;">Date:</td><td style="padding: 8px; border-bottom: 1px solid #eee;">${createdAtStr}</td></tr>
         <tr><td style="padding: 8px; font-weight: bold;">Message:</td><td style="padding: 8px;">${lead.message || 'No additional message provided.'}</td></tr>
       </table>
       <div style="background-color: #F6FAF7; padding: 12px; border-radius: 6px; text-align: center; color: #15803D; font-weight: bold;">
@@ -73,9 +85,11 @@ export async function sendLeadNotifications(lead: LeadData): Promise<void> {
     </div>
   `;
 
+  const transporter = getTransporter();
+
   if (!transporter) {
     console.log('\n--- [MOCK EMAIL DISPATCH] ---');
-    console.log(`[TO ADMIN: ${env.ADMIN_EMAIL}] ${adminSubject}`);
+    console.log(`[TO ADMIN: ${adminEmail}] ${adminSubject}`);
     console.log(`[TO USER: ${lead.email}] ${userSubject}`);
     console.log('-----------------------------\n');
     return;
@@ -84,13 +98,13 @@ export async function sendLeadNotifications(lead: LeadData): Promise<void> {
   try {
     await Promise.all([
       transporter.sendMail({
-        from: `"LeadsGrow System" <${env.SMTP_USER || 'no-reply@leadsgrow.com'}>`,
-        to: env.ADMIN_EMAIL,
+        from: `"LeadsGrow System" <${smtpUser}>`,
+        to: adminEmail,
         subject: adminSubject,
         html: adminHtml,
       }),
       transporter.sendMail({
-        from: `"LeadsGrow Team" <${env.SMTP_USER || 'team@leadsgrow.com'}>`,
+        from: `"LeadsGrow Team" <${smtpUser}>`,
         to: lead.email,
         subject: userSubject,
         html: userHtml,
@@ -98,7 +112,6 @@ export async function sendLeadNotifications(lead: LeadData): Promise<void> {
     ]);
     console.log(`✅ Confirmation and notification emails sent for lead: ${lead.email}`);
   } catch (err) {
-    console.error('❌ Error sending emails via Nodemailer:', err);
+    console.error('❌ Failed to dispatch email via Nodemailer:', err);
   }
 }
-

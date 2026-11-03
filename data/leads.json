@@ -1,0 +1,22 @@
+[
+  {
+    "id": "lead_1793692884345_yz6pc",
+    "name": "Test User",
+    "email": "test@example.com",
+    "phone": "+919876543210",
+    "service": "Performance Marketing",
+    "message": "Testing lead submission",
+    "source": "modal",
+    "createdAt": "2026-11-03T08:01:24.345Z"
+  },
+  {
+    "id": "lead_1793684349960_3utt1",
+    "name": "Test Founder",
+    "email": "founder@example.com",
+    "phone": "+91 98765 43210",
+    "service": "Performance Marketing",
+    "message": "Need leads for new product launch",
+    "source": "home-cta",
+    "createdAt": "2026-11-03T05:39:09.960Z"
+  }
+]
