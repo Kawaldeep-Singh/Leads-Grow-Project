@@ -31,14 +31,17 @@ export const FloatingWidgets: React.FC<FloatingWidgetsProps> = ({ onOpenConsulta
       {visible && (
         <div className="fixed z-40 pointer-events-none inset-x-0 bottom-0 p-4 sm:p-6 flex justify-between items-end">
           {/* WhatsApp Button (Bottom-Left) */}
-          <motion.div
+          <div>
+            
+          </div>
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.5, x: -30 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.5, x: -30 }}
             transition={{ type: 'spring', damping: 20, stiffness: 260 }}
             className="pointer-events-auto relative group"
           >
-            {/* Pulse rings */}
+            
             <span className="absolute -inset-1 rounded-full bg-[#25D366] opacity-30 group-hover:opacity-60 animate-ping duration-1000" />
             <a
               href={whatsappUrl}
@@ -52,7 +55,7 @@ export const FloatingWidgets: React.FC<FloatingWidgetsProps> = ({ onOpenConsulta
                 Chat on WhatsApp
               </span>
             </a>
-          </motion.div>
+          </motion.div> */}
 
           {/* Consultation Button (Bottom-Right) */}
           <motion.div
