@@ -71,7 +71,7 @@ export const Footer: React.FC = () => {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#16A34A]/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-[#22C55E]/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+      <div className="w-[85%] mx-auto relative z-10">
         {/* Newsletter Subscription Strip */}
         <div className="rounded-3xl bg-[#111815] border border-[#1A2420] p-6 sm:p-10 mb-16 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl">
           <div className="max-w-xl">

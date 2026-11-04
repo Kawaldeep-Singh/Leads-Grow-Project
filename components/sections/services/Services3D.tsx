@@ -340,7 +340,7 @@ export const Services3D: React.FC<Services3DProps> = ({
       {/* ========================================================= */}
       <div
         ref={stageRef}
-        className="hidden lg:flex relative w-full h-screen overflow-hidden items-center justify-between px-8 xl:px-14 select-none"
+        className="hidden lg:flex relative w-full h-screen overflow-hidden items-center justify-between px-[7.5%] select-none"
         style={{
           perspective: '1400px',
           perspectiveOrigin: '50% 45%',
@@ -568,7 +568,7 @@ export const Services3D: React.FC<Services3DProps> = ({
       {/* ========================================================= */}
       {/* MOBILE / TABLET VIEW: Sticky Stacked 3D Deck (< 1024px)   */}
       {/* ========================================================= */}
-      <div className="lg:hidden relative z-10 max-w-xl mx-auto px-5 sm:px-8 py-20">
+      <div className="lg:hidden relative z-10 w-[85%] mx-auto py-20">
         {/* Heading Block */}
         <SectionHeading
           badge="Explore What We Offer"

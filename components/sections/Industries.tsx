@@ -58,7 +58,7 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+      <div className="w-[85%] mx-auto relative z-10">
         {/* Section Heading */}
         <SectionHeading
           badge="Industries"

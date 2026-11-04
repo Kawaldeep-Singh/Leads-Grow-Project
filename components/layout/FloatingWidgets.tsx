@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
 import { HiSparkles, HiChatBubbleLeftRight } from 'react-icons/hi2';
 import { BRAND } from '@/lib/constants';
+import { VariantToggle } from '@/components/ui/VariantToggle';
 
 interface FloatingWidgetsProps {
   onOpenConsultation: () => void;
@@ -30,9 +31,9 @@ export const FloatingWidgets: React.FC<FloatingWidgetsProps> = ({ onOpenConsulta
     <AnimatePresence>
       {visible && (
         <div className="fixed z-40 pointer-events-none inset-x-0 bottom-0 p-4 sm:p-6 flex justify-between items-end">
-          {/* WhatsApp Button (Bottom-Left) */}
-          <div>
-            
+          {/* Floating Variant Switcher (Bottom-Left) */}
+          <div className="pointer-events-auto">
+            <VariantToggle mode="floating" />
           </div>
           {/* <motion.div
             initial={{ opacity: 0, scale: 0.5, x: -30 }}

@@ -5,6 +5,7 @@ import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { CursorFollower } from '@/components/layout/CursorFollower';
 import { ScrollProgressBar } from '@/components/layout/ScrollProgressBar';
 import { Preloader } from '@/components/layout/Preloader';
+import { Providers } from './providers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -151,7 +152,9 @@ export default function RootLayout({
         <Preloader />
         <ScrollProgressBar />
         <CursorFollower />
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <Providers>{children}</Providers>
+        </SmoothScroll>
       </body>
     </html>
   );

@@ -17,7 +17,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
   switchComponent,
 }) => {
   return (
-    <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
+    <div className="relative z-10 w-[85%] mx-auto">
       {/* Section Heading */}
       <SectionHeading
         badge="Explore What We Offer"

@@ -52,7 +52,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
         <span className="text-xs font-bold font-mono text-white">Full-Funnel Automation</span>
       </motion.div>
 
-      <div className="max-w-5xl mx-auto px-5 sm:px-8 relative z-10 text-center">
+      <div className="w-[85%] mx-auto relative z-10 text-center">
         {/* Pill Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}

@@ -24,6 +24,7 @@ import {
 import { BRAND } from '@/lib/constants';
 import { servicesData } from '@/data/services';
 import { Button } from '@/components/ui/Button';
+import { VariantToggle } from '@/components/ui/VariantToggle';
 
 interface HeaderProps {
   onOpenAudit: () => void;
@@ -62,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
     { label: 'Home', href: '#hero' },
     { label: 'About', href: '#stats' },
     { label: 'Services', href: '#services', hasMegaMenu: true },
-    { label: 'Industries', href: '#industries' },
+    // { label: 'Industries', href: '#industries' },
     { label: 'Tech Stack', href: '#tech-stack' },
     { label: 'Testimonials', href: '#testimonials' },
     { label: 'Contact', href: '#cta' },
@@ -77,39 +78,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
     >
       {/* Top Utility Bar (Desktop only, dark) */}
       <div
-        className={`hidden lg:flex items-center justify-between px-8 py-2 text-xs text-[#9FB0A7] bg-[#0B0F0D] border-b border-[#1A2420] transition-opacity duration-300 ${
+        className={`hidden lg:flex items-center py-2 text-xs text-[#9FB0A7] bg-[#0B0F0D] border-b border-[#1A2420] transition-opacity duration-300 ${
           isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden' : 'h-9 opacity-100'
         }`}
       >
-        <div className="flex items-center gap-6">
-          <a
-            href={`tel:${BRAND.phone}`}
-            className="flex items-center gap-1.5 hover:text-[#22C55E] transition-colors"
-          >
-            <HiPhone className="text-[#22C55E]" />
-            <span>{BRAND.phoneDisplay}</span>
-          </a>
-          <a
-            href={`mailto:${BRAND.email}`}
-            className="flex items-center gap-1.5 hover:text-[#22C55E] transition-colors"
-          >
-            <HiMail className="text-[#22C55E]" />
-            <span>{BRAND.email}</span>
-          </a>
-          <span className="text-[#5B6B63]">•</span>
-          <span className="text-[#9FB0A7] font-medium">{BRAND.tagline}</span>
-        </div>
 
-        <div className="flex items-center gap-4">
-          <a
-            href={`https://wa.me/${BRAND.whatsappNumber.replace(/[^0-9]/g, '')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[#22C55E] hover:underline"
-          >
-            <FaWhatsapp className="h-3.5 w-3.5" />
-            <span>WhatsApp Support</span>
-          </a>
+        <div className="w-[85%] mx-auto flex items-center justify-between">
+ <div className="flex items-center gap-4">
+         
           <div className="flex items-center gap-2.5 text-[#9FB0A7] ml-2">
             <a href={BRAND.socials.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="Facebook">
               <FaFacebookF className="h-3 w-3" />
@@ -128,6 +104,28 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
             </a>
           </div>
         </div>
+        
+        <div className="flex items-center gap-6">
+          <a
+            href={`tel:${BRAND.phone}`}
+            className="flex items-center gap-1.5 hover:text-[#22C55E] transition-colors"
+          >
+            <HiPhone className="text-[#22C55E]" />
+            <span>{BRAND.phoneDisplay}</span>
+          </a>
+          <a
+            href={`mailto:${BRAND.email}`}
+            className="flex items-center gap-1.5 hover:text-[#22C55E] transition-colors"
+          >
+            <HiMail className="text-[#22C55E]" />
+            <span>{BRAND.email}</span>
+          </a>
+        </div>
+
+       
+
+
+        </div>
       </div>
 
       {/* Main Navigation Bar */}
@@ -138,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
             : 'bg-transparent py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between">
+        <div className="w-[85%] mx-auto flex items-center justify-between">
           {/* Logo on Dark Background */}
           <Link href="/" className="flex items-center gap-2 group relative z-20">
             <div className="relative h-10 w-48 sm:h-11 sm:w-56">
@@ -265,8 +263,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
             })}
           </div>
 
-          {/* Right Action CTA */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Right Action CTA & Variant Switcher */}
+          <div className="hidden lg:flex items-center gap-3">
+            <VariantToggle mode="header" />
             <Button
               variant="glow"
               size="md"
@@ -277,14 +276,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
             </Button>
           </div>
 
-          {/* Mobile Hamburger Toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
-            className="lg:hidden p-2.5 rounded-full bg-[#111815] border border-[#1A2420] text-white hover:text-[#22C55E] transition-colors"
-          >
-            {mobileMenuOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
-          </button>
+          {/* Mobile Right Controls: Variant Switch + Hamburger */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <VariantToggle mode="header" className="scale-90 origin-right" />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+              className="p-2.5 rounded-full bg-[#111815] border border-[#1A2420] text-white hover:text-[#22C55E] transition-colors"
+            >
+              {mobileMenuOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -315,6 +317,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
               >
                 <HiX className="h-6 w-6" />
               </button>
+            </div>
+
+            {/* Variant Switcher for Mobile Drawer */}
+            <div className="pt-3 pb-1">
+              <VariantToggle mode="mobile" />
             </div>
 
             {/* Menu Links List */}

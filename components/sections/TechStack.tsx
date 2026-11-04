@@ -128,7 +128,7 @@ export const TechStack: React.FC = () => {
       <div className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-[#16A34A]/10 blur-[130px] pointer-events-none" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-[#3B82F6]/10 blur-[150px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+      <div className="w-[85%] mx-auto relative z-10">
         {/* Section Heading */}
         <SectionHeading
           badge="Engineered For Growth"

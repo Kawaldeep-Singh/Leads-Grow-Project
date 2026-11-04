@@ -20,7 +20,7 @@ const iconMap: Record<string, React.ElementType> = {
 
 export const Stats: React.FC = () => {
   return (
-    <section id="stats" className="relative z-20 -mt-10 sm:-mt-14 max-w-7xl mx-auto px-5 sm:px-8">
+    <section id="stats" className="relative z-20 -mt-10 sm:-mt-14 w-[85%] mx-auto">
       {/* Light Glass/Solid Card Container on dark/light boundary */}
       <div className="rounded-3xl bg-white shadow-2xl shadow-black/10 border border-[#E2E8F0] p-6 sm:p-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 divide-y sm:divide-y-0 lg:divide-x divide-gray-100">

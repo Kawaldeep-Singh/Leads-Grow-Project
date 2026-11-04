@@ -84,7 +84,7 @@ export function Hero({ onOpenConsultation }: HeroProps) {
       <HeroBackground />
 
       {/* Content grid */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 w-[85%] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
           {/* ── Left: Text content (7 cols) ── */}
