@@ -8,11 +8,15 @@ import { ScrollTrigger, gsap } from '@/lib/gsap-register';
 
 export interface ServicesSectionProps {
   onSelectService: (serviceTitle: string) => void;
+  isHeroFold?: boolean;
 }
 
 const STORAGE_KEY = 'lg-services-variant';
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectService }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = ({
+  onSelectService,
+  isHeroFold = false,
+}) => {
   // Default to '3d', update from localStorage in useEffect
   const [variant, setVariant] = useState<ServicesVariant>('3d');
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
@@ -89,6 +93,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                       ScrollTrigger.refresh();
                     },
                   });
+                } else {
+                  setIsTransitioning(false);
                 }
               });
             });
@@ -112,23 +118,32 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
   return (
     <section
       id="services"
-      className="relative bg-[#F6FAF7] text-[#0B0F0D] overflow-hidden border-y border-gray-200"
+      className={`relative bg-[#0B0F0D] text-white overflow-hidden ${
+        isHeroFold ? 'border-b border-[#1A2420]/60' : 'border-y border-[#1A2420]/60'
+      }`}
     >
       <div ref={wrapperRef} className="w-full transition-opacity">
         {variant === 'classic' ? (
-          <div className="pt-28 pb-24 sm:pt-36 sm:pb-32 relative bg-dot-pattern-light">
+          <div
+            className={`pb-24 sm:pb-32 relative bg-dot-pattern ${
+              isHeroFold ? 'pt-32 sm:pt-40 lg:pt-44' : 'pt-24 pb-24 sm:pt-32 sm:pb-32'
+            }`}
+          >
             {/* Ambient gradient lighting for classic */}
-            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[#16A34A]/8 rounded-full blur-[180px] pointer-events-none" />
+            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[850px] h-[550px] bg-[#16A34A]/10 rounded-full blur-[220px] pointer-events-none" />
+            <div className="absolute top-1/4 right-10 w-[450px] h-[350px] bg-[#B6F23D]/5 rounded-full blur-[180px] pointer-events-none" />
             <ServicesClassic
               onSelectService={onSelectService}
               switchComponent={switchUI}
             />
           </div>
         ) : (
-          <Services3D
-            onSelectService={onSelectService}
-            switchSlot={switchUI}
-          />
+          <div className={isHeroFold ? 'pt-20 lg:pt-24' : ''}>
+            <Services3D
+              onSelectService={onSelectService}
+              switchSlot={switchUI}
+            />
+          </div>
         )}
       </div>
     </section>
@@ -136,4 +151,3 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
 };
 
 export default ServicesSection;
-

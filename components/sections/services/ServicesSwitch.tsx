@@ -40,7 +40,7 @@ export const ServicesSwitch: React.FC<ServicesSwitchProps> = ({
     <div
       role="tablist"
       aria-label="Services Display Mode"
-      className={`inline-flex items-center p-1.5 rounded-full bg-white border border-[#E2E8F0] shadow-md shadow-black/5 ${className}`}
+      className={`inline-flex items-center p-1.5 rounded-full bg-[#111815] border border-[#1A2420] shadow-xl shadow-black/40 ${className}`}
     >
       {/* Option A: Classic */}
       <button
@@ -54,7 +54,7 @@ export const ServicesSwitch: React.FC<ServicesSwitchProps> = ({
         onClick={() => onChange('classic')}
         onKeyDown={(e) => handleKeyDown(e, 'classic')}
         className={`relative z-10 flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 ${
-          variant === 'classic' ? 'text-white' : 'text-[#5B6B63] hover:text-[#0B0F0D]'
+          variant === 'classic' ? 'text-white' : 'text-[#9FB0A7] hover:text-white'
         }`}
       >
         <HiSquares2X2 className="w-4 h-4 shrink-0" />
@@ -62,7 +62,7 @@ export const ServicesSwitch: React.FC<ServicesSwitchProps> = ({
         {variant === 'classic' && (
           <motion.div
             layoutId="services-switch-pill"
-            className="absolute inset-0 bg-gradient-to-r from-[#16A34A] to-[#15803D] rounded-full -z-10 shadow-md shadow-[#16A34A]/30"
+            className="absolute inset-0 bg-gradient-to-r from-[#16A34A] to-[#15803D] rounded-full -z-10 shadow-md shadow-[#16A34A]/30 border border-[#22C55E]/40"
             transition={{ type: 'spring', stiffness: 400, damping: 32 }}
           />
         )}
@@ -80,20 +80,20 @@ export const ServicesSwitch: React.FC<ServicesSwitchProps> = ({
         onClick={() => onChange('3d')}
         onKeyDown={(e) => handleKeyDown(e, '3d')}
         className={`relative z-10 flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2 ${
-          variant === '3d' ? 'text-white' : 'text-[#5B6B63] hover:text-[#0B0F0D]'
+          variant === '3d' ? 'text-white' : 'text-[#9FB0A7] hover:text-white'
         }`}
       >
-        <HiCube className={`w-4 h-4 shrink-0 ${variant === '3d' ? 'text-white' : 'text-[#16A34A]'}`} />
+        <HiCube className={`w-4 h-4 shrink-0 ${variant === '3d' ? 'text-[#B6F23D]' : 'text-[#22C55E]'}`} />
         <span>3D Experience</span>
         <span className={`text-[9px] font-black tracking-widest px-1.5 py-0.5 rounded-full font-mono uppercase shadow-sm ${
-          variant === '3d' ? 'bg-white/20 text-white' : 'bg-[#16A34A]/10 text-[#16A34A]'
+          variant === '3d' ? 'bg-[#B6F23D] text-[#0B0F0D]' : 'bg-[#16A34A]/20 text-[#22C55E] border border-[#16A34A]/30'
         }`}>
           NEW
         </span>
         {variant === '3d' && (
           <motion.div
             layoutId="services-switch-pill"
-            className="absolute inset-0 bg-gradient-to-r from-[#16A34A] to-[#15803D] rounded-full -z-10 shadow-md shadow-[#16A34A]/30"
+            className="absolute inset-0 bg-gradient-to-r from-[#16A34A] to-[#15803D] rounded-full -z-10 shadow-md shadow-[#16A34A]/30 border border-[#22C55E]/40"
             transition={{ type: 'spring', stiffness: 400, damping: 32 }}
           />
         )}

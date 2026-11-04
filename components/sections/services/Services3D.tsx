@@ -344,7 +344,7 @@ export const Services3D: React.FC<Services3DProps> = ({
         style={{
           perspective: '1400px',
           perspectiveOrigin: '50% 45%',
-          backgroundColor: '#F6FAF7',
+          backgroundColor: '#0B0F0D',
         }}
       >
         {/* Ambient Radial Green Atmosphere */}
@@ -411,7 +411,7 @@ export const Services3D: React.FC<Services3DProps> = ({
           <span
             className="text-[20rem] xl:text-[26rem] font-black tracking-tighter opacity-10 transition-all duration-700"
             style={{
-              WebkitTextStroke: '3px rgba(11, 15, 13, 0.1)',
+              WebkitTextStroke: '3px rgba(255, 255, 255, 0.15)',
               color: 'transparent',
               fontFamily: 'monospace',
             }}
@@ -432,7 +432,7 @@ export const Services3D: React.FC<Services3DProps> = ({
               highlightText="All Under One Roof."
               subtext="Everything Your Business Needs to Grow."
               align="left"
-              theme="light"
+              theme="dark"
             />
 
             {/* Segmented Switch Slot */}
@@ -446,7 +446,7 @@ export const Services3D: React.FC<Services3DProps> = ({
           {/* Center: Big Digit Slot Counter & Vertical Rail */}
           <div className="my-auto flex items-start gap-8">
             {/* Slot-Machine Counter (01 / 08) */}
-            <div className="flex items-baseline font-mono text-4xl xl:text-5xl font-black text-[#0B0F0D]">
+            <div className="flex items-baseline font-mono text-4xl xl:text-5xl font-black text-white">
               {/* Tens Digit Slot */}
               <div className="h-[1.2em] overflow-hidden leading-none">
                 <div ref={tensDigitRef} className="flex flex-col">
@@ -469,13 +469,13 @@ export const Services3D: React.FC<Services3DProps> = ({
                 </div>
               </div>
 
-              <span className="text-xl xl:text-2xl text-[#5B6B63] ml-2">
+              <span className="text-xl xl:text-2xl text-[#9FB0A7] ml-2">
                 / 0{servicesData.length}
               </span>
             </div>
 
             {/* Vertical Progress Rail */}
-            <div className="relative flex flex-col gap-2.5 pl-4 border-l border-gray-200">
+            <div className="relative flex flex-col gap-2.5 pl-4 border-l border-[#1A2420]">
               {/* Active Green Rail Pill Marker */}
               <div
                 className="absolute left-[-2px] w-[3px] bg-gradient-to-b from-[#22C55E] to-[#B6F23D] rounded-full transition-all duration-300"
@@ -495,15 +495,15 @@ export const Services3D: React.FC<Services3DProps> = ({
                     onClick={() => handleScrollToService(idx)}
                     className={`group text-left transition-all duration-200 cursor-pointer flex items-center gap-2.5 ${
                       isCurrent
-                        ? 'text-[#0B0F0D] font-bold text-sm scale-105 origin-left'
-                        : 'text-[#5B6B63] hover:text-[#0B0F0D] text-xs font-normal'
+                        ? 'text-white font-bold text-sm scale-105 origin-left'
+                        : 'text-[#9FB0A7] hover:text-white text-xs font-normal'
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full transition-all ${
                         isCurrent
                           ? 'bg-[#16A34A] ring-4 ring-[#16A34A]/25 scale-125'
-                          : 'bg-gray-300 group-hover:bg-[#16A34A]'
+                          : 'bg-[#1A2420] group-hover:bg-[#22C55E]'
                       }`}
                     />
                     <span className="truncate max-w-[220px]">
@@ -576,7 +576,7 @@ export const Services3D: React.FC<Services3DProps> = ({
           highlightText="All Under One Roof."
           subtext="Everything Your Business Needs to Grow."
           align="center"
-          theme="light"
+          theme="dark"
         />
 
         {/* Switch Component Slot */}

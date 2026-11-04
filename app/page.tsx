@@ -6,7 +6,6 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWidgets } from '@/components/layout/FloatingWidgets';
 import { Hero } from '@/components/sections/Hero';
-import { HeroV2 } from '@/components/sections/HeroV2';
 import { Stats } from '@/components/sections/Stats';
 import { Services } from '@/components/sections/Services';
 import { MarqueeBand } from '@/components/sections/MarqueeBand';
@@ -50,11 +49,11 @@ export default function HomePage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
-              {/* 1. Hero Section */}
+              {/* 1. Hero Section (Full View) */}
               <Hero onOpenConsultation={() => handleOpenModal(undefined, 'hero-cta')} />
 
-              {/* 2. Stats Strip (Floats 50% on Hero & 50% on Services) */}
-              <Stats overlap={true} />
+              {/* 2. Standalone Stats Strip (Separated from Hero & Services) */}
+              <Stats overlap={false} />
 
               {/* 3. Explore What We Offer (8 Service Cards) */}
               <Services
@@ -83,7 +82,7 @@ export default function HomePage() {
               <CTA onOpenModal={() => handleOpenModal(undefined, 'bottom-cta')} />
             </motion.div>
           ) : (
-            /* ── VARIANT 2: Services-First Enterprise Flow (HeroV2 with Integrated Stats & Services -> Rest) ── */
+            /* ── VARIANT 2: Services-as-Hero Flow (Services Section as Hero -> Stats -> Rest) ── */
             <motion.div
               key="site-variant-2"
               initial={{ opacity: 0 }}
@@ -91,31 +90,34 @@ export default function HomePage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
-              {/* 1. Services-First Hero (Headline + Stats Bar + Category Explorer + 8 Service Cards) */}
-              <HeroV2
-                onOpenConsultation={() => handleOpenModal(undefined, 'hero-v2-cta')}
+              {/* 1. Services Section directly as Hero Section */}
+              <Services
+                isHeroFold={true}
                 onSelectService={(serviceTitle) =>
-                  handleOpenModal(serviceTitle, `hero-v2-service-${serviceTitle}`)
+                  handleOpenModal(serviceTitle, `v2-service-${serviceTitle}`)
                 }
               />
 
-              {/* 2. Decorative Tilted Dual Marquee Band */}
+              {/* 2. Standalone Stats Strip */}
+              <Stats overlap={false} />
+
+              {/* 3. Decorative Tilted Dual Marquee Band */}
               <MarqueeBand />
 
-              {/* 3. Technologies & Integrations (6 Tabs) */}
+              {/* 4. Technologies & Integrations (6 Tabs) */}
               <TechStack />
 
-              {/* 4. Industries We Serve (10 Industries Grid) */}
+              {/* 5. Industries We Serve (10 Industries Grid) */}
               <Industries
                 onSelectIndustry={(industryName) =>
-                  handleOpenModal(`Growth for ${industryName}`, `industry-${industryName}`)
+                  handleOpenModal(`Growth for ${industryName}`, `v2-industry-${industryName}`)
                 }
               />
 
-              {/* 5. Testimonials Center-Focused Carousel */}
+              {/* 6. Testimonials Center-Focused Carousel */}
               <Testimonials />
 
-              {/* 6. Big Final CTA Band */}
+              {/* 7. Big Final CTA Band */}
               <CTA onOpenModal={() => handleOpenModal(undefined, 'bottom-cta')} />
             </motion.div>
           )}
