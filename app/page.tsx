@@ -42,7 +42,7 @@ export default function HomePage() {
       <main className="flex-1">
         <AnimatePresence mode="wait">
           {variant === 'v1' ? (
-            /* ── VARIANT 1: Classic Flow (Hero -> Stats -> Services -> Rest) ── */
+            /* ── VARIANT 1: Classic Creative Flow (Hero -> Floating Stats (50/50) -> Services -> Rest) ── */
             <motion.div
               key="site-variant-1"
               initial={{ opacity: 0 }}
@@ -53,8 +53,8 @@ export default function HomePage() {
               {/* 1. Hero Section */}
               <Hero onOpenConsultation={() => handleOpenModal(undefined, 'hero-cta')} />
 
-              {/* 2. Stats Strip */}
-              <Stats />
+              {/* 2. Stats Strip (Floats 50% on Hero & 50% on Services) */}
+              <Stats overlap={true} />
 
               {/* 3. Explore What We Offer (8 Service Cards) */}
               <Services
@@ -83,7 +83,7 @@ export default function HomePage() {
               <CTA onOpenModal={() => handleOpenModal(undefined, 'bottom-cta')} />
             </motion.div>
           ) : (
-            /* ── VARIANT 2: New Flow (Hero with Services Integrated inside Hero -> Stats -> Rest) ── */
+            /* ── VARIANT 2: Services-First Enterprise Flow (HeroV2 with Integrated Stats & Services -> Rest) ── */
             <motion.div
               key="site-variant-2"
               initial={{ opacity: 0 }}
@@ -91,7 +91,7 @@ export default function HomePage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
-              {/* 1. New Hero Section containing Integrated Services within the Hero page */}
+              {/* 1. Services-First Hero (Headline + Stats Bar + Category Explorer + 8 Service Cards) */}
               <HeroV2
                 onOpenConsultation={() => handleOpenModal(undefined, 'hero-v2-cta')}
                 onSelectService={(serviceTitle) =>
@@ -99,26 +99,23 @@ export default function HomePage() {
                 }
               />
 
-              {/* 2. Stats Strip */}
-              <Stats />
-
-              {/* 3. Decorative Tilted Dual Marquee Band */}
+              {/* 2. Decorative Tilted Dual Marquee Band */}
               <MarqueeBand />
 
-              {/* 4. Technologies & Integrations (6 Tabs) */}
+              {/* 3. Technologies & Integrations (6 Tabs) */}
               <TechStack />
 
-              {/* 5. Industries We Serve (10 Industries Grid) */}
+              {/* 4. Industries We Serve (10 Industries Grid) */}
               <Industries
                 onSelectIndustry={(industryName) =>
                   handleOpenModal(`Growth for ${industryName}`, `industry-${industryName}`)
                 }
               />
 
-              {/* 7. Testimonials Center-Focused Carousel */}
+              {/* 5. Testimonials Center-Focused Carousel */}
               <Testimonials />
 
-              {/* 8. Big Final CTA Band */}
+              {/* 6. Big Final CTA Band */}
               <CTA onOpenModal={() => handleOpenModal(undefined, 'bottom-cta')} />
             </motion.div>
           )}
