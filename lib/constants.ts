@@ -8,7 +8,7 @@ export const BRAND = {
     'LeadsGrow™ is an award-winning full-service digital marketing agency specializing in qualified lead generation, high-conversion web & app development, performance marketing, and business automation.',
   phone: '+91 98765 43210',
   phoneDisplay: '+91 98765 43210',
-  email: 'growth@leadsgrow.com',
+  email: 'info@leadsgrow.in',
   supportEmail: 'support@leadsgrow.com',
   whatsappNumber: '+919876543210',
   whatsappMessage: 'Hi LeadsGrow team! I would like to schedule a free strategy consultation for my business.',

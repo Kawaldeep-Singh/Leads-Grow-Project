@@ -17,10 +17,10 @@ export function HeroV2({ onSelectService }: HeroV2Props) {
   return (
     <div
       id="hero"
-      className="relative bg-[#0B0F0D] text-white pt-16 sm:pt-20 lg:pt-24 overflow-hidden"
+      className="relative bg-[#F6FAF7] text-[#0B0F0D] pt-16 sm:pt-20 lg:pt-24 overflow-hidden"
     >
       {/* Ambient background glows for Hero stage atmosphere */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#16A34A]/10 rounded-full blur-[220px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#16A34A]/8 rounded-full blur-[220px] pointer-events-none" />
 
       {/* Services Section acting directly as the Hero section */}
       <ServicesSection onSelectService={onSelectService} />

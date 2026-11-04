@@ -109,7 +109,7 @@ export default function RootLayout({
             '@type': 'ContactPoint',
             telephone: '+91 98765 43210',
             contactType: 'sales',
-            email: 'growth@leadsgrow.com',
+            email: 'info@leadsgrow.in',
             areaServed: 'Worldwide',
             availableLanguage: ['English', 'Hindi'],
           },

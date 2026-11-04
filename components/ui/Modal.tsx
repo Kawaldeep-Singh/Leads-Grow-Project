@@ -459,7 +459,7 @@ export const Modal: React.FC<ModalProps> = ({
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div>
                             <label className="block text-[11px] font-bold text-[#9FB0A7] uppercase tracking-wider mb-1.5">
-                              Work Email <span className="text-[#22C55E]">*</span>
+                              Your Email <span className="text-[#22C55E]">*</span>
                             </label>
                             <div className="relative">
                               <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#5B6B63]" />
@@ -502,7 +502,7 @@ export const Modal: React.FC<ModalProps> = ({
                         <div>
                           <div className="flex items-center justify-between mb-1.5">
                             <label className="block text-[11px] font-bold text-[#9FB0A7] uppercase tracking-wider">
-                              Your Goals / Requirements <span className="text-[#5B6B63]">(Optional)</span>
+                              Your Requirements / Remarks <span className="text-[#5B6B63]">(Optional)</span>
                             </label>
                           </div>
 
@@ -517,7 +517,7 @@ export const Modal: React.FC<ModalProps> = ({
                           </div>
 
                           {/* Quick suggested goal pills */}
-                          <div className="flex flex-wrap items-center gap-1.5">
+                          {/* <div className="flex flex-wrap items-center gap-1.5">
                             <span className="text-[10px] text-[#5B6B63] font-mono mr-1">Quick Add:</span>
                             {QUICK_GOALS.map((goal) => (
                               <button
@@ -529,7 +529,7 @@ export const Modal: React.FC<ModalProps> = ({
                                 {goal}
                               </button>
                             ))}
-                          </div>
+                          </div> */}
                         </div>
                       </div>
 

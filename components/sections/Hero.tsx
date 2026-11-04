@@ -117,21 +117,7 @@ export function Hero({ onOpenConsultation }: HeroProps) {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
-        onClick={async () => {
-          const { default: gsap } = await import('gsap');
-          const { ScrollToPlugin } = await import('gsap/ScrollToPlugin');
-          gsap.registerPlugin(ScrollToPlugin);
-          gsap.to(window, { duration: 1.2, scrollTo: '#stats', ease: 'power3.inOut' });
-        }}
-        role="button"
-        aria-label="Scroll to next section"
-      >
-        <span className="font-mono text-[9px] uppercase tracking-widest text-[#9FB0A7]">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-[#22C55E]/60 to-transparent animate-bounce-slow" />
-      </div>
+
     </section>
   );
 }

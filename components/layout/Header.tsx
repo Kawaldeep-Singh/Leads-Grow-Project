@@ -133,7 +133,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
         className={`w-full transition-all duration-300 ${
           isScrolled
             ? 'glass-nav shadow-lg shadow-black/30 py-3.5'
-            : 'bg-transparent py-5'
+            : 'bg-[#0B0F0D]/90 backdrop-blur-md border-b border-[#1A2420]/60 py-4 shadow-md shadow-black/20'
         }`}
       >
         <div className="w-[85%] mx-auto flex items-center justify-between">

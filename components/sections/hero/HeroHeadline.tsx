@@ -226,7 +226,7 @@ export function HeroHeadline({
       </div>
 
       {/* Proof-point counters */}
-      <div
+      {/* <div
         ref={countersRef as React.RefObject<HTMLDivElement>}
         className="flex flex-wrap gap-6 sm:gap-10 pt-2"
       >
@@ -242,7 +242,7 @@ export function HeroHeadline({
           <div className="w-px h-8 bg-[#22C55E]/40 hidden sm:block" />
           <HeroCounter to={5000} suffix="+" label="Campaigns" trigger={countersTriggered} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

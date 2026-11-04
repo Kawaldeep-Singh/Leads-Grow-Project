@@ -20,9 +20,9 @@ const iconMap: Record<string, React.ElementType> = {
 
 export const Stats: React.FC = () => {
   return (
-    <section id="stats" className="relative z-20 -mt-10 sm:-mt-14 w-[85%] mx-auto">
+    <section id="stats" className="relative z-30 -translate-y-1/2 -mb-20 sm:-mb-24 lg:-mb-28 w-[85%] mx-auto">
       {/* Light Glass/Solid Card Container on dark/light boundary */}
-      <div className="rounded-3xl bg-white shadow-2xl shadow-black/10 border border-[#E2E8F0] p-6 sm:p-10">
+      <div className="rounded-3xl bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15),0_0_30px_rgba(22,163,74,0.08)] border border-[#E2E8F0] p-6 sm:p-8 lg:p-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 divide-y sm:divide-y-0 lg:divide-x divide-gray-100">
           {statsData.map((stat, index) => {
             const Icon = iconMap[stat.iconName] || HiRocketLaunch;

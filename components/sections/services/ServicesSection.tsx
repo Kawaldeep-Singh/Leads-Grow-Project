@@ -112,13 +112,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
   return (
     <section
       id="services"
-      className="relative bg-[#0B0F0D] text-white overflow-hidden"
+      className="relative bg-[#F6FAF7] text-[#0B0F0D] overflow-hidden border-y border-gray-200"
     >
       <div ref={wrapperRef} className="w-full transition-opacity">
         {variant === 'classic' ? (
-          <div className="py-24 sm:py-32 relative bg-dot-pattern">
+          <div className="pt-28 pb-24 sm:pt-36 sm:pb-32 relative bg-dot-pattern-light">
             {/* Ambient gradient lighting for classic */}
-            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[#16A34A]/10 rounded-full blur-[180px] pointer-events-none" />
+            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[#16A34A]/8 rounded-full blur-[180px] pointer-events-none" />
             <ServicesClassic
               onSelectService={onSelectService}
               switchComponent={switchUI}
