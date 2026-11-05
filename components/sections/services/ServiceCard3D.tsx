@@ -14,6 +14,8 @@ export interface ServiceCard3DProps {
   className?: string;
 }
 
+
+
 export const ServiceCard3D: React.FC<ServiceCard3DProps> = ({
   service,
   isActive,

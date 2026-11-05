@@ -33,7 +33,7 @@ export const FloatingWidgets: React.FC<FloatingWidgetsProps> = ({ onOpenConsulta
         <div className="fixed z-40 pointer-events-none inset-x-0 bottom-0 p-4 sm:p-6 flex justify-between items-end">
           {/* Floating Variant Switcher (Bottom-Left) */}
           <div className="pointer-events-auto">
-            <VariantToggle mode="floating" />
+            {/* <VariantToggle mode="floating" /> */}
           </div>
           {/* <motion.div
             initial={{ opacity: 0, scale: 0.5, x: -30 }}

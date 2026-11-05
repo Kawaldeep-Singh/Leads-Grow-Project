@@ -265,7 +265,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
 
           {/* Right Action CTA & Variant Switcher */}
           <div className="hidden lg:flex items-center gap-3">
-            <VariantToggle mode="header" />
+            {/* <VariantToggle mode="header" /> */}
             <Button
               variant="glow"
               size="md"
@@ -278,7 +278,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit }) => {
 
           {/* Mobile Right Controls: Variant Switch + Hamburger */}
           <div className="flex items-center gap-2 lg:hidden">
-            <VariantToggle mode="header" className="scale-90 origin-right" />
+            {/* <VariantToggle mode="header" className="scale-90 origin-right" /> */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
