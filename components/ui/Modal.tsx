@@ -98,7 +98,7 @@ export const Modal: React.FC<ModalProps> = ({
         name: data.name,
         email: data.email,
         phone: data.phone,
-        service: data.service,
+        service: data.service || defaultService || 'General Consultation',
         message: data.message,
         source,
       };
