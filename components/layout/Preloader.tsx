@@ -207,11 +207,11 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         { scaleX: 0, opacity: 0, duration: 0.35, ease: 'power2.in' },
         2.3
       );
-      // Whole screen slides up with clip-path inset(0 0 100% 0) (0.9s, expo.inOut)
+      // Whole screen slides down with clip-path inset(100% 0 0 0) (0.9s, expo.inOut)
       tl.to(
         containerRef.current,
         {
-          clipPath: 'inset(0 0 100% 0)',
+          clipPath: 'inset(100% 0 0 0)',
           duration: 0.9,
           ease: 'expo.inOut',
         },
@@ -308,28 +308,28 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           />
 
           {/* Arrow SVG boost icon */}
-          <div
-            ref={arrowSvgRef}
-            className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            style={{
-              left: '77.85%',
-              top: '48%',
-            }}
-            aria-hidden
-          >
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#B6F23D"
-              strokeWidth="3.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            {/* <div
+              ref={arrowSvgRef}
+              className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              style={{
+                left: '77.85%',
+                top: '48%',
+              }}
+              aria-hidden
             >
-              <path d="M12 19V5M5 12l7-7 7 7" />
-            </svg>
-          </div>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#B6F23D"
+                strokeWidth="3.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+            </div> */}
         </div>
 
         {/* Thin progress line container (240px wide) */}
@@ -362,12 +362,12 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         </div>
 
         {/* Tagline fading up under the line at ~60% progress */}
-        <p
+        {/* <p
           ref={taglineRef}
           className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-[#9FB0A7] mt-5"
         >
           You Believe. <span className="text-[#22C55E]">We Achieve.</span>
-        </p>
+        </p> */}
       </div>
     </div>
   );

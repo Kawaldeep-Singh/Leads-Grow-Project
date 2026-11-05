@@ -1,100 +1,69 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 
-export type SiteVariant = 'v1' | 'v2';
+export type SiteVariant = 'v1' | 'v2' | 'v3';
 
 interface VariantContextType {
   variant: SiteVariant;
   setVariant: (variant: SiteVariant) => void;
-  toggleVariant: () => void;
   isMounted: boolean;
 }
-
-const STORAGE_KEY = 'lg_site_variant';
 
 const VariantContext = createContext<VariantContextType>({
   variant: 'v1',
   setVariant: () => {},
-  toggleVariant: () => {},
   isMounted: false,
 });
 
-export const VariantProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const STORAGE_KEY = 'lg-site-variant';
+
+export function VariantProvider({ children }: { children: React.ReactNode }) {
   const [variant, setVariantState] = useState<SiteVariant>('v1');
   const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
-  // Read initial variant from URL param or localStorage
+  // Initialize from URL or localStorage
   useEffect(() => {
     setIsMounted(true);
-    try {
-      const searchParams = new URLSearchParams(window.location.search);
-      const urlVariant = searchParams.get('variant') || searchParams.get('v');
+    if (typeof window === 'undefined') return;
 
-      if (urlVariant === 'v2' || urlVariant === '2') {
-        setVariantState('v2');
-        return;
-      }
-      if (urlVariant === 'v1' || urlVariant === '1') {
-        setVariantState('v1');
-        return;
-      }
-
+    if (pathname === '/v1') {
+      setVariantState('v1');
+      localStorage.setItem(STORAGE_KEY, 'v1');
+    } else if (pathname === '/v2') {
+      setVariantState('v2');
+      localStorage.setItem(STORAGE_KEY, 'v2');
+    } else if (pathname === '/v3') {
+      setVariantState('v3');
+      localStorage.setItem(STORAGE_KEY, 'v3');
+    } else {
       const saved = localStorage.getItem(STORAGE_KEY) as SiteVariant | null;
-      if (saved === 'v1' || saved === 'v2') {
+      if (saved === 'v1' || saved === 'v2' || saved === 'v3') {
         setVariantState(saved);
       }
-    } catch {
-      // Ignore storage/search errors
     }
-  }, []);
+  }, [pathname]);
 
-  const setVariant = useCallback((newVariant: SiteVariant) => {
+  const setVariant = (newVariant: SiteVariant) => {
     setVariantState(newVariant);
-
-    try {
-      localStorage.setItem(STORAGE_KEY, newVariant);
-
-      // Optionally update URL query param without reload
-      const url = new URL(window.location.href);
-      url.searchParams.set('v', newVariant);
-      window.history.replaceState({}, '', url.toString());
-    } catch {
-      // Ignore storage errors
-    }
-
-    // Refresh ScrollTrigger and smooth scroll after variant DOM layout changes
     if (typeof window !== 'undefined') {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(async () => {
-          try {
-            const { ScrollTrigger } = await import('@/lib/gsap-register');
-            ScrollTrigger.refresh();
-
-            const lenis = (
-              window as unknown as {
-                __lenis?: { resize: () => void };
-              }
-            ).__lenis;
-            lenis?.resize();
-          } catch {
-            // Ignore animation library errors
-          }
-        });
-      });
+      localStorage.setItem(STORAGE_KEY, newVariant);
     }
-  }, []);
-
-  const toggleVariant = useCallback(() => {
-    setVariant(variant === 'v1' ? 'v2' : 'v1');
-  }, [variant, setVariant]);
+    // If user is explicitly on a variant sub-route, navigate accordingly
+    if (pathname === '/v1' || pathname === '/v2' || pathname === '/v3') {
+      router.push(`/${newVariant}`);
+    }
+  };
 
   return (
-    <VariantContext.Provider value={{ variant, setVariant, toggleVariant, isMounted }}>
+    <VariantContext.Provider value={{ variant, setVariant, isMounted }}>
       {children}
     </VariantContext.Provider>
   );
-};
+}
 
 export const useSiteVariant = () => useContext(VariantContext);
 

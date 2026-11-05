@@ -152,8 +152,8 @@ Floating: WhatsApp button, consultation button, scroll progress, cursor.
 ## 6. SECTION-BY-SECTION SPEC (USE THIS EXACT CONTENT)
 
 ### 6.1 Header
-- Logo (left), nav: Home, About, Services (mega-menu), Industries, Portfolio, Blog, Contact. Right: **"Get Free Audit"** primary button.
-- **Services mega-menu** (opens on hover desktop / accordion on mobile): shows the 8 service categories in a grid, each with a small icon and its sub-services, plus a small stats strip (50L+ Leads, 5K+ Campaigns) and a "Get Free Audit" button. Animate with Framer Motion (fade + y offset + stagger items).
+- Logo (left), nav: Home, About, Services (mega-menu), Industries, Portfolio, Blog, Contact. Right: **"Contact Us"** primary button.
+- **Services mega-menu** (opens on hover desktop / accordion on mobile): shows the 8 service categories in a grid, each with a small icon and its sub-services, plus a small stats strip (50L+ Leads, 5K+ Campaigns) and a "Contact Us" button. Animate with Framer Motion (fade + y offset + stagger items).
 - **Mobile:** hamburger → full-screen off-canvas menu sliding in from the right, items stagger in, accordion for Services, "Contact Us" button at bottom.
 - Top utility bar (desktop only, dark): phone, email, WhatsApp, social icons (use placeholder values in `constants.ts`).
 

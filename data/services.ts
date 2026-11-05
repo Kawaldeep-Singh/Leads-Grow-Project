@@ -54,6 +54,7 @@ export const servicesData: ServiceItem[] = [
       'Mobile App UI/UX',
     ],
     iconKey: 'app-dev',
+    badge: 'Fast & Secure',
   },
   {
     id: '04',
@@ -68,6 +69,7 @@ export const servicesData: ServiceItem[] = [
       'Social Media Creatives',
     ],
     iconKey: 'design',
+    badge: 'Core Focus',
   },
   {
     id: '05',
@@ -112,6 +114,7 @@ export const servicesData: ServiceItem[] = [
       'Affiliate & Referral Marketing',
     ],
     iconKey: 'automation',
+    badge: 'Scale ROAS',
   },
   {
     id: '08',
@@ -126,6 +129,7 @@ export const servicesData: ServiceItem[] = [
       'B2B Promotional Activities & Events',
     ],
     iconKey: 'offline',
+    badge: 'High ROI',
   },
 ];
 
