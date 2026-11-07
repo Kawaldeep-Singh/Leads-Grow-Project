@@ -1,23 +1,48 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { HiBolt, HiArrowRight, HiCheckCircle } from 'react-icons/hi2';
 import { servicesData } from '@/data/services';
 import { serviceIcons } from './serviceIcons';
+
+export type ServiceCategory = 'all' | 'leads' | 'development' | 'design';
 
 export interface ServicesClassicProps {
   onSelectService: (serviceTitle: string) => void;
   switchComponent?: React.ReactNode;
   theme?: 'dark' | 'light';
+  activeCategory?: ServiceCategory;
 }
 
 export const ServicesClassic: React.FC<ServicesClassicProps> = ({
   onSelectService,
   switchComponent,
   theme = 'dark',
+  activeCategory = 'all',
 }) => {
   const isLight = theme === 'light';
+
+  // Filter services by category
+  const filteredServices = servicesData.filter((service) => {
+    if (!activeCategory || activeCategory === 'all') return true;
+    if (activeCategory === 'leads') {
+      return (
+        service.iconKey === 'digital-marketing' ||
+        service.iconKey === 'lead-gen' ||
+        service.iconKey === 'performance' ||
+        service.iconKey === 'automation' ||
+        service.iconKey === 'offline'
+      );
+    }
+    if (activeCategory === 'development') {
+      return service.iconKey === 'web-dev' || service.iconKey === 'app-dev';
+    }
+    if (activeCategory === 'design') {
+      return service.iconKey === 'design';
+    }
+    return true;
+  });
 
   return (
     <div className="relative z-10 w-[85%] mx-auto">
@@ -28,21 +53,33 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
         </div>
       )}
 
-      {/* 8 Numbered Service Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {servicesData.map((service, index) => {
-          const Icon = serviceIcons[service.iconKey] || HiBolt;
+      {/* Dynamic Grid: Centered gracefully depending on number of filtered cards */}
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 gap-6 transition-all duration-300 ${
+          filteredServices.length >= 4
+            ? 'lg:grid-cols-4'
+            : filteredServices.length === 3
+            ? 'lg:grid-cols-3 max-w-5xl mx-auto'
+            : filteredServices.length === 2
+            ? 'lg:grid-cols-2 max-w-3xl mx-auto'
+            : 'lg:grid-cols-1 max-w-md mx-auto'
+        }`}
+      >
+        <AnimatePresence mode="popLayout">
+          {filteredServices.map((service, index) => {
+            const Icon = serviceIcons[service.iconKey] || HiBolt;
 
-          return (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              whileHover={{ y: -8 }}
-              data-cursor-text="View"
-              className={`group relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between overflow-hidden transition-all duration-300 ${
+            return (
+              <motion.div
+                key={service.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -15 }}
+                transition={{ duration: 0.35, delay: index * 0.04 }}
+                whileHover={{ y: -8 }}
+                data-cursor-text="View"
+                className={`group relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between overflow-hidden transition-all duration-300 ${
                 isLight
                   ? 'bg-white border border-gray-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#22C55E] hover:shadow-[0_14px_35px_rgba(22,197,94,0.18)]'
                   : 'bg-[#111815] border border-[#1A2420] hover:border-[#22C55E]/50 hover:shadow-[0_10px_35px_rgba(22,163,74,0.18)]'
@@ -175,6 +212,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
             </motion.div>
           );
         })}
+        </AnimatePresence>
       </div>
     </div>
   );

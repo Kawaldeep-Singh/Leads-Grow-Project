@@ -50,7 +50,7 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
 
       {/* Floating Action Widgets (WhatsApp & Consultation) */}
       <FloatingWidgets onOpenConsultation={() => handleOpenModal(undefined, 'floating-widget')} />

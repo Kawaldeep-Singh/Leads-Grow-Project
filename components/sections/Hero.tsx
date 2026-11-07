@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { HeroBackground } from './hero/HeroBackground';
 import { HeroHeadline } from './hero/HeroHeadline';
-import { ServicesClassic } from './services/ServicesClassic';
+import { ServicesClassic, ServiceCategory } from './services/ServicesClassic';
 import { useHeroTimeline } from '@/hooks/useHeroTimeline';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
@@ -11,23 +11,30 @@ interface HeroProps {
   onOpenConsultation?: () => void;
   onSelectService?: (serviceTitle: string) => void;
   theme?: 'dark' | 'light';
+  showServicesHeading?: boolean;
 }
 
-export function Hero({ onOpenConsultation, onSelectService, theme = 'dark' }: HeroProps) {
+export function Hero({
+  onOpenConsultation,
+  onSelectService,
+  theme = 'dark',
+  showServicesHeading = false,
+}: HeroProps) {
   const prefersReducedMotion = useReducedMotion();
+  const [activeCategory, setActiveCategory] = useState<ServiceCategory>('all');
 
   /* ── Refs passed to timeline ── */
-  const sectionRef  = useRef<HTMLElement>(null);
-  const badgeRef    = useRef<HTMLElement>(null);
-  const line1Ref    = useRef<HTMLElement>(null);
-  const line2Ref    = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const badgeRef = useRef<HTMLElement>(null);
+  const line1Ref = useRef<HTMLElement>(null);
+  const line2Ref = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLElement>(null);
-  const sublineRef  = useRef<HTMLElement>(null);
-  const line4Ref    = useRef<HTMLElement>(null);
-  const taglineRef  = useRef<HTMLElement>(null);
-  const buttonsRef  = useRef<HTMLElement>(null);
+  const sublineRef = useRef<HTMLElement>(null);
+  const line4Ref = useRef<HTMLElement>(null);
+  const taglineRef = useRef<HTMLElement>(null);
+  const buttonsRef = useRef<HTMLElement>(null);
   const countersRef = useRef<HTMLElement>(null);
-  const chartRef    = useRef<HTMLDivElement>(null);
+  const chartRef = useRef<HTMLDivElement>(null);
 
   /* ── Counter trigger (fires when intro timeline finishes) ── */
   const [countersTriggered, setCountersTriggered] = useState(false);
@@ -89,7 +96,7 @@ export function Hero({ onOpenConsultation, onSelectService, theme = 'dark' }: He
       <HeroBackground />
 
       {/* Hero Headline content - Centered */}
-      <div className="relative z-10 w-[95%] max-w-5xl lg:max-w-6xl mx-auto flex flex-col items-center text-center mb-14 sm:mb-16">
+      <div className="relative z-10 w-[95%] max-w-5xl lg:max-w-6xl mx-auto flex flex-col items-center text-center mb-12 sm:mb-14">
         <HeroHeadline
           badgeRef={badgeRef}
           line1Ref={line1Ref}
@@ -105,11 +112,70 @@ export function Hero({ onOpenConsultation, onSelectService, theme = 'dark' }: He
         />
       </div>
 
+      {/* Services Section Transition / Intro Header (Between Hero and Services) */}
+      {showServicesHeading && (
+        <div className="relative z-10 w-[85%] mx-auto flex flex-col items-center text-center mb-10 sm:mb-14">
+          {/* Pulsing Pill Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#16A34A]/10 border border-[#22C55E]/25 text-[#22C55E] text-xs font-mono uppercase tracking-wider mb-4">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22C55E] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]" />
+            </span>
+            <span>Explore What We Offer</span>
+          </div>
+
+          {/* Heading */}
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.15] mb-4 max-w-4xl">
+            Everything Under One Roof to{' '}
+            <span className="text-gradient">Scale Your Business.</span>
+          </h2>
+
+          {/* Subtext */}
+          {/* <p className="text-sm sm:text-base md:text-lg text-[#9FB0A7] max-w-2xl leading-relaxed mb-6">
+            From qualified lead acquisition and high-converting web & app development to automated performance marketing, explore our battle-tested capabilities.
+          </p> */}
+
+          {/* Category Filter Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 p-1.5 rounded-2xl bg-[#111815]/90 border border-[#1A2420] backdrop-blur-md shadow-lg shadow-black/40">
+            {[
+              { id: 'all' as ServiceCategory, label: 'All Services', count: 8 },
+              { id: 'leads' as ServiceCategory, label: 'Leads & Marketing', count: 5 },
+              { id: 'development' as ServiceCategory, label: 'Development', count: 2 },
+              { id: 'design' as ServiceCategory, label: 'Creative & Design', count: 1 },
+            ].map((cat) => {
+              const isActive = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer flex items-center gap-2 ${isActive
+                      ? 'bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white shadow-[0_0_20px_rgba(34,197,94,0.35)] border border-[#22C55E]/40'
+                      : 'text-[#9FB0A7] hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                >
+                  <span>{cat.label}</span>
+                  <span
+                    className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md transition-colors ${isActive
+                        ? 'bg-black/25 text-[#B6F23D]'
+                        : 'bg-[#1A2420] text-[#5B6B63] group-hover:text-[#9FB0A7]'
+                      }`}
+                  >
+                    {cat.count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Services Grid - Unified inside same section with same continuous background */}
       <div id="services" className="relative z-10 w-full">
         <ServicesClassic
-          onSelectService={onSelectService || (() => {})}
+          onSelectService={onSelectService || (() => { })}
           theme={theme}
+          activeCategory={activeCategory}
         />
       </div>
     </section>

@@ -16,12 +16,14 @@ interface VariantProps {
 export function VariantOne({ onOpenModal }: VariantProps) {
   return (
     <div className="w-full">
-      {/* Unified Hero & Services Fold */}
+      {/* Unified Hero & Services Fold with White Service Boxes */}
       <Hero
         onOpenConsultation={() => onOpenModal(undefined, 'v1-hero-cta')}
         onSelectService={(serviceTitle) =>
           onOpenModal(serviceTitle, `v1-service-${serviceTitle}`)
         }
+        theme="light"
+        showServicesHeading={true}
       />
 
       {/* Standalone Stats Strip */}
