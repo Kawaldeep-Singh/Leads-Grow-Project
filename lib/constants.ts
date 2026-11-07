@@ -12,7 +12,7 @@ export const BRAND = {
   supportEmail: 'support@leadsgrow.com',
   whatsappNumber: '+919876543210',
   whatsappMessage: 'Hi LeadsGrow team! I would like to schedule a free strategy consultation for my business.',
-  address: 'LeadsGrow Towers, Cyber City, Phase 2, Gurugram, Haryana 122002, India',
+  address: 'LeadsGrow Towers, Gurugram, Haryana 122002, India',
   workingHours: 'Mon – Sat: 9:30 AM – 7:30 PM IST',
   socials: {
     facebook: 'https://facebook.com/leadsgrow',
