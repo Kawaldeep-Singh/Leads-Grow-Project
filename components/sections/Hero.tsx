@@ -86,13 +86,13 @@ export function Hero({
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-start overflow-hidden bg-[#0B0F0D] pt-24 sm:pt-32 lg:pt-[clamp(10.5rem,18vh,13.5rem)] pb-16 sm:pb-20 lg:pb-[clamp(4rem,8vh,6rem)]"
+      className="relative min-h-screen flex flex-col justify-start overflow-hidden bg-[#0B0F0D] pt-[106px] sm:pt-32 lg:pt-[clamp(10.5rem,18vh,13.5rem)] pb-16 sm:pb-20 lg:pb-[clamp(4rem,8vh,6rem)]"
     >
       {/* Background: noise + grid + spotlight + particles (Single unified continuous canvas) */}
       <HeroBackground />
 
       {/* Hero Headline content - Centered */}
-      <div className="relative z-10 w-[95%] max-w-5xl lg:max-w-6xl mx-auto flex flex-col items-center text-center mb-6 sm:mb-8 lg:mb-14">
+      <div className="relative z-10 w-[95%] max-w-5xl lg:max-w-6xl mx-auto flex flex-col items-center text-center mb-3 sm:mb-6 lg:mb-14">
         <HeroHeadline
           badgeRef={badgeRef}
           line1Ref={line1Ref}
@@ -122,8 +122,8 @@ export function Hero({
 
           {/* Heading */}
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.15] mb-4 sm:mb-6 max-w-4xl">
-            Everything Under One Roof to{' '}
-            <span className="text-gradient">Scale Your Business.</span>
+            Complete Marketing Solutions.{' '}
+            <span className="text-gradient">All Under One Roof.</span>
           </h2>
 
           {/* Category Filter Tabs */}
