@@ -42,6 +42,8 @@ export function HeroHeadline({
         <HeadlineSequencer />
       </div>
 
+      {/* // testigg */}
+
       {/* Hidden legacy refs to preserve useHeroTimeline without conflicts */}
       <span ref={headlineRef as React.RefObject<HTMLSpanElement>} className="hidden" aria-hidden="true" />
       <span ref={line1Ref as React.RefObject<HTMLSpanElement>} className="hidden" aria-hidden="true" />
