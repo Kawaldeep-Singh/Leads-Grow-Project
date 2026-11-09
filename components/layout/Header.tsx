@@ -87,13 +87,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
   ];
 
   const navLinks = [
-    { label: 'Home', href: '#hero' },
-    { label: 'About', href: '#stats' },
-    { label: 'Services', href: '#services', hasMegaMenu: true },
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Services', href: '/#services', hasMegaMenu: true },
     // { label: 'Industries', href: '#industries' },
-    { label: 'Tech Stack', href: '#tech-stack' },
-    { label: 'Testimonials', href: '#testimonials' },
-    { label: 'Contact', href: '#cta' },
+    { label: 'Tech Stack', href: '/#tech-stack' },
+    { label: 'Testimonials', href: '/#testimonials' },
+    { label: 'Contact', href: '/#cta' },
   ];
 
   return (
@@ -147,107 +147,107 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                 <HiPhone className="h-3.5 w-3.5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
               </span>
               <span>{BRAND.phoneDisplay}</span>
-            </a>
+              </a>
 
-            <a
-              href={`mailto:${BRAND.email}`}
-              className={`group flex items-center gap-2 py-1 px-3 rounded-full text-sm font-semibold transition-all duration-300 ${isTopBarLight
-                  ? 'text-gray-800 hover:text-[#16A34A] hover:bg-gray-100'
-                  : 'text-[#E2E8F0] hover:text-[#22C55E] hover:bg-[#121915]'
-                }`}
-            >
-              <span
-                className={`w-7 h-7 rounded-full flex items-center justify-center border transition-all duration-300 ${isTopBarLight
-                    ? 'bg-green-50 border-green-200/80 text-[#16A34A] group-hover:bg-[#16A34A] group-hover:text-white group-hover:border-[#16A34A] group-hover:shadow-[0_0_10px_rgba(22,163,74,0.35)]'
-                    : 'bg-[#121915] border-[#1C2621] text-[#22C55E] group-hover:bg-[#16A34A] group-hover:text-white group-hover:border-[#16A34A] group-hover:shadow-[0_0_10px_rgba(22,163,74,0.4)]'
+              <a
+                href={`mailto:${BRAND.email}`}
+                className={`group flex items-center gap-2 py-1 px-3 rounded-full text-sm font-semibold transition-all duration-300 ${isTopBarLight
+                    ? 'text-gray-800 hover:text-[#16A34A] hover:bg-gray-100'
+                    : 'text-[#E2E8F0] hover:text-[#22C55E] hover:bg-[#121915]'
                   }`}
               >
-                <HiMail className="h-3.5 w-3.5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12" />
-              </span>
-              <span>{BRAND.email}</span>
-            </a>
+                <span
+                  className={`w-7 h-7 rounded-full flex items-center justify-center border transition-all duration-300 ${isTopBarLight
+                      ? 'bg-green-50 border-green-200/80 text-[#16A34A] group-hover:bg-[#16A34A] group-hover:text-white group-hover:border-[#16A34A] group-hover:shadow-[0_0_10px_rgba(22,163,74,0.35)]'
+                      : 'bg-[#121915] border-[#1C2621] text-[#22C55E] group-hover:bg-[#16A34A] group-hover:text-white group-hover:border-[#16A34A] group-hover:shadow-[0_0_10px_rgba(22,163,74,0.4)]'
+                    }`}
+                >
+                  <HiMail className="h-3.5 w-3.5 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12" />
+                </span>
+                <span>{BRAND.email}</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Navigation Bar */}
-      <nav
-        className={`w-full transition-all duration-300 ${isNavLight
-            ? isScrolled
-              ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-md shadow-gray-200/50 py-3.5'
-              : 'bg-white border-b border-gray-200/80 py-4 shadow-sm shadow-gray-100'
-            : isScrolled
-              ? 'glass-nav shadow-lg shadow-black/30 py-3.5'
-              : 'bg-[#0B0F0D]/90 backdrop-blur-md border-b border-[#1A2420]/60 py-4 shadow-md shadow-black/20'
-          }`}
-      >
-        <div className="w-[85%] mx-auto flex items-center justify-between">
-          {/* Logo on Light/Dark Background */}
-          <Link href="/" className="flex items-center gap-2 group relative z-20">
-            <div className="relative h-10 w-48 sm:h-11 sm:w-56">
-              <Image
-                src={isNavLight ? "/Logo-dark.webp" : "/Logo-Light.webp"}
-                alt="LeadsGrow Logo"
-                fill
-                priority
-                className="object-contain object-left"
-              />
-            </div>
-          </Link>
+        {/* Main Navigation Bar */}
+        <nav
+          className={`w-full transition-all duration-300 ${isNavLight
+              ? isScrolled
+                ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-md shadow-gray-200/50 py-3.5'
+                : 'bg-white border-b border-gray-200/80 py-4 shadow-sm shadow-gray-100'
+              : isScrolled
+                ? 'glass-nav shadow-lg shadow-black/30 py-3.5'
+                : 'bg-[#0B0F0D]/90 backdrop-blur-md border-b border-[#1A2420]/60 py-4 shadow-md shadow-black/20'
+            }`}
+        >
+          <div className="w-[85%] mx-auto flex items-center justify-between">
+            {/* Logo on Light/Dark Background */}
+            <Link href="/" className="flex items-center gap-2 group relative z-20">
+              <div className="relative h-10 w-48 sm:h-11 sm:w-56">
+                <Image
+                  src={isNavLight ? "/Logo-dark.webp" : "/Logo-Light.webp"}
+                  alt="LeadsGrow Logo"
+                  fill
+                  priority
+                  className="object-contain object-left"
+                />
+              </div>
+            </Link>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((item) => {
-              if (item.hasMegaMenu) {
-                return (
-                  <div
-                    key={item.label}
-                    onMouseEnter={() => setMegaMenuOpen(true)}
-                    onMouseLeave={() => setMegaMenuOpen(false)}
-                    className="relative py-2"
-                  >
-                    <button
-                      className={`group flex items-center gap-1.5 text-sm font-semibold transition-colors cursor-pointer ${isNavLight
-                          ? 'text-[#0B0F0D] hover:text-[#16A34A]'
-                          : 'text-white/90 hover:text-[#22C55E]'
-                        }`}
+            {/* Desktop Nav Links */}
+            <div className="hidden lg:flex items-center gap-8">
+              {navLinks.map((item) => {
+                if (item.hasMegaMenu) {
+                  return (
+                    <div
+                      key={item.label}
+                      onMouseEnter={() => setMegaMenuOpen(true)}
+                      onMouseLeave={() => setMegaMenuOpen(false)}
+                      className="relative py-2"
                     >
-                      <span>{item.label}</span>
-                      <HiChevronDown
-                        className={`h-4 w-4 transition-transform duration-200 ${megaMenuOpen
-                            ? 'rotate-180 text-[#16A34A]'
-                            : isNavLight
-                              ? 'text-gray-500 group-hover:text-[#16A34A]'
-                              : 'text-white/60'
+                      <button
+                        className={`group flex items-center gap-1.5 text-sm font-semibold transition-colors cursor-pointer ${isNavLight
+                            ? 'text-[#0B0F0D] hover:text-[#16A34A]'
+                            : 'text-white/90 hover:text-[#22C55E]'
                           }`}
-                      />
-                    </button>
+                      >
+                        <span>{item.label}</span>
+                        <HiChevronDown
+                          className={`h-4 w-4 transition-transform duration-200 ${megaMenuOpen
+                              ? 'rotate-180 text-[#16A34A]'
+                              : isNavLight
+                                ? 'text-gray-500 group-hover:text-[#16A34A]'
+                                : 'text-white/60'
+                            }`}
+                        />
+                      </button>
 
-                    {/* Mega Menu Dropdown */}
-                    <AnimatePresence>
-                      {megaMenuOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.25, ease: 'easeOut' }}
-                          className="absolute -left-48 top-full pt-4 w-[850px] z-50 pointer-events-auto"
-                        >
-                          <div
-                            className={`rounded-3xl p-6 shadow-2xl backdrop-blur-xl border ${isNavLight
-                                ? 'bg-white border-gray-200 shadow-gray-300/40'
-                                : 'bg-[#0B0F0D]/95 border-[#1A2420]'
-                              }`}
+                      {/* Mega Menu Dropdown */}
+                      <AnimatePresence>
+                        {megaMenuOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            transition={{ duration: 0.25, ease: 'easeOut' }}
+                            className="absolute -left-48 top-full pt-4 w-[850px] z-50 pointer-events-auto"
                           >
-                            {/* Top Mega Menu Header */}
                             <div
-                              className={`flex items-center justify-between pb-4 mb-4 border-b ${isNavLight ? 'border-gray-200' : 'border-[#1A2420]'
+                              className={`rounded-3xl p-6 shadow-2xl backdrop-blur-xl border ${isNavLight
+                                  ? 'bg-white border-gray-200 shadow-gray-300/40'
+                                  : 'bg-[#0B0F0D]/95 border-[#1A2420]'
                                 }`}
                             >
-                              <div>
-                                <span className="text-xs font-bold uppercase tracking-wider text-[#16A34A]">
-                                  Full-Service Growth Solutions
-                                </span>
+                              {/* Top Mega Menu Header */}
+                              <div
+                                className={`flex items-center justify-between pb-4 mb-4 border-b ${isNavLight ? 'border-gray-200' : 'border-[#1A2420]'
+                                  }`}
+                              >
+                                <div>
+                                  <span className="text-xs font-bold uppercase tracking-wider text-[#16A34A]">
+                                    Full-Service Growth Solutions
+                                  </span>
                                 <h4
                                   className={`text-lg font-bold ${isNavLight ? 'text-[#0B0F0D]' : 'text-white'
                                     }`}

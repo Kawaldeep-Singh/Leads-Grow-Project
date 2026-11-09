@@ -34,7 +34,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
   const [contactOpen, setContactOpen] = useState(false);
 
   const companyLinks = [
-    { label: 'About Us', href: '/#stats' },
+    { label: 'About Us', href: '/about' },
     { label: 'Our Services', href: '/#services' },
     { label: 'Tech Stack', href: '/#tech-stack' },
     { label: 'Case Studies / Portfolio', href: '/#testimonials' },
