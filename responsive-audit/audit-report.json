@@ -1,0 +1,2459 @@
+[
+  {
+    "viewport": "small-phone-320x568",
+    "width": 320,
+    "height": 568,
+    "overflow": false,
+    "scrollWidth": 320,
+    "innerWidth": 320,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "absolute pointer-events-none w-[440px] h-[440px] rounded-full will-change-transf",
+        "right": 380,
+        "width": 440,
+        "overflowBy": 60
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 330,
+        "width": 340,
+        "overflowBy": 10
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 328,
+        "width": 338,
+        "overflowBy": 8
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 327,
+        "width": 337,
+        "overflowBy": 7
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 9747,
+        "width": 9750,
+        "overflowBy": 9427
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 380,
+        "width": 121,
+        "overflowBy": 60
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 343,
+        "width": 84,
+        "overflowBy": 23
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 380,
+        "width": 13,
+        "overflowBy": 60
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 603,
+        "width": 199,
+        "overflowBy": 283
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 566,
+        "width": 162,
+        "overflowBy": 246
+      }
+    ],
+    "smallTouchTargetsCount": 38,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "A",
+        "tag": "a",
+        "className": "flex items-center gap-2 group relative z-20",
+        "width": 192,
+        "height": 40
+      },
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 129,
+        "height": 35
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 168,
+        "height": 35
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 137,
+        "height": 35
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 163,
+        "height": 35
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "small-phone-360x640",
+    "width": 360,
+    "height": 640,
+    "overflow": false,
+    "scrollWidth": 360,
+    "innerWidth": 360,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "absolute pointer-events-none w-[440px] h-[440px] rounded-full will-change-transf",
+        "right": 400,
+        "width": 440,
+        "overflowBy": 40
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 371,
+        "width": 382,
+        "overflowBy": 11
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 369,
+        "width": 380,
+        "overflowBy": 9
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 368,
+        "width": 379,
+        "overflowBy": 8
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 9746,
+        "width": 9750,
+        "overflowBy": 9386
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 379,
+        "width": 121,
+        "overflowBy": 19
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 379,
+        "width": 13,
+        "overflowBy": 19
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 602,
+        "width": 199,
+        "overflowBy": 242
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 565,
+        "width": 162,
+        "overflowBy": 205
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 602,
+        "width": 13,
+        "overflowBy": 242
+      }
+    ],
+    "smallTouchTargetsCount": 38,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "A",
+        "tag": "a",
+        "className": "flex items-center gap-2 group relative z-20",
+        "width": 192,
+        "height": 40
+      },
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 129,
+        "height": 35
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 168,
+        "height": 35
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 137,
+        "height": 35
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 163,
+        "height": 35
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "phone-375x667",
+    "width": 375,
+    "height": 667,
+    "overflow": false,
+    "scrollWidth": 375,
+    "innerWidth": 375,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 386,
+        "width": 398,
+        "overflowBy": 11
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 384,
+        "width": 395,
+        "overflowBy": 9
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 383,
+        "width": 394,
+        "overflowBy": 8
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 9739,
+        "width": 9750,
+        "overflowBy": 9364
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 595,
+        "width": 199,
+        "overflowBy": 220
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 558,
+        "width": 162,
+        "overflowBy": 183
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 595,
+        "width": 13,
+        "overflowBy": 220
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 815,
+        "width": 195,
+        "overflowBy": 440
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 778,
+        "width": 158,
+        "overflowBy": 403
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 815,
+        "width": 13,
+        "overflowBy": 440
+      }
+    ],
+    "smallTouchTargetsCount": 38,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "A",
+        "tag": "a",
+        "className": "flex items-center gap-2 group relative z-20",
+        "width": 192,
+        "height": 40
+      },
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 129,
+        "height": 35
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 168,
+        "height": 35
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 137,
+        "height": 35
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 163,
+        "height": 35
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "phone-390x844",
+    "width": 390,
+    "height": 844,
+    "overflow": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "absolute pointer-events-none w-[440px] h-[440px] rounded-full will-change-transf",
+        "right": 415,
+        "width": 440,
+        "overflowBy": 25
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 402,
+        "width": 413,
+        "overflowBy": 12
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 399,
+        "width": 411,
+        "overflowBy": 9
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 399,
+        "width": 410,
+        "overflowBy": 9
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 9744,
+        "width": 9750,
+        "overflowBy": 9354
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 600,
+        "width": 199,
+        "overflowBy": 210
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 562,
+        "width": 162,
+        "overflowBy": 172
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 600,
+        "width": 13,
+        "overflowBy": 210
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 819,
+        "width": 195,
+        "overflowBy": 429
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 782,
+        "width": 158,
+        "overflowBy": 392
+      }
+    ],
+    "smallTouchTargetsCount": 38,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "A",
+        "tag": "a",
+        "className": "flex items-center gap-2 group relative z-20",
+        "width": 192,
+        "height": 40
+      },
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 129,
+        "height": 35
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 168,
+        "height": 35
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 137,
+        "height": 35
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 163,
+        "height": 35
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "phone-412x915",
+    "width": 412,
+    "height": 915,
+    "overflow": false,
+    "scrollWidth": 412,
+    "innerWidth": 412,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 424,
+        "width": 436,
+        "overflowBy": 12
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 422,
+        "width": 434,
+        "overflowBy": 10
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 421,
+        "width": 433,
+        "overflowBy": 9
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 9738,
+        "width": 9750,
+        "overflowBy": 9326
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 595,
+        "width": 199,
+        "overflowBy": 183
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 557,
+        "width": 162,
+        "overflowBy": 145
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 595,
+        "width": 13,
+        "overflowBy": 183
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 814,
+        "width": 195,
+        "overflowBy": 402
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 777,
+        "width": 158,
+        "overflowBy": 365
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 814,
+        "width": 13,
+        "overflowBy": 402
+      }
+    ],
+    "smallTouchTargetsCount": 38,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "A",
+        "tag": "a",
+        "className": "flex items-center gap-2 group relative z-20",
+        "width": 192,
+        "height": 40
+      },
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 129,
+        "height": 35
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 168,
+        "height": 35
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 137,
+        "height": 35
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 163,
+        "height": 35
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "phone-430x932",
+    "width": 430,
+    "height": 932,
+    "overflow": false,
+    "scrollWidth": 430,
+    "innerWidth": 430,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 443,
+        "width": 455,
+        "overflowBy": 13
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 440,
+        "width": 453,
+        "overflowBy": 10
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 440,
+        "width": 452,
+        "overflowBy": 10
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 9738,
+        "width": 9750,
+        "overflowBy": 9308
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 594,
+        "width": 199,
+        "overflowBy": 164
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 557,
+        "width": 162,
+        "overflowBy": 127
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 594,
+        "width": 13,
+        "overflowBy": 164
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 814,
+        "width": 195,
+        "overflowBy": 384
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 777,
+        "width": 158,
+        "overflowBy": 347
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 814,
+        "width": 13,
+        "overflowBy": 384
+      }
+    ],
+    "smallTouchTargetsCount": 38,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "A",
+        "tag": "a",
+        "className": "flex items-center gap-2 group relative z-20",
+        "width": 192,
+        "height": 40
+      },
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 129,
+        "height": 35
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 168,
+        "height": 35
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 137,
+        "height": 35
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 163,
+        "height": 35
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "phone-land-667x375",
+    "width": 667,
+    "height": 375,
+    "overflow": false,
+    "scrollWidth": 667,
+    "innerWidth": 667,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 686,
+        "width": 704,
+        "overflowBy": 19
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 683,
+        "width": 702,
+        "overflowBy": 16
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 683,
+        "width": 701,
+        "overflowBy": 16
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10586,
+        "width": 10719,
+        "overflowBy": 9919
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 770,
+        "width": 218,
+        "overflowBy": 103
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 733,
+        "width": 181,
+        "overflowBy": 66
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 770,
+        "width": 13,
+        "overflowBy": 103
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 929,
+        "width": 135,
+        "overflowBy": 262
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 892,
+        "width": 98,
+        "overflowBy": 225
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 929,
+        "width": 13,
+        "overflowBy": 262
+      }
+    ],
+    "smallTouchTargetsCount": 36,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 148,
+        "height": 42
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 194,
+        "height": 42
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 158,
+        "height": 42
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 188,
+        "height": 42
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 114,
+        "height": 16
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 114,
+        "height": 16
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 114,
+        "height": 16
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 114,
+        "height": 16
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "phone-land-844x390",
+    "width": 844,
+    "height": 390,
+    "overflow": false,
+    "scrollWidth": 844,
+    "innerWidth": 844,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 867,
+        "width": 890,
+        "overflowBy": 23
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 865,
+        "width": 888,
+        "overflowBy": 21
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 864,
+        "width": 887,
+        "overflowBy": 20
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10696,
+        "width": 10719,
+        "overflowBy": 9852
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 881,
+        "width": 218,
+        "overflowBy": 37
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 880,
+        "width": 13,
+        "overflowBy": 36
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1040,
+        "width": 135,
+        "overflowBy": 196
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1003,
+        "width": 98,
+        "overflowBy": 159
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1040,
+        "width": 13,
+        "overflowBy": 196
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1274,
+        "width": 210,
+        "overflowBy": 430
+      }
+    ],
+    "smallTouchTargetsCount": 50,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 148,
+        "height": 42
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 194,
+        "height": 42
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 158,
+        "height": 42
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 188,
+        "height": 42
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "phone-land-915x412",
+    "width": 915,
+    "height": 412,
+    "overflow": false,
+    "scrollWidth": 915,
+    "innerWidth": 915,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 940,
+        "width": 964,
+        "overflowBy": 25
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 937,
+        "width": 962,
+        "overflowBy": 22
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 937,
+        "width": 961,
+        "overflowBy": 22
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10695,
+        "width": 10719,
+        "overflowBy": 9780
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1038,
+        "width": 135,
+        "overflowBy": 123
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1001,
+        "width": 98,
+        "overflowBy": 86
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1038,
+        "width": 13,
+        "overflowBy": 123
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1272,
+        "width": 210,
+        "overflowBy": 357
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1235,
+        "width": 172,
+        "overflowBy": 320
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1272,
+        "width": 13,
+        "overflowBy": 357
+      }
+    ],
+    "smallTouchTargetsCount": 49,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 148,
+        "height": 42
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 194,
+        "height": 42
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 158,
+        "height": 42
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 188,
+        "height": 42
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "tablet-port-768x1024",
+    "width": 768,
+    "height": 1024,
+    "overflow": false,
+    "scrollWidth": 768,
+    "innerWidth": 768,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 789,
+        "width": 810,
+        "overflowBy": 21
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 787,
+        "width": 808,
+        "overflowBy": 19
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 786,
+        "width": 807,
+        "overflowBy": 18
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10698,
+        "width": 10719,
+        "overflowBy": 9930
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 882,
+        "width": 218,
+        "overflowBy": 114
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 845,
+        "width": 181,
+        "overflowBy": 77
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 882,
+        "width": 13,
+        "overflowBy": 114
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1042,
+        "width": 135,
+        "overflowBy": 274
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1005,
+        "width": 98,
+        "overflowBy": 237
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1042,
+        "width": 13,
+        "overflowBy": 274
+      }
+    ],
+    "smallTouchTargetsCount": 50,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 148,
+        "height": 42
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 194,
+        "height": 42
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 158,
+        "height": 42
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 188,
+        "height": 42
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "tablet-port-820x1180",
+    "width": 820,
+    "height": 1180,
+    "overflow": false,
+    "scrollWidth": 820,
+    "innerWidth": 820,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 842,
+        "width": 865,
+        "overflowBy": 22
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 840,
+        "width": 862,
+        "overflowBy": 20
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 839,
+        "width": 861,
+        "overflowBy": 19
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10697,
+        "width": 10719,
+        "overflowBy": 9877
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 881,
+        "width": 218,
+        "overflowBy": 61
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 844,
+        "width": 181,
+        "overflowBy": 24
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 881,
+        "width": 13,
+        "overflowBy": 61
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1041,
+        "width": 135,
+        "overflowBy": 221
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1003,
+        "width": 98,
+        "overflowBy": 183
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1041,
+        "width": 13,
+        "overflowBy": 221
+      }
+    ],
+    "smallTouchTargetsCount": 50,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "All Services\n8",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 148,
+        "height": 42
+      },
+      {
+        "text": "Leads & Marketing\n5",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 194,
+        "height": 42
+      },
+      {
+        "text": "Development\n2",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 158,
+        "height": 42
+      },
+      {
+        "text": "Creative & Design\n1",
+        "tag": "button",
+        "className": "group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-x",
+        "width": 188,
+        "height": 42
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      },
+      {
+        "text": "Explore Service",
+        "tag": "button",
+        "className": "inline-flex items-center gap-2 text-xs font-bold transition-",
+        "width": 108,
+        "height": 15
+      }
+    ],
+    "consoleErrors": [
+      "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\n%s%s https://react.dev/link/hydration-mismatch \n\n  ...\n    <SegmentViewNode type=\"page\" pagePath=\"page.tsx\">\n      <SegmentTrieNode>\n      <ClientPageRoot Component={function HomePage} searchParams={{}} params={{}}>\n        <HomePage params={Promise} searchParams={Promise}>\n          <div className=\"relative m...\">\n            <Header>\n            <main>\n            <Footer>\n              <footer id=\"site-footer\" ref={{current:null}} className=\"relative w...\">\n                <FooterBackground>\n                <FooterTicker>\n                <div className=\"w-[85%] mx...\">\n                  <div ref={{current:null}}>\n                    <FooterCloser onAnchorClick={function handleAnchorClick}>\n                      <div className=\"grid grid-...\">\n                        <div>\n                        <div className=\"lg:col-span-5\">\n                          <div className=\"footer-new...\">\n                            <div>\n                            <div>\n                            <h3>\n                            <p>\n                            <form onSubmit={function handleSubscribe} className=\"relative f...\">\n                              <input\n                                type=\"text\"\n                                name=\"company\"\n                                value=\"\"\n                                onChange={function onChange}\n                                tabIndex={-1}\n                                autoComplete=\"off\"\n                                className=\"absolute opacity-0 pointer-events-none -z-10 h-0 w-0\"\n                                aria-hidden=\"true\"\n-                               style={{caret-color:\"transparent\"}}\n                              >\n                              <div className=\"relative f...\" style={{...}}>\n                                <style>\n                                <label>\n                                <HiOutlineEnvelope>\n                                <input\n                                  id=\"footer-newsletter-email\"\n                                  type=\"email\"\n                                  required={true}\n                                  autoComplete=\"email\"\n                                  value=\"\"\n                                  onChange={function onChange}\n                                  placeholder=\"Enter your work email\"\n                                  aria-describedby=\"footer-newsletter-status\"\n                                  className=\"w-full bg-transparent pl-3 pr-2 py-2.5 text-sm text-white placeholder:tex...\"\n-                                 style={{caret-color:\"transparent\"}}\n                                >\n                                ...\n                              ...\n                  ...\n            ...\n    ...\n"
+    ]
+  },
+  {
+    "viewport": "tablet-land-1024x768",
+    "width": 1024,
+    "height": 768,
+    "overflow": false,
+    "scrollWidth": 1024,
+    "innerWidth": 1024,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 1051,
+        "width": 1079,
+        "overflowBy": 27
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 1049,
+        "width": 1076,
+        "overflowBy": 25
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 1049,
+        "width": 1075,
+        "overflowBy": 25
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10692,
+        "width": 10719,
+        "overflowBy": 9668
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1036,
+        "width": 135,
+        "overflowBy": 12
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1036,
+        "width": 13,
+        "overflowBy": 12
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1270,
+        "width": 210,
+        "overflowBy": 246
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1232,
+        "width": 172,
+        "overflowBy": 208
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1269,
+        "width": 13,
+        "overflowBy": 245
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1458,
+        "width": 164,
+        "overflowBy": 434
+      }
+    ],
+    "smallTouchTargetsCount": 59,
+    "smallTouchTargetsSamples": [
+      {
+        "text": "WhatsApp",
+        "tag": "a",
+        "className": "group relative w-7 h-7 rounded-full flex items-center justif",
+        "width": 28,
+        "height": 28
+      },
+      {
+        "text": "Facebook",
+        "tag": "a",
+        "className": "group relative w-7 h-7 rounded-full flex items-center justif",
+        "width": 28,
+        "height": 28
+      },
+      {
+        "text": "Instagram",
+        "tag": "a",
+        "className": "group relative w-7 h-7 rounded-full flex items-center justif",
+        "width": 28,
+        "height": 28
+      },
+      {
+        "text": "LinkedIn",
+        "tag": "a",
+        "className": "group relative w-7 h-7 rounded-full flex items-center justif",
+        "width": 28,
+        "height": 28
+      },
+      {
+        "text": "Twitter (X)",
+        "tag": "a",
+        "className": "group relative w-7 h-7 rounded-full flex items-center justif",
+        "width": 28,
+        "height": 28
+      },
+      {
+        "text": "YouTube",
+        "tag": "a",
+        "className": "group relative w-7 h-7 rounded-full flex items-center justif",
+        "width": 28,
+        "height": 28
+      },
+      {
+        "text": "+91 98765 43210",
+        "tag": "a",
+        "className": "group flex items-center gap-2 py-1 px-3 rounded-full text-sm",
+        "width": 177,
+        "height": 36
+      },
+      {
+        "text": "info@leadsgrow.in",
+        "tag": "a",
+        "className": "group flex items-center gap-2 py-1 px-3 rounded-full text-sm",
+        "width": 186,
+        "height": 36
+      }
+    ],
+    "consoleErrors": [
+      "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\n%s%s https://react.dev/link/hydration-mismatch \n\n  ...\n    <SegmentViewNode type=\"page\" pagePath=\"page.tsx\">\n      <SegmentTrieNode>\n      <ClientPageRoot Component={function HomePage} searchParams={{}} params={{}}>\n        <HomePage params={Promise} searchParams={Promise}>\n          <div className=\"relative m...\">\n            <Header>\n            <main>\n            <Footer>\n              <footer id=\"site-footer\" ref={{current:null}} className=\"relative w...\">\n                <FooterBackground>\n                <FooterTicker>\n                <div className=\"w-[85%] mx...\">\n                  <div ref={{current:null}}>\n                    <FooterCloser onAnchorClick={function handleAnchorClick}>\n                      <div className=\"grid grid-...\">\n                        <div>\n                        <div className=\"lg:col-span-5\">\n                          <div className=\"footer-new...\">\n                            <div>\n                            <div>\n                            <h3>\n                            <p>\n                            <form onSubmit={function handleSubscribe} className=\"relative f...\">\n                              <input\n                                type=\"text\"\n                                name=\"company\"\n                                value=\"\"\n                                onChange={function onChange}\n                                tabIndex={-1}\n                                autoComplete=\"off\"\n                                className=\"absolute opacity-0 pointer-events-none -z-10 h-0 w-0\"\n                                aria-hidden=\"true\"\n-                               style={{caret-color:\"transparent\"}}\n                              >\n                              <div className=\"relative f...\" style={{...}}>\n                                <style>\n                                <label>\n                                <HiOutlineEnvelope>\n                                <input\n                                  id=\"footer-newsletter-email\"\n                                  type=\"email\"\n                                  required={true}\n                                  autoComplete=\"email\"\n                                  value=\"\"\n                                  onChange={function onChange}\n                                  placeholder=\"Enter your work email\"\n                                  aria-describedby=\"footer-newsletter-status\"\n                                  className=\"w-full bg-transparent pl-3 pr-2 py-2.5 text-sm text-white placeholder:tex...\"\n-                                 style={{caret-color:\"transparent\"}}\n                                >\n                                ...\n                              ...\n                  ...\n            ...\n    ...\n"
+    ]
+  },
+  {
+    "viewport": "laptop-1180x820",
+    "width": 1180,
+    "height": 820,
+    "overflow": false,
+    "scrollWidth": 1180,
+    "innerWidth": 1180,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 1211,
+        "width": 1243,
+        "overflowBy": 31
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 1209,
+        "width": 1240,
+        "overflowBy": 29
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 1208,
+        "width": 1239,
+        "overflowBy": 28
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10688,
+        "width": 10719,
+        "overflowBy": 9508
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1266,
+        "width": 210,
+        "overflowBy": 86
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1229,
+        "width": 172,
+        "overflowBy": 49
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1266,
+        "width": 13,
+        "overflowBy": 86
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1454,
+        "width": 164,
+        "overflowBy": 274
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1417,
+        "width": 127,
+        "overflowBy": 237
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1454,
+        "width": 13,
+        "overflowBy": 274
+      }
+    ],
+    "smallTouchTargetsCount": 0,
+    "smallTouchTargetsSamples": [],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "laptop-1280x720",
+    "width": 1280,
+    "height": 720,
+    "overflow": false,
+    "scrollWidth": 1280,
+    "innerWidth": 1280,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 1314,
+        "width": 1348,
+        "overflowBy": 34
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 1311,
+        "width": 1345,
+        "overflowBy": 31
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 1311,
+        "width": 1344,
+        "overflowBy": 31
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10686,
+        "width": 10719,
+        "overflowBy": 9406
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1452,
+        "width": 164,
+        "overflowBy": 172
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1415,
+        "width": 127,
+        "overflowBy": 135
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1452,
+        "width": 13,
+        "overflowBy": 172
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1770,
+        "width": 294,
+        "overflowBy": 490
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1733,
+        "width": 257,
+        "overflowBy": 453
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1770,
+        "width": 13,
+        "overflowBy": 490
+      }
+    ],
+    "smallTouchTargetsCount": 0,
+    "smallTouchTargetsSamples": [],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "laptop-1366x768",
+    "width": 1366,
+    "height": 768,
+    "overflow": false,
+    "scrollWidth": 1366,
+    "innerWidth": 1366,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 1402,
+        "width": 1438,
+        "overflowBy": 36
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 1399,
+        "width": 1435,
+        "overflowBy": 33
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 1399,
+        "width": 1434,
+        "overflowBy": 33
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10683,
+        "width": 10719,
+        "overflowBy": 9317
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1450,
+        "width": 164,
+        "overflowBy": 84
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1413,
+        "width": 127,
+        "overflowBy": 47
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1450,
+        "width": 13,
+        "overflowBy": 84
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1768,
+        "width": 294,
+        "overflowBy": 402
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1731,
+        "width": 257,
+        "overflowBy": 365
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1768,
+        "width": 13,
+        "overflowBy": 402
+      }
+    ],
+    "smallTouchTargetsCount": 0,
+    "smallTouchTargetsSamples": [],
+    "consoleErrors": [
+      "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\n%s%s https://react.dev/link/hydration-mismatch \n\n  ...\n    <SegmentViewNode type=\"page\" pagePath=\"page.tsx\">\n      <SegmentTrieNode>\n      <ClientPageRoot Component={function HomePage} searchParams={{}} params={{}}>\n        <HomePage params={Promise} searchParams={Promise}>\n          <div className=\"relative m...\">\n            <Header>\n            <main>\n            <Footer>\n              <footer id=\"site-footer\" ref={{current:null}} className=\"relative w...\">\n                <FooterBackground>\n                <FooterTicker>\n                <div className=\"w-[85%] mx...\">\n                  <div ref={{current:null}}>\n                    <FooterCloser onAnchorClick={function handleAnchorClick}>\n                      <div className=\"grid grid-...\">\n                        <div>\n                        <div className=\"lg:col-span-5\">\n                          <div className=\"footer-new...\">\n                            <div>\n                            <div>\n                            <h3>\n                            <p>\n                            <form onSubmit={function handleSubscribe} className=\"relative f...\">\n                              <input\n                                type=\"text\"\n                                name=\"company\"\n                                value=\"\"\n                                onChange={function onChange}\n                                tabIndex={-1}\n                                autoComplete=\"off\"\n                                className=\"absolute opacity-0 pointer-events-none -z-10 h-0 w-0\"\n                                aria-hidden=\"true\"\n-                               style={{}}\n                              >\n                              <div className=\"relative f...\" style={{...}}>\n                                <style>\n                                <label>\n                                <HiOutlineEnvelope>\n                                <input\n                                  id=\"footer-newsletter-email\"\n                                  type=\"email\"\n                                  required={true}\n                                  autoComplete=\"email\"\n                                  value=\"\"\n                                  onChange={function onChange}\n                                  placeholder=\"Enter your work email\"\n                                  aria-describedby=\"footer-newsletter-status\"\n                                  className=\"w-full bg-transparent pl-3 pr-2 py-2.5 text-sm text-white placeholder:tex...\"\n-                                 style={{}}\n                                >\n                                ...\n                              ...\n                  ...\n            ...\n    ...\n"
+    ]
+  },
+  {
+    "viewport": "laptop-1536x730",
+    "width": 1536,
+    "height": 730,
+    "overflow": false,
+    "scrollWidth": 1536,
+    "innerWidth": 1536,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 1576,
+        "width": 1616,
+        "overflowBy": 40
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 1574,
+        "width": 1614,
+        "overflowBy": 38
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 1573,
+        "width": 1613,
+        "overflowBy": 37
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10679,
+        "width": 10719,
+        "overflowBy": 9143
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1764,
+        "width": 294,
+        "overflowBy": 228
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1727,
+        "width": 257,
+        "overflowBy": 191
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1764,
+        "width": 13,
+        "overflowBy": 228
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 2141,
+        "width": 353,
+        "overflowBy": 605
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 2104,
+        "width": 316,
+        "overflowBy": 568
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 2141,
+        "width": 13,
+        "overflowBy": 605
+      }
+    ],
+    "smallTouchTargetsCount": 0,
+    "smallTouchTargetsSamples": [],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "desktop-1440x900",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 1478,
+        "width": 1515,
+        "overflowBy": 38
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 1475,
+        "width": 1513,
+        "overflowBy": 35
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 1475,
+        "width": 1512,
+        "overflowBy": 35
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10688,
+        "width": 10719,
+        "overflowBy": 9248
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1454,
+        "width": 164,
+        "overflowBy": 14
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1454,
+        "width": 13,
+        "overflowBy": 14
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 1773,
+        "width": 294,
+        "overflowBy": 333
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 1735,
+        "width": 257,
+        "overflowBy": 295
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 1772,
+        "width": 13,
+        "overflowBy": 332
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 2150,
+        "width": 353,
+        "overflowBy": 710
+      }
+    ],
+    "smallTouchTargetsCount": 0,
+    "smallTouchTargetsSamples": [],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "desktop-1920x1080",
+    "width": 1920,
+    "height": 1080,
+    "overflow": false,
+    "scrollWidth": 1920,
+    "innerWidth": 1920,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 1970,
+        "width": 2019,
+        "overflowBy": 50
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 1967,
+        "width": 2017,
+        "overflowBy": 47
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 1967,
+        "width": 2016,
+        "overflowBy": 47
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10670,
+        "width": 10719,
+        "overflowBy": 8750
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 2132,
+        "width": 353,
+        "overflowBy": 212
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 2094,
+        "width": 316,
+        "overflowBy": 174
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 2132,
+        "width": 13,
+        "overflowBy": 212
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 2388,
+        "width": 232,
+        "overflowBy": 468
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 2351,
+        "width": 195,
+        "overflowBy": 431
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 2388,
+        "width": 13,
+        "overflowBy": 468
+      }
+    ],
+    "smallTouchTargetsCount": 0,
+    "smallTouchTargetsSamples": [],
+    "consoleErrors": []
+  },
+  {
+    "viewport": "desktop-2560x1440",
+    "width": 2560,
+    "height": 1440,
+    "overflow": false,
+    "scrollWidth": 2560,
+    "innerWidth": 2560,
+    "offenders": [
+      {
+        "tag": "div",
+        "id": "",
+        "className": "relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3",
+        "right": 2625,
+        "width": 2691,
+        "overflowBy": 65
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20",
+        "right": 2623,
+        "width": 2688,
+        "overflowBy": 63
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "overflow-hidden whitespace-nowrap select-none flex ",
+        "right": 2622,
+        "width": 2687,
+        "overflowBy": 62
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex shrink-0 items-center gap-6",
+        "right": 10659,
+        "width": 10719,
+        "overflowBy": 8099
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 2602,
+        "width": 200,
+        "overflowBy": 42
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 2565,
+        "width": 163,
+        "overflowBy": 5
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 2602,
+        "width": 13,
+        "overflowBy": 42
+      },
+      {
+        "tag": "div",
+        "id": "",
+        "className": "flex items-center gap-6",
+        "right": 2701,
+        "width": 75,
+        "overflowBy": 141
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-sm sm:text-base font-extrabold tracking-wider uppercase text-white",
+        "right": 2664,
+        "width": 38,
+        "overflowBy": 104
+      },
+      {
+        "tag": "span",
+        "id": "",
+        "className": "text-[#B6F23D] opacity-80 text-sm select-none",
+        "right": 2701,
+        "width": 13,
+        "overflowBy": 141
+      }
+    ],
+    "smallTouchTargetsCount": 0,
+    "smallTouchTargetsSamples": [],
+    "consoleErrors": []
+  }
+]

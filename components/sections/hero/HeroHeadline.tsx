@@ -36,7 +36,7 @@ export function HeroHeadline({
   };
 
   return (
-    <div className="flex flex-col items-center text-center gap-4 lg:gap-5 relative z-10 pt-1">
+    <div className="flex flex-col items-center text-center gap-1 lg:gap-5 relative z-10 pt-1">
       {/* ── Headline Sequencer: Professional & Centered ── */}
       <div className="w-full relative flex justify-center">
         <HeadlineSequencer />
@@ -52,11 +52,11 @@ export function HeroHeadline({
       {/* ── CTA Buttons (Centered) ── */}
       <div
         ref={buttonsRef as React.RefObject<HTMLDivElement>}
-        className="flex flex-wrap gap-4 items-center justify-center pt-1"
+        className="flex flex-wrap gap-2.5 sm:gap-4 items-center justify-center pt-0 sm:pt-1"
       >
         <MagneticHeroButton
           onClick={onOpenConsultation}
-          className="relative overflow-hidden px-7 py-3.5 rounded-xl font-semibold text-sm bg-[#16A34A] text-white group"
+          className="relative overflow-hidden px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl font-semibold text-xs sm:text-sm bg-[#16A34A] text-white group"
         >
           <span className="relative z-10 flex items-center gap-2">
             Get Free Strategy Call
@@ -76,7 +76,7 @@ export function HeroHeadline({
 
         <button
           onClick={scrollToServices}
-          className="relative flex items-center gap-2 px-6 py-3.5 rounded-xl border border-white/20 text-white text-sm font-medium hover:border-white/40 hover:bg-white/5 transition-all duration-300 group cursor-pointer"
+          className="relative flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl border border-white/20 text-white text-xs sm:text-sm font-medium hover:border-white/40 hover:bg-white/5 transition-all duration-300 group cursor-pointer"
         >
           Explore Services
           <svg

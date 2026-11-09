@@ -63,7 +63,7 @@ export const Testimonials: React.FC = () => {
         <FaQuoteLeft className="w-48 h-48 sm:w-72 sm:h-72 opacity-30" />
       </div>
 
-      <div className="w-[85%] mx-auto relative z-10">
+      <div className="w-[92%] sm:w-[85%] mx-auto relative z-10">
         {/* Section Heading */}
         <div className="text-center mb-6">
           <SectionHeading
@@ -76,20 +76,23 @@ export const Testimonials: React.FC = () => {
           />
 
           {/* Overall Rating Summary Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm -mt-8 mb-10">
-            <div className="flex text-amber-400">
-              {[...Array(5)].map((_, i) => (
-                <HiStar key={i} className="h-4 w-4 fill-current" />
-              ))}
+          <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-4 py-2 rounded-2xl sm:rounded-full bg-white border border-gray-200 shadow-sm -mt-4 sm:-mt-8 mb-8 sm:mb-10 max-w-full text-center">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <div className="flex text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <HiStar key={i} className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-current" />
+                ))}
+              </div>
+              <span className="text-xs font-black text-[#0B0F0D]">4.9 / 5.0</span>
             </div>
-            <span className="text-xs font-black text-[#0B0F0D]">4.9 / 5.0</span>
-            <span className="text-[#5B6B63] text-xs">rated by our clients across 250+ reviews</span>
+            <span className="hidden sm:inline text-gray-300">•</span>
+            <span className="text-[#5B6B63] text-[11px] sm:text-xs">rated by our clients across 250+ reviews</span>
           </div>
         </div>
 
         {/* Center-Focused Carousel */}
         <div ref={containerRef} className="relative max-w-4xl mx-auto">
-          <div className="min-h-[380px] sm:min-h-[340px] flex items-center justify-center">
+          <div className="min-h-[420px] sm:min-h-[340px] flex items-center justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTestimonial.id}
@@ -97,7 +100,7 @@ export const Testimonials: React.FC = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 280 }}
-                className="w-full rounded-3xl bg-white border border-gray-200 p-8 sm:p-12 shadow-xl shadow-gray-200/50 relative overflow-hidden"
+                className="w-full rounded-2xl sm:rounded-3xl bg-white border border-gray-200 p-5 sm:p-8 md:p-12 shadow-xl shadow-gray-200/50 relative overflow-hidden"
               >
                 {/* Top highlight bar */}
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
