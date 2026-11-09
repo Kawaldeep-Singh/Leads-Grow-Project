@@ -230,7 +230,7 @@ export function HeadlineSequencer() {
       {/* ── Slides Stack (No Layout Shift, Centered) ── */}
       <div
         ref={slidesStackRef}
-        className="grid grid-cols-1 [grid-template-areas:'stack'] relative z-10 w-full"
+        className="grid grid-cols-1 [grid-template-areas:'stack'] relative z-10 w-full min-h-[64px] sm:min-h-[80px] lg:min-h-[125px]"
         aria-hidden="true"
       >
         {/* ══════════════════════════════════════════════════════
@@ -244,9 +244,9 @@ export function HeadlineSequencer() {
           style={{ visibility: 'visible' }}
         >
           {/* Main Headline - Exactly 2 Clean Lines */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.15rem,4.4vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
-            <span className="block sm:whitespace-nowrap">Everything Under One Roof</span>
-            <span className="inline-flex items-center justify-center gap-x-2 sm:whitespace-nowrap">
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.32rem,3.8vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+            <span className="block whitespace-nowrap">Everything Under One Roof</span>
+            <span className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap">
               <span>to</span>
               <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0">
                 <span
@@ -277,9 +277,9 @@ export function HeadlineSequencer() {
           style={{ visibility: 'hidden' }}
         >
           {/* Main Headline - Exactly 2 Clean Lines */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.15rem,4.4vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
-            <span className="block sm:whitespace-nowrap">We Don’t Just Generate Leads.</span>
-            <span className="inline-flex items-center justify-center gap-x-2 sm:whitespace-nowrap">
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.32rem,3.8vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+            <span className="block whitespace-nowrap">We Don’t Just Generate Leads.</span>
+            <span className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap">
               <span>We Generate</span>
               <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0">
                 <span
@@ -310,11 +310,11 @@ export function HeadlineSequencer() {
           style={{ visibility: 'hidden' }}
         >
           {/* Main Headline - Exactly 2 Clean Lines */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.15rem,4.4vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
-            <span className="block sm:whitespace-nowrap">
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.32rem,3.8vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+            <span className="block whitespace-nowrap">
               <span className="text-[#22C55E]">15+</span> Years of Marketing Expertise
             </span>
-            <span className="inline-flex flex-wrap items-center justify-center gap-x-1.5 sm:gap-x-2 sm:whitespace-nowrap">
+            <span className="inline-flex items-center justify-center gap-x-1.5 sm:gap-x-2 whitespace-nowrap">
               <span>To Make Your Business</span>
               <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0">
                 <span
