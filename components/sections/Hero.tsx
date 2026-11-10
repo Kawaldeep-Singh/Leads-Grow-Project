@@ -140,7 +140,7 @@ export function Hero({
                   key={cat.id}
                   type="button"
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`group relative w-full sm:w-auto justify-center px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer flex items-center gap-1.5 sm:gap-2 ${isActive
+                  className={`group relative w-full sm:w-auto justify-center px-1.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-sm font-semibold transition-all duration-300 cursor-pointer flex items-center gap-1 sm:gap-2 ${isActive
                       ? 'bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white shadow-[0_0_20px_rgba(34,197,94,0.35)] border border-[#22C55E]/40'
                       : 'text-[#9FB0A7] hover:text-white hover:bg-white/5 border border-transparent'
                     }`}

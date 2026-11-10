@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import gsap from 'gsap';
 import { headlineSlides } from './headlineSlides';
 import { useHeadlineTimeline, TIMING } from '@/hooks/useHeadlineTimeline';
@@ -17,7 +17,7 @@ export function HeadlineSequencer() {
   const prefersReducedMotion = useReducedMotion();
 
   // ─────────────────────────────────────────────────────────────
-  // 1. IDLE SHIMMER & FLOAT (Subtle & Professional)
+  // 1. IDLE SHIMMER & PULSE
   // ─────────────────────────────────────────────────────────────
 
   const killIdle = useCallback(() => {
@@ -30,7 +30,7 @@ export function HeadlineSequencer() {
       if (prefersReducedMotion || typeof window === 'undefined') return;
       killIdle();
 
-      // Subtle breathing shimmer on the highlighter badge
+      // Subtle recurring breathing shimmer on the highlighter badge
       const shimmers = slideEl.querySelectorAll<HTMLElement>('[data-shimmer]');
       shimmers.forEach((shim) => {
         const tween = gsap.fromTo(
@@ -40,7 +40,7 @@ export function HeadlineSequencer() {
             xPercent: 200,
             duration: 1.4,
             repeat: -1,
-            repeatDelay: 1.8,
+            repeatDelay: 2.2,
             ease: 'power2.inOut',
           }
         );
@@ -51,7 +51,7 @@ export function HeadlineSequencer() {
   );
 
   // ─────────────────────────────────────────────────────────────
-  // 2. PROFESSIONAL SLIDE ENTRANCE (Clean, Elegant, Smooth)
+  // 2. HIGH-ENERGY SLIDE ENTRANCE (Text Flash, Marker Reveal & Subline Rise)
   // ─────────────────────────────────────────────────────────────
 
   const enterSlide = useCallback(
@@ -90,11 +90,24 @@ export function HeadlineSequencer() {
       const mainLine = slideEl.querySelector<HTMLElement>('.slide-main-line');
       const subLine = slideEl.querySelector<HTMLElement>('.slide-sub-line');
       const markerBar = slideEl.querySelector<HTMLElement>('.slide-marker-bar');
+      const shimmerEl = slideEl.querySelector<HTMLElement>('[data-shimmer]');
 
-      // Reset
-      gsap.set(mainLine, { opacity: 0, y: 16 });
-      if (subLine) gsap.set(subLine, { opacity: 0, y: 12 });
-      if (markerBar) gsap.set(markerBar, { clipPath: 'inset(0 100% 0 0)' });
+      // Reset with high-energy radiant text flash state
+      gsap.set(mainLine, {
+        opacity: 0,
+        y: 18,
+        filter: 'brightness(1.75) drop-shadow(0 0 24px rgba(34,197,94,0.45))',
+      });
+      if (subLine) {
+        gsap.set(subLine, {
+          opacity: 0,
+          y: 12,
+          filter: 'brightness(1.35)',
+        });
+      }
+      if (markerBar) {
+        gsap.set(markerBar, { clipPath: 'inset(0 100% 0 0)' });
+      }
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -102,19 +115,20 @@ export function HeadlineSequencer() {
         },
       });
 
-      // 1. Smooth main line reveal
+      // 1. High-energy text flash & smooth upward reveal for main heading
       tl.to(
         mainLine,
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
+          filter: 'brightness(1) drop-shadow(0 0 0px rgba(34,197,94,0))',
+          duration: 0.65,
           ease: 'power3.out',
         },
         0
       );
 
-      // 2. Elegant marker reveal
+      // 2. Elegant marker reveal with luminous swipe
       if (markerBar) {
         tl.to(
           markerBar,
@@ -123,21 +137,36 @@ export function HeadlineSequencer() {
             duration: 0.5,
             ease: 'power2.out',
           },
-          0.2
+          0.18
         );
       }
 
-      // 3. Supporting sub-line gentle rise
+      // 3. Shimmer burst across the marker bar right after reveal
+      if (shimmerEl) {
+        tl.fromTo(
+          shimmerEl,
+          { xPercent: -100 },
+          {
+            xPercent: 200,
+            duration: 0.85,
+            ease: 'power2.inOut',
+          },
+          0.3
+        );
+      }
+
+      // 4. Supporting sub-line gentle rise with smooth text flash settling
       if (subLine) {
         tl.to(
           subLine,
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
+            filter: 'brightness(1)',
+            duration: 0.55,
             ease: 'power2.out',
           },
-          0.35
+          0.28
         );
       }
     },
@@ -230,11 +259,13 @@ export function HeadlineSequencer() {
       {/* ── Slides Stack (No Layout Shift, Centered) ── */}
       <div
         ref={slidesStackRef}
-        className="grid grid-cols-1 [grid-template-areas:'stack'] relative z-10 w-full min-h-[64px] sm:min-h-[80px] lg:min-h-[125px]"
+        className="grid grid-cols-1 [grid-template-areas:'stack'] relative z-10 w-full min-h-[96px] sm:min-h-[115px] lg:min-h-[142px]"
         aria-hidden="true"
       >
         {/* ══════════════════════════════════════════════════════
-            SLIDE 1: "Everything Under One Roof / to Grow Your Brand."
+            SLIDE 1:
+            Main: Everything Under One Roof to Grow Your Brand.
+            Sub: From Branding to Business Growth.
             ══════════════════════════════════════════════════════ */}
         <div
           ref={(el) => {
@@ -243,19 +274,19 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center"
           style={{ visibility: 'visible' }}
         >
-          {/* Main Headline - Exactly 2 Clean Lines */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.32rem,3.8vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+          {/* Main Headline */}
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
             <span className="block whitespace-nowrap">Everything Under One Roof</span>
             <span className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap">
               <span>to</span>
-              <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0">
+              <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
                 <span
                   className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
                   style={{ clipPath: 'inset(0 100% 0 0)' }}
                 >
                   <span
                     data-shimmer
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full"
                   />
                 </span>
                 <span className="relative z-10 text-[#0B0F0D] font-extrabold">
@@ -264,10 +295,18 @@ export function HeadlineSequencer() {
               </span>
             </span>
           </div>
+
+          {/* Subheading underneath */}
+          <div className="slide-sub-line mt-2 sm:mt-2.5 flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
+            <span className="slide-sub-text">From Branding to Business Growth.</span>
+          </div>
         </div>
 
         {/* ══════════════════════════════════════════════════════
-            SLIDE 2: "We Don’t Just Generate Leads. / We Generate Business."
+            SLIDE 2:
+            Main: We Don’t Just Generate Leads. We Generate Business.
+            Sub: From Leads to Sales, We Do It All.
             ══════════════════════════════════════════════════════ */}
         <div
           ref={(el) => {
@@ -276,19 +315,19 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center"
           style={{ visibility: 'hidden' }}
         >
-          {/* Main Headline - Exactly 2 Clean Lines */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.32rem,3.8vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+          {/* Main Headline */}
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
             <span className="block whitespace-nowrap">We Don’t Just Generate Leads.</span>
             <span className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap">
               <span>We Generate</span>
-              <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0">
+              <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
                 <span
                   className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
                   style={{ clipPath: 'inset(0 100% 0 0)' }}
                 >
                   <span
                     data-shimmer
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full"
                   />
                 </span>
                 <span className="relative z-10 text-[#0B0F0D] font-extrabold">
@@ -297,10 +336,18 @@ export function HeadlineSequencer() {
               </span>
             </span>
           </div>
+
+          {/* Subheading underneath */}
+          <div className="slide-sub-line mt-2 sm:mt-2.5 flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
+            <span className="slide-sub-text">From Leads to Sales, We Do It All.</span>
+          </div>
         </div>
 
         {/* ══════════════════════════════════════════════════════
-            SLIDE 3: "15+ Years of Marketing Expertise / To Make Your Business Bigger."
+            SLIDE 3:
+            Main: 15+ Years of Marketing Expertise
+            Sub: To Make Your Business Bigger.
             ══════════════════════════════════════════════════════ */}
         <div
           ref={(el) => {
@@ -309,26 +356,29 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center"
           style={{ visibility: 'hidden' }}
         >
-          {/* Main Headline - Exactly 2 Clean Lines */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] tracking-[-0.03em] text-[clamp(1.32rem,3.8vw,2.85rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+          {/* Main Headline */}
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
             <span className="block whitespace-nowrap">
-              <span className="text-[#22C55E]">15+</span> Years of Marketing Expertise
+              <span className="text-[#22C55E] drop-shadow-[0_0_15px_rgba(34,197,94,0.4)]">15+</span> Years of Marketing Expertise
             </span>
-            <span className="inline-flex items-center justify-center gap-x-1.5 sm:gap-x-2 whitespace-nowrap">
-              <span>To Make Your Business</span>
-              <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0">
+          </div>
+
+          {/* Subheading underneath */}
+          <div className="slide-sub-line mt-2 sm:mt-2.5 flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
+            <span className="slide-sub-text">To Make Your Business</span>
+            <span className="relative inline-flex items-center px-2 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_15px_rgba(34,197,94,0.25)]">
+              <span
+                className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
+                style={{ clipPath: 'inset(0 100% 0 0)' }}
+              >
                 <span
-                  className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
-                  style={{ clipPath: 'inset(0 100% 0 0)' }}
-                >
-                  <span
-                    data-shimmer
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full"
-                  />
-                </span>
-                <span className="relative z-10 text-[#0B0F0D] font-extrabold">
-                  Bigger.
-                </span>
+                  data-shimmer
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full"
+                />
+              </span>
+              <span className="relative z-10 text-[#0B0F0D] font-bold text-xs sm:text-sm md:text-base">
+                Bigger.
               </span>
             </span>
           </div>
