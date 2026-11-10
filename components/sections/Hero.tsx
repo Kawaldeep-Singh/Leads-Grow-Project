@@ -110,7 +110,7 @@ export function Hero({
 
       {/* Services Section Transition / Intro Header (Between Hero and Services) */}
       {showServicesHeading && (
-        <div className="relative z-10 w-[92%] sm:w-[85%] mx-auto flex flex-col items-center text-center mb-6 sm:mb-8 lg:mb-14">
+        <div className="relative z-10 w-full px-4 mx-auto flex flex-col items-center text-center mb-6 sm:mb-8 lg:mb-14">
           {/* Pulsing Pill Badge */}
           <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#16A34A]/10 border border-[#22C55E]/25 text-[#22C55E] text-xs font-mono uppercase tracking-wider mb-1.5 sm:mb-4">
             <span className="relative flex h-2 w-2">
@@ -124,10 +124,10 @@ export function Hero({
           {/* <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.15] mb-4 sm:mb-6 max-w-4xl">
             Complete Marketing Solutions.{' '}
             <span className="text-gradient">All Under One Roof.</span>
-          </h2>
+          </h2> */}
 
           {/* Category Filter Tabs */}
-          <div className="w-full max-w-sm sm:max-w-none grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 sm:gap-3 p-1.5 rounded-2xl bg-[#111815]/90 border border-[#1A2420] backdrop-blur-md shadow-lg shadow-black/40">
+          <div className="w-fit max-w-[calc(100vw-2rem)] mx-auto grid grid-cols-2 sm:inline-flex sm:flex-wrap items-center justify-center gap-2 sm:gap-2.5 p-1.5 rounded-2xl bg-[#111815]/90 border border-[#1A2420] backdrop-blur-md shadow-lg shadow-black/40">
             {[
               { id: 'all' as ServiceCategory, label: 'All Services', count: 8 },
               { id: 'leads' as ServiceCategory, label: 'Leads & Marketing', count: 5 },
