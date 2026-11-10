@@ -13,11 +13,90 @@ export function HeadlineSequencer() {
   // Slide DOM refs
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const idleTweensRef = useRef<gsap.core.Tween[]>([]);
+  const currentEnterTlRef = useRef<gsap.core.Timeline | null>(null);
+  const activeIndexRef = useRef<number>(0);
+
+  // Speed streak refs
+  const mainStreakRef = useRef<HTMLDivElement | null>(null);
+  const topStreakRef = useRef<HTMLDivElement | null>(null);
+  const bottomStreakRef = useRef<HTMLDivElement | null>(null);
+
+  // Progress segment bar refs
+  const progressBarsRef = useRef<(HTMLSpanElement | null)[]>([]);
+
+  // Count-up ref for slide 3
+  const count15ElRef = useRef<HTMLSpanElement | null>(null);
 
   const prefersReducedMotion = useReducedMotion();
 
   // ─────────────────────────────────────────────────────────────
-  // 1. IDLE SHIMMER & PULSE
+  // 1. SPEED STREAKS (Crossing full screen width)
+  // ─────────────────────────────────────────────────────────────
+
+  const playStreaks = useCallback(
+    (isMobile: boolean) => {
+      if (prefersReducedMotion) return;
+
+      const mainStreak = mainStreakRef.current;
+      const topStreak = topStreakRef.current;
+      const bottomStreak = bottomStreakRef.current;
+
+      if (mainStreak) {
+        gsap.fromTo(
+          mainStreak,
+          { x: '-40vw', opacity: 1 },
+          {
+            x: '140vw',
+            opacity: 1,
+            duration: isMobile ? 0.6 : 0.9,
+            ease: 'power2.inOut',
+            onComplete: () => {
+              gsap.set(mainStreak, { opacity: 0 });
+            },
+          }
+        );
+      }
+
+      if (!isMobile) {
+        if (topStreak) {
+          gsap.fromTo(
+            topStreak,
+            { x: '-40vw', opacity: 0.75 },
+            {
+              x: '140vw',
+              opacity: 0.75,
+              duration: 0.85,
+              delay: 0.06,
+              ease: 'power2.inOut',
+              onComplete: () => {
+                gsap.set(topStreak, { opacity: 0 });
+              },
+            }
+          );
+        }
+        if (bottomStreak) {
+          gsap.fromTo(
+            bottomStreak,
+            { x: '-40vw', opacity: 0.75 },
+            {
+              x: '140vw',
+              opacity: 0.75,
+              duration: 0.85,
+              delay: 0.12,
+              ease: 'power2.inOut',
+              onComplete: () => {
+                gsap.set(bottomStreak, { opacity: 0 });
+              },
+            }
+          );
+        }
+      }
+    },
+    [prefersReducedMotion]
+  );
+
+  // ─────────────────────────────────────────────────────────────
+  // 2. IDLE FLOATING DURING HOLD (Subtle Y-float & Shimmer, No X movement)
   // ─────────────────────────────────────────────────────────────
 
   const killIdle = useCallback(() => {
@@ -30,7 +109,33 @@ export function HeadlineSequencer() {
       if (prefersReducedMotion || typeof window === 'undefined') return;
       killIdle();
 
-      // Subtle recurring breathing shimmer on the highlighter badge
+      const mainLine = slideEl.querySelector<HTMLElement>('.slide-main-line');
+      const subLine = slideEl.querySelector<HTMLElement>('.slide-sub-line');
+
+      // Subtle vertical idle float: y ±3px, sine yoyo
+      if (mainLine) {
+        const tween = gsap.to(mainLine, {
+          y: -3,
+          duration: 2.2,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
+        idleTweensRef.current.push(tween);
+      }
+      if (subLine) {
+        const tween = gsap.to(subLine, {
+          y: -2,
+          duration: 2.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: 0.2,
+        });
+        idleTweensRef.current.push(tween);
+      }
+
+      // Recurring subtle breathing shimmer on the marker pill
       const shimmers = slideEl.querySelectorAll<HTMLElement>('[data-shimmer]');
       shimmers.forEach((shim) => {
         const tween = gsap.fromTo(
@@ -38,9 +143,9 @@ export function HeadlineSequencer() {
           { xPercent: -100 },
           {
             xPercent: 200,
-            duration: 1.4,
+            duration: 0.8,
             repeat: -1,
-            repeatDelay: 2.2,
+            repeatDelay: 2.4,
             ease: 'power2.inOut',
           }
         );
@@ -51,21 +156,49 @@ export function HeadlineSequencer() {
   );
 
   // ─────────────────────────────────────────────────────────────
-  // 2. HIGH-ENERGY SLIDE ENTRANCE (Text Flash, Marker Reveal & Subline Rise)
+  // 3. WORD OFFSET MEASUREMENT (Dynamic startX & exitX computation)
+  // ─────────────────────────────────────────────────────────────
+
+  const getWordOffsets = (words: HTMLElement[]) => {
+    const viewportWidth = document.documentElement.clientWidth;
+    return words.map((w) => {
+      // Temporarily clear inline transform to get resting bounding rect
+      const prevTransform = w.style.transform;
+      w.style.transform = 'none';
+      const rect = w.getBoundingClientRect();
+      w.style.transform = prevTransform;
+
+      // startX = -(wordRect.right) - 60 (relative to word resting pos)
+      const startX = -rect.right - 60;
+      // exitX = (window.innerWidth - wordRect.left) + 60
+      const exitX = viewportWidth - rect.left + 60;
+      return { el: w, startX, exitX };
+    });
+  };
+
+  // ─────────────────────────────────────────────────────────────
+  // 4. ENTER CHOREOGRAPHY: FAR-LEFT EDGE → REST
   // ─────────────────────────────────────────────────────────────
 
   const enterSlide = useCallback(
     (slideIndex: number, isInitial: boolean) => {
       killIdle();
+      activeIndexRef.current = slideIndex;
 
       const slideEl = slideRefs.current[slideIndex];
       if (!slideEl) return;
 
-      // Ensure slide is reset and ready to animate cleanly
-      gsap.killTweensOf(slideEl);
-      gsap.set(slideEl, { opacity: 1, y: 0 });
+      // Cancel any active enter timeline
+      currentEnterTlRef.current?.kill();
 
-      // Toggle visibility
+      // Reset progress bars
+      progressBarsRef.current.forEach((bar, idx) => {
+        if (bar) {
+          bar.style.transform = idx === slideIndex ? 'scaleX(0)' : 'scaleX(0)';
+        }
+      });
+
+      // Toggle slide visibility
       slideRefs.current.forEach((s, idx) => {
         if (s) {
           if (idx === slideIndex) {
@@ -87,94 +220,176 @@ export function HeadlineSequencer() {
         return;
       }
 
+      const isMobile = window.innerWidth < 768;
+      const duration = isMobile ? 1.0 : 1.25;
+      const stagger = isMobile ? 0.05 : 0.07;
+      const enterSkew = isMobile ? -10 : -22;
+
+      // Launch full-screen speed streak leading words by ~0.1s
+      playStreaks(isMobile);
+
+      // Query elements
       const mainLine = slideEl.querySelector<HTMLElement>('.slide-main-line');
       const subLine = slideEl.querySelector<HTMLElement>('.slide-sub-line');
       const markerBar = slideEl.querySelector<HTMLElement>('.slide-marker-bar');
       const shimmerEl = slideEl.querySelector<HTMLElement>('[data-shimmer]');
+      const count15El = count15ElRef.current;
 
-      // Reset with high-energy radiant text flash state
-      gsap.set(mainLine, {
-        opacity: 0,
-        y: 18,
-        filter: 'brightness(1.75) drop-shadow(0 0 24px rgba(34,197,94,0.45))',
-      });
-      if (subLine) {
-        gsap.set(subLine, {
+      const mainWords = mainLine ? Array.from(mainLine.querySelectorAll<HTMLElement>('.word')) : [];
+      const subWords = subLine ? Array.from(subLine.querySelectorAll<HTMLElement>('.word')) : [];
+      const allWords = [...mainWords, ...subWords];
+
+      // Measure exact resting positions & startX
+      const mainWordOffsets = getWordOffsets(mainWords);
+      const subWordOffsets = getWordOffsets(subWords);
+
+      // Reset main words to startX off-screen left
+      mainWordOffsets.forEach(({ el, startX }) => {
+        gsap.set(el, {
+          x: startX,
+          skewX: enterSkew,
           opacity: 0,
-          y: 12,
-          filter: 'brightness(1.35)',
+          filter: isMobile ? 'none' : 'blur(10px)',
+          willChange: 'transform, opacity',
         });
-      }
+      });
+
+      // Reset sub words to startX off-screen left
+      subWordOffsets.forEach(({ el, startX }) => {
+        gsap.set(el, {
+          x: startX,
+          skewX: enterSkew,
+          opacity: 0,
+          filter: isMobile ? 'none' : 'blur(6px)',
+          willChange: 'transform, opacity',
+        });
+      });
+
       if (markerBar) {
-        gsap.set(markerBar, { clipPath: 'inset(0 100% 0 0)' });
+        gsap.set(markerBar, { clipPath: 'inset(0 100% 0 0)', opacity: 1 });
+      }
+      if (shimmerEl) {
+        gsap.set(shimmerEl, { xPercent: -100 });
+      }
+      if (count15El && slideIndex === 2) {
+        count15El.textContent = '0+';
       }
 
       const tl = gsap.timeline({
         onComplete: () => {
+          allWords.forEach((w) => {
+            w.style.willChange = 'auto';
+          });
           startIdle(slideEl);
         },
       });
+      currentEnterTlRef.current = tl;
 
-      // 1. High-energy text flash & smooth upward reveal for main heading
-      tl.to(
-        mainLine,
-        {
-          opacity: 1,
-          y: 0,
-          filter: 'brightness(1) drop-shadow(0 0 0px rgba(34,197,94,0))',
-          duration: 0.65,
-          ease: 'power3.out',
-        },
-        0
-      );
+      // ── Slide 2: Two distinct sentences (sentence 2 starts 0.35s after sentence 1)
+      if (slideIndex === 1) {
+        const s1Words = Array.from(slideEl.querySelectorAll<HTMLElement>('.s2-sent-1 .word'));
+        const s2Words = Array.from(slideEl.querySelectorAll<HTMLElement>('.s2-sent-2 .word'));
 
-      // 2. Elegant marker reveal with luminous swipe
+        // Sentence 1 sweeps in at t = 0
+        s1Words.forEach((w, i) => {
+          const delay = i * stagger;
+          tl.to(w, { x: 0, skewX: 0, duration, ease: 'expo.out' }, delay);
+          tl.to(w, { opacity: 1, duration: duration * 0.2, ease: 'power2.in' }, delay);
+          if (!isMobile) {
+            tl.to(w, { filter: 'blur(0px)', duration: duration * 0.6, ease: 'power2.out' }, delay);
+          }
+        });
+
+        // Sentence 2 sweeps in at t = 0.35
+        const s2Start = 0.35;
+        s2Words.forEach((w, i) => {
+          const delay = s2Start + i * stagger;
+          tl.to(w, { x: 0, skewX: 0, duration, ease: 'expo.out' }, delay);
+          tl.to(w, { opacity: 1, duration: duration * 0.2, ease: 'power2.in' }, delay);
+          if (!isMobile) {
+            tl.to(w, { filter: 'blur(0px)', duration: duration * 0.6, ease: 'power2.out' }, delay);
+          }
+        });
+      } else {
+        // Slide 1 & 3: Main words sweep in at t = 0 with stagger in reading order
+        mainWords.forEach((w, i) => {
+          const delay = i * stagger;
+          tl.to(w, { x: 0, skewX: 0, duration, ease: 'expo.out' }, delay);
+          tl.to(w, { opacity: 1, duration: duration * 0.2, ease: 'power2.in' }, delay);
+          if (!isMobile) {
+            tl.to(w, { filter: 'blur(0px)', duration: duration * 0.6, ease: 'power2.out' }, delay);
+          }
+        });
+      }
+
+      // Micro "settle" on last main word (skewX 0 → 3° → 0 over 0.2s)
+      const lastMainWord = mainWords[mainWords.length - 1];
+      if (lastMainWord) {
+        tl.to(lastMainWord, { skewX: 3, duration: 0.1, ease: 'power1.out' }, '>-0.05');
+        tl.to(lastMainWord, { skewX: 0, duration: 0.1, ease: 'power1.in' });
+      }
+
+      // Slide 3 count-up: "15+" lands and counts up 0 → 15
+      if (slideIndex === 2 && count15El) {
+        const countObj = { val: 0 };
+        tl.to(
+          countObj,
+          {
+            val: 15,
+            duration: 0.7,
+            ease: 'power2.out',
+            onUpdate: () => {
+              count15El.textContent = `${Math.round(countObj.val)}+`;
+            },
+          },
+          0.55
+        );
+      }
+
+      // Supporting line: sweeps in starting 0.25s after main line begins
+      const subDuration = isMobile ? 0.9 : 1.0;
+      const subStart = 0.25;
+      subWords.forEach((w, i) => {
+        const delay = subStart + i * stagger;
+        tl.to(w, { x: 0, skewX: 0, duration: subDuration, ease: 'expo.out' }, delay);
+        tl.to(w, { opacity: 1, duration: subDuration * 0.2, ease: 'power2.in' }, delay);
+        if (!isMobile) {
+          tl.to(w, { filter: 'blur(0px)', duration: subDuration * 0.6, ease: 'power2.out' }, delay);
+        }
+      });
+
+      // Key words highlighter wipe on landing (clip-path: inset(0 100% 0 0) → inset(0 0 0 0), 0.45s, power3.out)
       if (markerBar) {
         tl.to(
           markerBar,
           {
             clipPath: 'inset(0 0% 0 0)',
-            duration: 0.5,
-            ease: 'power2.out',
+            duration: 0.45,
+            ease: 'power3.out',
           },
-          0.18
+          0.75
         );
       }
 
-      // 3. Shimmer burst across the marker bar right after reveal
+      // Shine glide across marker bar (xPercent: -100 → 200, 0.6s)
       if (shimmerEl) {
         tl.fromTo(
           shimmerEl,
           { xPercent: -100 },
           {
             xPercent: 200,
-            duration: 0.85,
+            duration: 0.6,
             ease: 'power2.inOut',
           },
-          0.3
-        );
-      }
-
-      // 4. Supporting sub-line gentle rise with smooth text flash settling
-      if (subLine) {
-        tl.to(
-          subLine,
-          {
-            opacity: 1,
-            y: 0,
-            filter: 'brightness(1)',
-            duration: 0.55,
-            ease: 'power2.out',
-          },
-          0.28
+          0.95
         );
       }
     },
-    [killIdle, prefersReducedMotion, startIdle]
+    [killIdle, playStreaks, prefersReducedMotion, startIdle]
   );
 
   // ─────────────────────────────────────────────────────────────
-  // 3. CLEAN SLIDE EXIT (Smooth Fade-out)
+  // 5. EXIT CHOREOGRAPHY: REST → FAR-RIGHT EDGE (Continuous Conveyor)
   // ─────────────────────────────────────────────────────────────
 
   const exitSlide = useCallback(
@@ -187,6 +402,8 @@ export function HeadlineSequencer() {
         return;
       }
 
+      currentEnterTlRef.current?.kill();
+
       if (prefersReducedMotion) {
         gsap.to(slideEl, {
           opacity: 0,
@@ -197,31 +414,99 @@ export function HeadlineSequencer() {
         return;
       }
 
-      // Smooth professional exit: gentle fade & subtle upward glide
-      gsap.to(slideEl, {
-        opacity: 0,
-        y: -10,
-        duration: 0.45,
-        ease: 'power2.inOut',
+      const isMobile = window.innerWidth < 768;
+      const viewportWidth = document.documentElement.clientWidth;
+      const allWords = Array.from(slideEl.querySelectorAll<HTMLElement>('.word'));
+      const duration = 0.8;
+      const exitSkew = isMobile ? 10 : 22;
+      const stagger = 0.04;
+
+      const exitTl = gsap.timeline({
         onComplete: () => {
           slideEl.style.visibility = 'hidden';
-          gsap.set(slideEl, { y: 0, opacity: 1 }); // Reset for next cycle
+          gsap.set(allWords, {
+            x: 0,
+            skewX: 0,
+            opacity: 1,
+            filter: 'none',
+            willChange: 'auto',
+          });
         },
       });
 
-      // Overlap: start next slide slightly before exit finishes
-      gsap.delayedCall(0.3, () => {
-        onOverlap();
+      allWords.forEach((w) => {
+        w.style.willChange = 'transform, opacity';
       });
+
+      // 1. Every word accelerates to the right: x: 0 → exitX, skewX: 0 → 22°
+      exitTl.to(
+        allWords,
+        {
+          x: (idx, el) => {
+            const rect = el.getBoundingClientRect();
+            return viewportWidth - rect.left + 60;
+          },
+          skewX: exitSkew,
+          duration: duration,
+          ease: 'power3.in',
+          stagger: stagger,
+        },
+        0
+      );
+
+      // 2. Opacity fades out in last 25% of travel
+      const fadeStart = duration * 0.75;
+      const fadeDuration = duration * 0.25;
+      exitTl.to(
+        allWords,
+        {
+          opacity: 0,
+          duration: fadeDuration,
+          ease: 'power2.in',
+          stagger: stagger,
+        },
+        fadeStart
+      );
+
+      // 3. Desktop blur out: 0 → 8px
+      if (!isMobile) {
+        exitTl.to(
+          allWords,
+          {
+            filter: 'blur(8px)',
+            duration: duration * 0.45,
+            ease: 'power2.in',
+            stagger: stagger,
+          },
+          duration * 0.45
+        );
+      }
+
+      // 4. Overlap: start next slide enter when exit is ~60% done!
+      // This produces the continuous conveyor motion: left → center → right
+      const overlapTime = duration * 0.6;
+      exitTl.add(() => {
+        onOverlap();
+      }, overlapTime);
     },
     [killIdle, prefersReducedMotion]
   );
 
   // ─────────────────────────────────────────────────────────────
-  // 4. TIMELINE HOOK INTEGRATION
+  // 6. TIMELINE HOOK INTEGRATION & HOLD PROGRESS
   // ─────────────────────────────────────────────────────────────
 
+  const handleHoldProgress = useCallback((progress: number) => {
+    const curIdx = activeIndexRef.current;
+    const bar = progressBarsRef.current[curIdx];
+    if (bar) {
+      bar.style.transform = `scaleX(${progress})`;
+    }
+  }, []);
+
   const {
+    activeIndex,
+    goTo,
     handleMouseEnter,
     handleMouseLeave,
     handleFocus,
@@ -231,11 +516,37 @@ export function HeadlineSequencer() {
     totalSlides: headlineSlides.length,
     onEnterSlide: enterSlide,
     onExitSlide: exitSlide,
+    onHoldProgress: handleHoldProgress,
     onKillIdle: killIdle,
   });
 
+  // Re-sync active index
   useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  // Clean resize & font loading re-sync
+  useEffect(() => {
+    let resizeTimer: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const curSlide = slideRefs.current[activeIndexRef.current];
+        if (curSlide) {
+          const words = Array.from(curSlide.querySelectorAll<HTMLElement>('.word'));
+          gsap.set(words, { clearProps: 'transform' });
+        }
+      }, 200);
+    };
+
+    window.addEventListener('resize', handleResize);
+    if (typeof document !== 'undefined' && 'fonts' in document) {
+      document.fonts.ready.then(handleResize);
+    }
+
     return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
       killIdle();
     };
   }, [killIdle]);
@@ -247,7 +558,7 @@ export function HeadlineSequencer() {
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      className="relative w-full max-w-5xl lg:max-w-6xl mx-auto flex flex-col items-center select-none"
+      className="relative w-full max-w-5xl lg:max-w-6xl mx-auto flex flex-col items-center select-none overflow-visible"
     >
       {/* ── Accessible H1 for SEO ── */}
       <h1 className="sr-only">
@@ -256,10 +567,43 @@ export function HeadlineSequencer() {
         15+ Years of Marketing Expertise To Make Your Business Bigger.
       </h1>
 
-      {/* ── Slides Stack (No Layout Shift, Centered) ── */}
+      {/* ── Speed Streaks Layer (Full Viewport Width) ── */}
+      <div
+        className="speed-streaks-layer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-24 pointer-events-none overflow-visible z-20"
+        aria-hidden="true"
+      >
+        <div
+          ref={mainStreakRef}
+          className="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-[38vw] rounded-full pointer-events-none opacity-0"
+          style={{
+            background: 'linear-gradient(90deg, transparent, #22C55E 40%, #B6F23D 60%, transparent)',
+            boxShadow: '0 0 18px rgba(34,197,94,0.6)',
+          }}
+        />
+        <div
+          ref={topStreakRef}
+          className="absolute left-0 top-1/2 -translate-y-[calc(50%+14px)] h-[1.5px] w-[28vw] rounded-full pointer-events-none opacity-0"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent, rgba(34,197,94,0.6) 40%, rgba(182,242,61,0.6) 60%, transparent)',
+            boxShadow: '0 0 12px rgba(34,197,94,0.4)',
+          }}
+        />
+        <div
+          ref={bottomStreakRef}
+          className="absolute left-0 top-1/2 -translate-y-[calc(50%-14px)] h-[1.5px] w-[32vw] rounded-full pointer-events-none opacity-0"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent, rgba(34,197,94,0.6) 40%, rgba(182,242,61,0.6) 60%, transparent)',
+            boxShadow: '0 0 12px rgba(34,197,94,0.4)',
+          }}
+        />
+      </div>
+
+      {/* ── Slides Stack (No Layout Shift, Centered, Overflow Visible for Sweep) ── */}
       <div
         ref={slidesStackRef}
-        className="grid grid-cols-1 [grid-template-areas:'stack'] relative z-10 w-full min-h-[96px] sm:min-h-[115px] lg:min-h-[142px]"
+        className="grid grid-cols-1 [grid-template-areas:'stack'] relative z-10 w-full min-h-[96px] sm:min-h-[115px] lg:min-h-[142px] overflow-visible"
         aria-hidden="true"
       >
         {/* ══════════════════════════════════════════════════════
@@ -271,14 +615,17 @@ export function HeadlineSequencer() {
           ref={(el) => {
             slideRefs.current[0] = el;
           }}
-          className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center"
+          className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'visible' }}
         >
           {/* Main Headline */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
-            <span className="block whitespace-nowrap">Everything Under One Roof</span>
-            <span className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap">
-              <span>to</span>
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1">
+            <span className="word inline-block">Everything</span>
+            <span className="word inline-block">Under</span>
+            <span className="word inline-block">One</span>
+            <span className="word inline-block">Roof</span>
+            <span className="word inline-block">to</span>
+            <span className="word inline-block">
               <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
                 <span
                   className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
@@ -286,7 +633,7 @@ export function HeadlineSequencer() {
                 >
                   <span
                     data-shimmer
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.28] to-transparent -translate-x-full pointer-events-none"
                   />
                 </span>
                 <span className="relative z-10 text-[#0B0F0D] font-extrabold">
@@ -297,9 +644,15 @@ export function HeadlineSequencer() {
           </div>
 
           {/* Subheading underneath */}
-          <div className="slide-sub-line mt-2 sm:mt-2.5 flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
-            <span className="slide-sub-text">From Branding to Business Growth.</span>
+          <div className="slide-sub-line mt-2 sm:mt-2.5 flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
+            <span className="word inline-flex items-center gap-1.5 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
+              <span>From</span>
+            </span>
+            <span className="word inline-block">Branding</span>
+            <span className="word inline-block">to</span>
+            <span className="word inline-block">Business</span>
+            <span className="word inline-block">Growth.</span>
           </div>
         </div>
 
@@ -312,35 +665,53 @@ export function HeadlineSequencer() {
           ref={(el) => {
             slideRefs.current[1] = el;
           }}
-          className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center"
+          className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'hidden' }}
         >
-          {/* Main Headline */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
-            <span className="block whitespace-nowrap">We Don’t Just Generate Leads.</span>
-            <span className="inline-flex items-center justify-center gap-x-2 whitespace-nowrap">
-              <span>We Generate</span>
-              <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
-                <span
-                  className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
-                  style={{ clipPath: 'inset(0 100% 0 0)' }}
-                >
+          {/* Main Headline (2 Sentences) */}
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1">
+            <div className="s2-sent-1 inline-flex flex-wrap items-center justify-center gap-x-[0.28em]">
+              <span className="word inline-block">We</span>
+              <span className="word inline-block">Don’t</span>
+              <span className="word inline-block">Just</span>
+              <span className="word inline-block">Generate</span>
+              <span className="word inline-block">Leads.</span>
+            </div>
+            <div className="s2-sent-2 inline-flex flex-wrap items-center justify-center gap-x-[0.28em]">
+              <span className="word inline-block">We</span>
+              <span className="word inline-block">Generate</span>
+              <span className="word inline-block">
+                <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
                   <span
-                    data-shimmer
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full"
-                  />
-                </span>
-                <span className="relative z-10 text-[#0B0F0D] font-extrabold">
-                  Business.
+                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
+                    style={{ clipPath: 'inset(0 100% 0 0)' }}
+                  >
+                    <span
+                      data-shimmer
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.28] to-transparent -translate-x-full pointer-events-none"
+                    />
+                  </span>
+                  <span className="relative z-10 text-[#0B0F0D] font-extrabold">
+                    Business.
+                  </span>
                 </span>
               </span>
-            </span>
+            </div>
           </div>
 
           {/* Subheading underneath */}
-          <div className="slide-sub-line mt-2 sm:mt-2.5 flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
-            <span className="slide-sub-text">From Leads to Sales, We Do It All.</span>
+          <div className="slide-sub-line mt-2 sm:mt-2.5 flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
+            <span className="word inline-flex items-center gap-1.5 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
+              <span>From</span>
+            </span>
+            <span className="word inline-block">Leads</span>
+            <span className="word inline-block">to</span>
+            <span className="word inline-block">Sales,</span>
+            <span className="word inline-block">We</span>
+            <span className="word inline-block">Do</span>
+            <span className="word inline-block">It</span>
+            <span className="word inline-block">All.</span>
           </div>
         </div>
 
@@ -353,36 +724,92 @@ export function HeadlineSequencer() {
           ref={(el) => {
             slideRefs.current[2] = el;
           }}
-          className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center"
+          className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'hidden' }}
         >
           {/* Main Headline */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
-            <span className="block whitespace-nowrap">
-              <span className="text-[#22C55E] drop-shadow-[0_0_15px_rgba(34,197,94,0.4)]">15+</span> Years of Marketing Expertise
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1">
+            <span className="word inline-block">
+              <span
+                ref={count15ElRef}
+                className="count-15 text-[#22C55E] drop-shadow-[0_0_15px_rgba(34,197,94,0.4)]"
+              >
+                15+
+              </span>
             </span>
+            <span className="word inline-block">Years</span>
+            <span className="word inline-block">of</span>
+            <span className="word inline-block">Marketing</span>
+            <span className="word inline-block">Expertise</span>
           </div>
 
           {/* Subheading underneath */}
-          <div className="slide-sub-line mt-2 sm:mt-2.5 flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
-            <span className="slide-sub-text">To Make Your Business</span>
-            <span className="relative inline-flex items-center px-2 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_15px_rgba(34,197,94,0.25)]">
-              <span
-                className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
-                style={{ clipPath: 'inset(0 100% 0 0)' }}
-              >
+          <div className="slide-sub-line mt-2 sm:mt-2.5 flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
+            <span className="word inline-flex items-center gap-1.5 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
+              <span>To</span>
+            </span>
+            <span className="word inline-block">Make</span>
+            <span className="word inline-block">Your</span>
+            <span className="word inline-block">Business</span>
+            <span className="word inline-block">
+              <span className="relative inline-flex items-center px-2 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_15px_rgba(34,197,94,0.25)]">
                 <span
-                  data-shimmer
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full"
-                />
-              </span>
-              <span className="relative z-10 text-[#0B0F0D] font-bold text-xs sm:text-sm md:text-base">
-                Bigger.
+                  className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
+                  style={{ clipPath: 'inset(0 100% 0 0)' }}
+                >
+                  <span
+                    data-shimmer
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.28] to-transparent -translate-x-full pointer-events-none"
+                  />
+                </span>
+                <span className="relative z-10 text-[#0B0F0D] font-bold text-xs sm:text-sm md:text-base">
+                  Bigger.
+                </span>
               </span>
             </span>
           </div>
         </div>
+      </div>
+
+      {/* ── Interactive Progress Segments 01 / 02 / 03 ── */}
+      <div
+        className="flex items-center justify-center gap-2 sm:gap-3.5 mt-3 sm:mt-4 z-20"
+        role="tablist"
+        aria-label="Headline Slides"
+      >
+        {[0, 1, 2].map((idx) => {
+          const isActive = activeIndex === idx;
+          const num = `0${idx + 1}`;
+          return (
+            <button
+              key={idx}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              aria-label={`Jump to slide ${idx + 1}`}
+              onClick={() => goTo(idx)}
+              className={`group flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono font-bold transition-all duration-300 cursor-pointer ${
+                isActive
+                  ? 'bg-[#16A34A]/20 border border-[#22C55E]/40 text-[#22C55E]'
+                  : 'bg-white/5 border border-transparent text-[#5B6B63] hover:text-[#9FB0A7] hover:bg-white/10'
+              }`}
+            >
+              <span>{num}</span>
+              <span className="w-5 sm:w-7 h-[2px] rounded-full bg-[#1A2420] overflow-hidden relative">
+                <span
+                  ref={(el) => {
+                    progressBarsRef.current[idx] = el;
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-[#22C55E] to-[#B6F23D] origin-left"
+                  style={{
+                    transform: isActive ? undefined : 'scaleX(0)',
+                  }}
+                />
+              </span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

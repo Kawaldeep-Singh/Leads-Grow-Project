@@ -21,8 +21,8 @@ export interface UseHeadlineTimelineOptions {
 export const TIMING = {
   enter: 1.5,
   hold: 2.8,
-  exit: 0.6,
-  overlap: 0.2, // Overlap next ENTER with last 0.2s of EXIT
+  exit: 0.8,
+  overlap: 0.32, // Overlap next ENTER when EXIT is ~60% done (0.8 * 0.4 = 0.32s remaining)
   reducedHold: 4.0,
   reducedFade: 0.4,
 } as const;
