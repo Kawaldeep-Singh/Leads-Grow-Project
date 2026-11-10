@@ -121,7 +121,7 @@ export function Hero({
           </div>
 
           {/* Heading */}
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.15] mb-4 sm:mb-6 max-w-4xl">
+          {/* <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.15] mb-4 sm:mb-6 max-w-4xl">
             Complete Marketing Solutions.{' '}
             <span className="text-gradient">All Under One Roof.</span>
           </h2>

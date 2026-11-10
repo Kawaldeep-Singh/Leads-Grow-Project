@@ -104,14 +104,14 @@ export const Footer: React.FC = () => {
       {/* ── Main Container (Aligned with Navbar w-[85%]) ── */}
       <div className="w-[85%] mx-auto relative z-10 pt-16 sm:pt-20 pb-8 sm:pb-10">
         {/* ── 2.2 Hero Row ("The Closer") ── */}
-        <div ref={closerRef}>
+        {/* <div ref={closerRef}>
           <FooterCloser onAnchorClick={handleAnchorClick} />
-        </div>
+        </div> */}
 
         {/* ── 2.3 Proof / Stats Row ── */}
-        <div ref={statsRef}>
+        {/* <div ref={statsRef}>
           <FooterStats />
-        </div>
+        </div> */}
 
         {/* ── 2.4 Link Area (12-Column Grid) ── */}
         <div ref={linksRef}>
