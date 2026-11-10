@@ -73,3 +73,38 @@ export const industriesData: IndustryItem[] = [
     statBadge: '300+ Qualified Demos',
   },
 ];
+
+export const moreIndustriesData: IndustryItem[] = [
+  {
+    id: 'hospitality',
+    name: 'Hospitality & Tourism',
+    slug: 'hospitality',
+    iconName: 'FaHotel',
+    benefit: 'Direct resort bookings, luxury travel packages, and banquet lead pipelines.',
+    statBadge: '3.2x Booking Surge',
+  },
+  {
+    id: 'finance',
+    name: 'Finance & Fintech',
+    slug: 'finance',
+    iconName: 'FaCoins',
+    benefit: 'High-net-worth investor inquiries, commercial loans, and wealth advisory leads.',
+    statBadge: '5.4x Inquiries',
+  },
+  {
+    id: 'logistics',
+    name: 'Logistics & Supply Chain',
+    slug: 'logistics',
+    iconName: 'FaTruckMoving',
+    benefit: 'B2B commercial contracts, warehouse leases, and fleet management RFPs.',
+    statBadge: '200+ Enterprise RFPs',
+  },
+  {
+    id: 'automotive',
+    name: 'Automotive & Dealerships',
+    slug: 'automotive',
+    iconName: 'FaCar',
+    benefit: 'High-intent test-drive bookings, showroom walk-ins, and EV fleet acquisitions.',
+    statBadge: '70% Test Drives',
+  },
+];
