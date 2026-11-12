@@ -66,7 +66,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
         <Link
           href={href}
           onClick={isAnchor ? (e) => onAnchorClick(e, href) : undefined}
-          className="group inline-flex items-center gap-1.5 text-sm text-[#9FB0A7] hover:text-white transition-colors duration-200 py-1"
+          className="group inline-flex items-center gap-1.5 text-sm leading-5 text-[#9FB0A7] hover:text-white transition-colors duration-200 py-1"
         >
           <span className="relative transition-transform duration-200 group-hover:translate-x-1">
             {label}
@@ -80,7 +80,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-[#1A2420]">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-7 border-b border-[#1A2420]">
       {/* ── Col 1–4: Brand Block (Logo, description, tagline, social icons) ── */}
       <div className="footer-link-col lg:col-span-4 flex flex-col justify-start">
         {/* Brand Logo & Tagline */}
@@ -188,7 +188,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
       </div>
 
       {/* ── Col 8–9: Company (2 cols) ── */}
-      <div className="footer-link-col lg:col-span-2">
+      <div className="footer-link-col lg:col-span-2 lg:-translate-x-[30px]">
         {/* Desktop Header */}
         <div className="hidden md:block">
           <div className="w-6 h-0.5 bg-[#22C55E] mb-3 rounded-full" />
@@ -245,7 +245,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
       </div>
 
       {/* ── Col 10–12: Contact Details & Location (3 cols - Perfectly Aligned) ── */}
-      <div className="footer-link-col lg:col-span-3">
+      <div className="footer-link-col lg:col-span-3 lg:translate-x-[6px]">
         {/* Desktop Header */}
         <div className="hidden md:block">
           <div className="w-6 h-0.5 bg-[#22C55E] mb-3 rounded-full" />

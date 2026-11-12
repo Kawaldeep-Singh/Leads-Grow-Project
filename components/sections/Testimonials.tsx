@@ -3,10 +3,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  HiStar,
   HiChevronLeft,
   HiChevronRight,
-  HiSparkles,
 } from 'react-icons/hi2';
 import { FaQuoteLeft } from 'react-icons/fa';
 import { testimonialsData } from '@/data/testimonials';
@@ -56,7 +54,7 @@ export const Testimonials: React.FC = () => {
       id="testimonials"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="relative bg-[#F6FAF7] py-24 sm:py-32 overflow-hidden border-b border-gray-200"
+      className="relative bg-[#F6FAF7] py-12 sm:py-16 overflow-hidden border-b border-gray-200"
     >
       {/* Decorative Parallax Quote Icon Background */}
       <div className="absolute top-12 right-12 text-gray-200/50 pointer-events-none select-none">
@@ -67,27 +65,13 @@ export const Testimonials: React.FC = () => {
         {/* Section Heading */}
         <div className="text-center mb-6">
           <SectionHeading
-            badge="Testimonials"
+            badge="Sample feedback"
             plainText="What Our"
             highlightText="Clients Say"
-            subtext="Real growth metrics and authentic feedback from leaders who scaled with LeadsGrow."
+            subtext="Illustrative examples only; replace with approved customer reviews before publishing."
             align="center"
             theme="light"
           />
-
-          {/* Overall Rating Summary Badge */}
-          <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 px-4 py-2 rounded-2xl sm:rounded-full bg-white border border-gray-200 shadow-sm -mt-4 sm:-mt-8 mb-8 sm:mb-10 max-w-full text-center">
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <HiStar key={i} className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-current" />
-                ))}
-              </div>
-              <span className="text-xs font-black text-[#0B0F0D]">4.9 / 5.0</span>
-            </div>
-            <span className="hidden sm:inline text-gray-300">•</span>
-            <span className="text-[#5B6B63] text-[11px] sm:text-xs">rated by our clients across 250+ reviews</span>
-          </div>
         </div>
 
         {/* Center-Focused Carousel */}
@@ -102,19 +86,10 @@ export const Testimonials: React.FC = () => {
                 transition={{ type: 'spring', damping: 25, stiffness: 280 }}
                 className="w-full rounded-2xl sm:rounded-3xl bg-white border border-gray-200 p-5 sm:p-8 md:p-12 shadow-xl shadow-gray-200/50 relative overflow-hidden"
               >
-                {/* Top highlight bar */}
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                  {/* Rating Stars */}
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(activeTestimonial.rating)].map((_, i) => (
-                      <HiStar key={i} className="h-5 w-5 fill-current" />
-                    ))}
-                  </div>
-
-                  {/* Metrics Badge */}
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#16A34A]/10 text-[#16A34A] text-xs font-black tracking-wide border border-[#16A34A]/20">
-                    <HiSparkles className="h-3.5 w-3.5 text-[#22C55E]" />
-                    {activeTestimonial.metrics}
+                {/* This placeholder content is not attributed to a real person. */}
+                <div className="mb-5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#16A34A]">
+                    Illustrative example
                   </span>
                 </div>
 
@@ -128,22 +103,15 @@ export const Testimonials: React.FC = () => {
                   &ldquo;{activeTestimonial.quote}&rdquo;
                 </p>
 
-                {/* Client Bio */}
-                <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
-                  {/* Avatar Letter Circle */}
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#16A34A] to-[#22C55E] text-white font-bold flex items-center justify-center text-sm shadow-md">
-                    {activeTestimonial.avatarText}
-                  </div>
-
-                  <div>
-                    <h4 className="text-sm font-extrabold text-[#0B0F0D]">
-                      {activeTestimonial.name}
-                    </h4>
-                    <p className="text-xs text-[#5B6B63]">
-                      {activeTestimonial.role} • <span className="font-semibold text-[#16A34A]">{activeTestimonial.company}</span>
-                    </p>
-                  </div>
+                <div className="border-t border-gray-100 pt-5">
+                  <p className="text-sm font-semibold text-[#0B0F0D]">
+                    {activeTestimonial.name}
+                  </p>
+                  <p className="mt-1 text-xs text-[#5B6B63]">
+                    {activeTestimonial.role} · {activeTestimonial.company}
+                  </p>
                 </div>
+
               </motion.div>
             </AnimatePresence>
           </div>

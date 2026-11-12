@@ -166,7 +166,7 @@ export const AboutCTA: React.FC = () => {
     <section
       ref={sectionRef}
       aria-labelledby="about-cta-title"
-      className="relative bg-[#0B0F0D] py-20 sm:py-28 lg:py-36 overflow-x-clip text-center"
+      className="relative bg-[#0B0F0D] py-10 sm:py-14 lg:py-18 overflow-x-clip text-center"
     >
       {/* Background Decorative Ambient Radial Glow */}
       <div

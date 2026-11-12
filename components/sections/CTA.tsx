@@ -27,7 +27,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
   return (
     <section
       id="cta"
-      className="relative bg-[#0B0F0D] text-white py-28 sm:py-36 overflow-hidden bg-grid-pattern border-t border-[#1A2420]"
+      className="relative bg-[#0B0F0D] text-white py-14 sm:py-18 overflow-hidden bg-grid-pattern border-t border-[#1A2420]"
     >
       {/* Intense Glowing Radial Backgrounds */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-to-tr from-[#16A34A]/25 via-[#22C55E]/15 to-transparent rounded-full blur-[170px] pointer-events-none" />

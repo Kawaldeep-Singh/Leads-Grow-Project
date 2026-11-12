@@ -25,21 +25,21 @@ export function VariantTwo({ onOpenModal }: VariantProps) {
         theme="light"
       />
 
-      {/* Standalone Stats Strip */}
-      <Stats overlap={false} />
-
       {/* Decorative Tilted Dual Marquee Band */}
       <MarqueeBand />
 
       {/* Technologies & Integrations (6 Tabs) */}
       <TechStack />
 
-      {/* Industries We Serve (10 Industries Grid) */}
+      {/* Industries We Serve (8 Industries Grid) */}
       <Industries
         onSelectIndustry={(industryName) =>
           onOpenModal(`Growth for ${industryName}`, `v2-industry-${industryName}`)
         }
       />
+
+      {/* Standalone Stats Strip: "You Believe. We Achieve." */}
+      <Stats overlap={false} />
 
       {/* Testimonials Center-Focused Carousel */}
       <Testimonials />

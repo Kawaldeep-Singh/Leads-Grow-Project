@@ -38,7 +38,7 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
   return (
     <section
       id="industries"
-      className="relative bg-white py-24 sm:py-32 overflow-hidden"
+      className="relative bg-white py-12 sm:py-16 overflow-hidden"
     >
       {/* 2-Row Infinite Marquee Behind Grid as Texture - slow ambient motion */}
       <div className="absolute inset-0 flex flex-col justify-center gap-12 opacity-[0.035] pointer-events-none select-none overflow-hidden">

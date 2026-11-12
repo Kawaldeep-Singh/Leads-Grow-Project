@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiSparkles } from 'react-icons/hi2';
-import { VariantToggle } from '@/components/ui/VariantToggle';
 
 interface FloatingWidgetsProps {
   onOpenConsultation: () => void;
@@ -24,9 +23,9 @@ export const FloatingWidgets: React.FC<FloatingWidgetsProps> = ({ onOpenConsulta
   return (
     <AnimatePresence>
       {visible && (
-        <div className="fixed z-40 pointer-events-none inset-x-0 bottom-0 p-4 sm:p-6 flex justify-between items-end">
-          {/* Floating Variant Switcher (Bottom-Left) */}
-          <VariantToggle mode="floating" />
+        <div className="fixed z-40 pointer-events-none inset-x-0 bottom-0 p-4 sm:p-6 flex justify-end items-end">
+          {/* Floating variant switcher temporarily disabled. */}
+          {/* <VariantToggle mode="floating" /> */}
 
           {/* Consultation Button (Bottom-Right) */}
           <motion.div

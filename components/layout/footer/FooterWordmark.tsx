@@ -190,7 +190,7 @@ export const FooterWordmark: React.FC<FooterWordmarkProps> = ({
     <div
       ref={wordmarkRef}
       aria-hidden="true"
-      className="fw-wordmark relative w-full overflow-hidden select-none py-8 sm:py-12 text-center group cursor-default px-2 sm:px-4"
+      className="fw-wordmark relative w-full overflow-hidden select-none py-4 sm:py-6 text-center group cursor-default px-2 sm:px-4"
       style={{
         // Default CSS variable, scrubbed by useFooterAnimations
         ['--p' as string]: '0%',

@@ -106,7 +106,7 @@ export const AboutMissionVision: React.FC = () => {
     <section
       ref={sectionRef}
       aria-labelledby="about-mission-title"
-      className="relative bg-[#0B0F0D] py-16 sm:py-24 lg:py-32 overflow-x-clip"
+      className="relative bg-[#0B0F0D] py-8 sm:py-12 lg:py-16 overflow-x-clip"
       style={{ perspective: '1200px' }}
     >
       {/* Background Decorative Ghost Words (aria-hidden, hidden on reduced-motion) */}

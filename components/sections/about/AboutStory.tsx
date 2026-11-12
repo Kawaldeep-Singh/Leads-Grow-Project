@@ -76,7 +76,7 @@ export const AboutStory: React.FC = () => {
     <section
       ref={sectionRef}
       aria-labelledby="about-story-title"
-      className="relative bg-[#F6FAF7] text-[#0B0F0D] py-16 sm:py-24 lg:py-32 overflow-x-clip"
+      className="relative bg-[#F6FAF7] text-[#0B0F0D] py-8 sm:py-12 lg:py-16 overflow-x-clip"
     >
       {/* Light Theme Background Decorative Elements */}
       <div

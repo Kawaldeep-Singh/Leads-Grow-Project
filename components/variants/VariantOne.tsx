@@ -26,21 +26,24 @@ export function VariantOne({ onOpenModal }: VariantProps) {
         showServicesHeading={true}
       />
 
-      {/* Standalone Stats Strip */}
-      {/* <Stats overlap={false} /> */}
-
       {/* Decorative Tilted Dual Marquee Band */}
       <MarqueeBand />
 
       {/* Technologies & Integrations (6 Tabs) */}
       <TechStack />
 
-      {/* Industries We Serve (10 Industries Grid) */}
+      {/* Industries We Serve (8 Industries Grid) */}
       <Industries
         onSelectIndustry={(industryName) =>
           onOpenModal(`Growth for ${industryName}`, `v1-industry-${industryName}`)
         }
       />
+
+      {/* Standalone Stats Strip: "You Believe. We Achieve." */}
+      <Stats overlap={false} />
+
+      {/* Standalone Stats Strip: "You Believe. We Achieve." */}
+      <Stats overlap={false} />
 
       {/* Testimonials Center-Focused Carousel */}
       <Testimonials />

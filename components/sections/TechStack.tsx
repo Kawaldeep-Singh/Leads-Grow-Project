@@ -122,7 +122,7 @@ export const TechStack: React.FC = () => {
   return (
     <section
       id="tech-stack"
-      className="relative bg-[#F6FAF7] py-24 sm:py-32 overflow-hidden bg-dot-pattern-light border-y border-gray-200"
+      className="relative bg-[#F6FAF7] py-12 sm:py-16 overflow-hidden bg-dot-pattern-light border-y border-gray-200"
     >
       {/* Floating blurred green/blue ambient blobs */}
       <div className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-[#16A34A]/10 blur-[130px] pointer-events-none" />

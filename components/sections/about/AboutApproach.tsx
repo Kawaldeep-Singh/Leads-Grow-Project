@@ -138,7 +138,7 @@ export const AboutApproach: React.FC = () => {
     <section
       ref={sectionRef}
       aria-labelledby="about-approach-title"
-      className="relative bg-[#FFFFFF] text-[#0B0F0D] py-16 sm:py-24 lg:py-32 overflow-x-clip"
+      className="relative bg-[#FFFFFF] text-[#0B0F0D] py-8 sm:py-12 lg:py-16 overflow-x-clip"
     >
       {/* Decorative Light Theme Background (aria-hidden, hidden on reduced-motion) */}
       <div

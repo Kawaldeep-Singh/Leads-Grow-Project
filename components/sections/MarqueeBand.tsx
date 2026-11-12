@@ -6,7 +6,7 @@ import { Marquee } from '@/components/ui/Marquee';
 
 export const MarqueeBand: React.FC = () => {
   return (
-    <section className="relative py-14 overflow-hidden bg-[#0B0F0D] select-none z-10">
+    <section className="relative py-7 overflow-hidden bg-[#0B0F0D] select-none z-10">
       <div className="relative -rotate-2 scale-105 transform origin-center flex flex-col gap-3">
         {/* Row 1: Brand Green Band - gentle, readable speed */}
         <div className="bg-[#16A34A] py-3.5 shadow-xl shadow-[#16A34A]/20">

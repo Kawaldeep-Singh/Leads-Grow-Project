@@ -102,7 +102,7 @@ export const Footer: React.FC = () => {
       <FooterTicker />
 
       {/* ── Main Container (Aligned with Navbar w-[85%]) ── */}
-      <div className="w-[85%] mx-auto relative z-10 pt-16 sm:pt-20 pb-8 sm:pb-10">
+      <div className="w-[85%] mx-auto relative z-10 pt-8 sm:pt-10 pb-4 sm:pb-5">
         {/* ── 2.2 Hero Row ("The Closer") ── */}
         {/* <div ref={closerRef}>
           <FooterCloser onAnchorClick={handleAnchorClick} />
