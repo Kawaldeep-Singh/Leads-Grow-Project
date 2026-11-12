@@ -48,3 +48,4 @@ export const aboutContent = {
 } as const;
 
 export type AboutContent = typeof aboutContent;
+

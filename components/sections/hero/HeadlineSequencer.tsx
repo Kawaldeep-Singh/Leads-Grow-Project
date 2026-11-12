@@ -109,12 +109,12 @@ export function HeadlineSequencer() {
       if (prefersReducedMotion || typeof window === 'undefined') return;
       killIdle();
 
-      const mainLine = slideEl.querySelector<HTMLElement>('.slide-main-line');
-      const subLine = slideEl.querySelector<HTMLElement>('.slide-sub-line');
+      const line1 = slideEl.querySelector<HTMLElement>('.line-1');
+      const line2 = slideEl.querySelector<HTMLElement>('.line-2');
 
       // Subtle vertical idle float: y ±3px, sine yoyo
-      if (mainLine) {
-        const tween = gsap.to(mainLine, {
+      if (line1) {
+        const tween = gsap.to(line1, {
           y: -3,
           duration: 2.2,
           repeat: -1,
@@ -123,8 +123,8 @@ export function HeadlineSequencer() {
         });
         idleTweensRef.current.push(tween);
       }
-      if (subLine) {
-        const tween = gsap.to(subLine, {
+      if (line2) {
+        const tween = gsap.to(line2, {
           y: -2,
           duration: 2.5,
           repeat: -1,
@@ -229,38 +229,23 @@ export function HeadlineSequencer() {
       playStreaks(isMobile);
 
       // Query elements
-      const mainLine = slideEl.querySelector<HTMLElement>('.slide-main-line');
-      const subLine = slideEl.querySelector<HTMLElement>('.slide-sub-line');
+      const line1Words = Array.from(slideEl.querySelectorAll<HTMLElement>('.line-1 .word'));
+      const line2Words = Array.from(slideEl.querySelectorAll<HTMLElement>('.line-2 .word'));
+      const allWords = Array.from(slideEl.querySelectorAll<HTMLElement>('.word'));
       const markerBar = slideEl.querySelector<HTMLElement>('.slide-marker-bar');
       const shimmerEl = slideEl.querySelector<HTMLElement>('[data-shimmer]');
       const count15El = count15ElRef.current;
 
-      const mainWords = mainLine ? Array.from(mainLine.querySelectorAll<HTMLElement>('.word')) : [];
-      const subWords = subLine ? Array.from(subLine.querySelectorAll<HTMLElement>('.word')) : [];
-      const allWords = [...mainWords, ...subWords];
-
       // Measure exact resting positions & startX
-      const mainWordOffsets = getWordOffsets(mainWords);
-      const subWordOffsets = getWordOffsets(subWords);
+      const wordOffsets = getWordOffsets(allWords);
 
-      // Reset main words to startX off-screen left
-      mainWordOffsets.forEach(({ el, startX }) => {
+      // Reset all words to startX off-screen left
+      wordOffsets.forEach(({ el, startX }) => {
         gsap.set(el, {
           x: startX,
           skewX: enterSkew,
           opacity: 0,
           filter: isMobile ? 'none' : 'blur(10px)',
-          willChange: 'transform, opacity',
-        });
-      });
-
-      // Reset sub words to startX off-screen left
-      subWordOffsets.forEach(({ el, startX }) => {
-        gsap.set(el, {
-          x: startX,
-          skewX: enterSkew,
-          opacity: 0,
-          filter: isMobile ? 'none' : 'blur(6px)',
           willChange: 'transform, opacity',
         });
       });
@@ -285,48 +270,32 @@ export function HeadlineSequencer() {
       });
       currentEnterTlRef.current = tl;
 
-      // ── Slide 2: Two distinct sentences (sentence 2 starts 0.35s after sentence 1)
-      if (slideIndex === 1) {
-        const s1Words = Array.from(slideEl.querySelectorAll<HTMLElement>('.s2-sent-1 .word'));
-        const s2Words = Array.from(slideEl.querySelectorAll<HTMLElement>('.s2-sent-2 .word'));
+      // Line 1 words sweep in at t = 0
+      line1Words.forEach((w, i) => {
+        const delay = i * stagger;
+        tl.to(w, { x: 0, skewX: 0, duration, ease: 'expo.out' }, delay);
+        tl.to(w, { opacity: 1, duration: duration * 0.2, ease: 'power2.in' }, delay);
+        if (!isMobile) {
+          tl.to(w, { filter: 'blur(0px)', duration: duration * 0.6, ease: 'power2.out' }, delay);
+        }
+      });
 
-        // Sentence 1 sweeps in at t = 0
-        s1Words.forEach((w, i) => {
-          const delay = i * stagger;
-          tl.to(w, { x: 0, skewX: 0, duration, ease: 'expo.out' }, delay);
-          tl.to(w, { opacity: 1, duration: duration * 0.2, ease: 'power2.in' }, delay);
-          if (!isMobile) {
-            tl.to(w, { filter: 'blur(0px)', duration: duration * 0.6, ease: 'power2.out' }, delay);
-          }
-        });
+      // Line 2 words sweep in starting smoothly after Line 1 begins
+      const line2Start = Math.max(0.18, (line1Words.length - 2) * stagger);
+      line2Words.forEach((w, i) => {
+        const delay = line2Start + i * stagger;
+        tl.to(w, { x: 0, skewX: 0, duration, ease: 'expo.out' }, delay);
+        tl.to(w, { opacity: 1, duration: duration * 0.2, ease: 'power2.in' }, delay);
+        if (!isMobile) {
+          tl.to(w, { filter: 'blur(0px)', duration: duration * 0.6, ease: 'power2.out' }, delay);
+        }
+      });
 
-        // Sentence 2 sweeps in at t = 0.35
-        const s2Start = 0.35;
-        s2Words.forEach((w, i) => {
-          const delay = s2Start + i * stagger;
-          tl.to(w, { x: 0, skewX: 0, duration, ease: 'expo.out' }, delay);
-          tl.to(w, { opacity: 1, duration: duration * 0.2, ease: 'power2.in' }, delay);
-          if (!isMobile) {
-            tl.to(w, { filter: 'blur(0px)', duration: duration * 0.6, ease: 'power2.out' }, delay);
-          }
-        });
-      } else {
-        // Slide 1 & 3: Main words sweep in at t = 0 with stagger in reading order
-        mainWords.forEach((w, i) => {
-          const delay = i * stagger;
-          tl.to(w, { x: 0, skewX: 0, duration, ease: 'expo.out' }, delay);
-          tl.to(w, { opacity: 1, duration: duration * 0.2, ease: 'power2.in' }, delay);
-          if (!isMobile) {
-            tl.to(w, { filter: 'blur(0px)', duration: duration * 0.6, ease: 'power2.out' }, delay);
-          }
-        });
-      }
-
-      // Micro "settle" on last main word (skewX 0 → 3° → 0 over 0.2s)
-      const lastMainWord = mainWords[mainWords.length - 1];
-      if (lastMainWord) {
-        tl.to(lastMainWord, { skewX: 3, duration: 0.1, ease: 'power1.out' }, '>-0.05');
-        tl.to(lastMainWord, { skewX: 0, duration: 0.1, ease: 'power1.in' });
+      // Micro "settle" on last word (skewX 0 → 3° → 0 over 0.2s)
+      const lastWord = allWords[allWords.length - 1];
+      if (lastWord) {
+        tl.to(lastWord, { skewX: 3, duration: 0.1, ease: 'power1.out' }, '>-0.05');
+        tl.to(lastWord, { skewX: 0, duration: 0.1, ease: 'power1.in' });
       }
 
       // Slide 3 count-up: "15+" lands and counts up 0 → 15
@@ -342,23 +311,11 @@ export function HeadlineSequencer() {
               count15El.textContent = `${Math.round(countObj.val)}+`;
             },
           },
-          0.55
+          0.45
         );
       }
 
-      // Supporting line: sweeps in starting 0.25s after main line begins
-      const subDuration = isMobile ? 0.9 : 1.0;
-      const subStart = 0.25;
-      subWords.forEach((w, i) => {
-        const delay = subStart + i * stagger;
-        tl.to(w, { x: 0, skewX: 0, duration: subDuration, ease: 'expo.out' }, delay);
-        tl.to(w, { opacity: 1, duration: subDuration * 0.2, ease: 'power2.in' }, delay);
-        if (!isMobile) {
-          tl.to(w, { filter: 'blur(0px)', duration: subDuration * 0.6, ease: 'power2.out' }, delay);
-        }
-      });
-
-      // Key words highlighter wipe on landing (clip-path: inset(0 100% 0 0) → inset(0 0 0 0), 0.45s, power3.out)
+      // Key words highlighter wipe on landing
       if (markerBar) {
         tl.to(
           markerBar,
@@ -367,11 +324,11 @@ export function HeadlineSequencer() {
             duration: 0.45,
             ease: 'power3.out',
           },
-          0.75
+          0.65
         );
       }
 
-      // Shine glide across marker bar (xPercent: -100 → 200, 0.6s)
+      // Shine glide across marker bar
       if (shimmerEl) {
         tl.fromTo(
           shimmerEl,
@@ -381,7 +338,7 @@ export function HeadlineSequencer() {
             duration: 0.6,
             ease: 'power2.inOut',
           },
-          0.95
+          0.85
         );
       }
     },
@@ -562,8 +519,8 @@ export function HeadlineSequencer() {
     >
       {/* ── Accessible H1 for SEO ── */}
       <h1 className="sr-only">
-        Everything Under One Roof to Grow Your Brand. From Branding to Business Growth.
-        We Don’t Just Generate Leads. We Generate Business. From Leads to Sales, We Do It All.
+        Everything Under One Roof to Grow Your Brand.
+        We Don’t Just Generate Leads. We Generate Business.
         15+ Years of Marketing Expertise To Make Your Business Bigger.
       </h1>
 
@@ -608,8 +565,8 @@ export function HeadlineSequencer() {
       >
         {/* ══════════════════════════════════════════════════════
             SLIDE 1:
-            Main: Everything Under One Roof to Grow Your Brand.
-            Sub: From Branding to Business Growth.
+            Line 1: Everything Under One
+            Line 2: Roof to Grow Your Brand.
             ══════════════════════════════════════════════════════ */}
         <div
           ref={(el) => {
@@ -618,48 +575,39 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'visible' }}
         >
-          {/* Main Headline */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1">
-            <span className="word inline-block">Everything</span>
-            <span className="word inline-block">Under</span>
-            <span className="word inline-block">One</span>
-            <span className="word inline-block">Roof</span>
-            <span className="word inline-block">to</span>
-            <span className="word inline-block">
-              <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
-                <span
-                  className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
-                  style={{ clipPath: 'inset(0 100% 0 0)' }}
-                >
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] sm:leading-[1.2] tracking-[-0.03em] text-[clamp(1.35rem,4vw,3.1rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+            <div className="line-1 flex flex-wrap items-center justify-center gap-x-[0.28em]">
+              <span className="word inline-block">Everything</span>
+              <span className="word inline-block">Under</span>
+              <span className="word inline-block">One</span>
+            </div>
+            <div className="line-2 flex flex-wrap items-center justify-center gap-x-[0.28em]">
+              <span className="word inline-block">Roof</span>
+              <span className="word inline-block">to</span>
+              <span className="word inline-block">
+                <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
                   <span
-                    data-shimmer
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.28] to-transparent -translate-x-full pointer-events-none"
-                  />
-                </span>
-                <span className="relative z-10 text-[#0B0F0D] font-extrabold">
-                  Grow Your Brand.
+                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
+                    style={{ clipPath: 'inset(0 100% 0 0)' }}
+                  >
+                    <span
+                      data-shimmer
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.28] to-transparent -translate-x-full pointer-events-none"
+                    />
+                  </span>
+                  <span className="relative z-10 text-[#0B0F0D] font-extrabold">
+                    Grow Your Brand.
+                  </span>
                 </span>
               </span>
-            </span>
-          </div>
-
-          {/* Subheading underneath */}
-          <div className="slide-sub-line mt-2 sm:mt-2.5 flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
-            <span className="word inline-flex items-center gap-1.5 shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
-              <span>From</span>
-            </span>
-            <span className="word inline-block">Branding</span>
-            <span className="word inline-block">to</span>
-            <span className="word inline-block">Business</span>
-            <span className="word inline-block">Growth.</span>
+            </div>
           </div>
         </div>
 
         {/* ══════════════════════════════════════════════════════
             SLIDE 2:
-            Main: We Don’t Just Generate Leads. We Generate Business.
-            Sub: From Leads to Sales, We Do It All.
+            Line 1: We Don’t Just Generate Leads.
+            Line 2: We Generate Business.
             ══════════════════════════════════════════════════════ */}
         <div
           ref={(el) => {
@@ -668,16 +616,15 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'hidden' }}
         >
-          {/* Main Headline (2 Sentences) */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1">
-            <div className="s2-sent-1 inline-flex flex-wrap items-center justify-center gap-x-[0.28em]">
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] sm:leading-[1.2] tracking-[-0.03em] text-[clamp(1.35rem,4vw,3.1rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+            <div className="line-1 flex flex-wrap items-center justify-center gap-x-[0.28em]">
               <span className="word inline-block">We</span>
               <span className="word inline-block">Don’t</span>
               <span className="word inline-block">Just</span>
               <span className="word inline-block">Generate</span>
               <span className="word inline-block">Leads.</span>
             </div>
-            <div className="s2-sent-2 inline-flex flex-wrap items-center justify-center gap-x-[0.28em]">
+            <div className="line-2 flex flex-wrap items-center justify-center gap-x-[0.28em]">
               <span className="word inline-block">We</span>
               <span className="word inline-block">Generate</span>
               <span className="word inline-block">
@@ -698,27 +645,12 @@ export function HeadlineSequencer() {
               </span>
             </div>
           </div>
-
-          {/* Subheading underneath */}
-          <div className="slide-sub-line mt-2 sm:mt-2.5 flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
-            <span className="word inline-flex items-center gap-1.5 shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
-              <span>From</span>
-            </span>
-            <span className="word inline-block">Leads</span>
-            <span className="word inline-block">to</span>
-            <span className="word inline-block">Sales,</span>
-            <span className="word inline-block">We</span>
-            <span className="word inline-block">Do</span>
-            <span className="word inline-block">It</span>
-            <span className="word inline-block">All.</span>
-          </div>
         </div>
 
         {/* ══════════════════════════════════════════════════════
             SLIDE 3:
-            Main: 15+ Years of Marketing Expertise
-            Sub: To Make Your Business Bigger.
+            Line 1: 15+ Years of Marketing Expertise
+            Line 2: To Make Your Business Bigger.
             ══════════════════════════════════════════════════════ */}
         <div
           ref={(el) => {
@@ -727,53 +659,49 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'hidden' }}
         >
-          {/* Main Headline */}
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.2] sm:leading-[1.18] tracking-[-0.03em] text-[clamp(1.35rem,3.8vw,2.9rem)] flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1">
-            <span className="word inline-block">
-              <span
-                ref={count15ElRef}
-                className="count-15 text-[#22C55E] drop-shadow-[0_0_15px_rgba(34,197,94,0.4)]"
-              >
-                15+
-              </span>
-            </span>
-            <span className="word inline-block">Years</span>
-            <span className="word inline-block">of</span>
-            <span className="word inline-block">Marketing</span>
-            <span className="word inline-block">Expertise</span>
-          </div>
-
-          {/* Subheading underneath */}
-          <div className="slide-sub-line mt-2 sm:mt-2.5 flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1 text-xs sm:text-sm md:text-base font-semibold text-[#9FB0A7] tracking-tight">
-            <span className="word inline-flex items-center gap-1.5 shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
-              <span>To</span>
-            </span>
-            <span className="word inline-block">Make</span>
-            <span className="word inline-block">Your</span>
-            <span className="word inline-block">Business</span>
-            <span className="word inline-block">
-              <span className="relative inline-flex items-center px-2 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_15px_rgba(34,197,94,0.25)]">
+          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] sm:leading-[1.2] tracking-[-0.03em] text-[clamp(1.35rem,4vw,3.1rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+            <div className="line-1 flex flex-wrap items-center justify-center gap-x-[0.28em]">
+              <span className="word inline-block">
                 <span
-                  className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
-                  style={{ clipPath: 'inset(0 100% 0 0)' }}
+                  ref={count15ElRef}
+                  className="count-15 text-[#22C55E] drop-shadow-[0_0_15px_rgba(34,197,94,0.4)]"
                 >
-                  <span
-                    data-shimmer
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.28] to-transparent -translate-x-full pointer-events-none"
-                  />
-                </span>
-                <span className="relative z-10 text-[#0B0F0D] font-bold text-xs sm:text-sm md:text-base">
-                  Bigger.
+                  15+
                 </span>
               </span>
-            </span>
+              <span className="word inline-block">Years</span>
+              <span className="word inline-block">of</span>
+              <span className="word inline-block">Marketing</span>
+              <span className="word inline-block">Expertise</span>
+            </div>
+            <div className="line-2 flex flex-wrap items-center justify-center gap-x-[0.28em]">
+              <span className="word inline-block">To</span>
+              <span className="word inline-block">Make</span>
+              <span className="word inline-block">Your</span>
+              <span className="word inline-block">Business</span>
+              <span className="word inline-block">
+                <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
+                  <span
+                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
+                    style={{ clipPath: 'inset(0 100% 0 0)' }}
+                  >
+                    <span
+                      data-shimmer
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.28] to-transparent -translate-x-full pointer-events-none"
+                    />
+                  </span>
+                  <span className="relative z-10 text-[#0B0F0D] font-extrabold">
+                    Bigger.
+                  </span>
+                </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* ── Interactive Progress Segments 01 / 02 / 03 ── */}
-      <div
+      {/* <div
         className="flex items-center justify-center gap-2 sm:gap-3.5 mt-3 sm:mt-4 z-20"
         role="tablist"
         aria-label="Headline Slides"
@@ -810,7 +738,8 @@ export function HeadlineSequencer() {
             </button>
           );
         })}
-      </div>
+      </div> */}
+
     </div>
   );
 }

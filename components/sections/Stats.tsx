@@ -30,7 +30,7 @@ export const Stats: React.FC<StatsProps> = ({ overlap = false, className = '' })
       className={`relative z-20 w-full bg-[#0B0F0D] ${
         overlap
           ? '-translate-y-1/2 -mb-20 sm:-mb-24 lg:-mb-28 z-30'
-          : 'py-14 sm:py-20'
+          : 'pt-0 pb-12 sm:pb-16'
       } ${className}`}
     >
       <div className="w-[85%] mx-auto">

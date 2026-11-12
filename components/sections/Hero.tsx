@@ -86,13 +86,13 @@ export function Hero({
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-start overflow-hidden bg-[#0B0F0D] pt-[106px] sm:pt-32 lg:pt-[clamp(10.5rem,18vh,13.5rem)] pb-16 sm:pb-20 lg:pb-[clamp(4rem,8vh,6rem)]"
+      className="relative min-h-screen flex flex-col justify-start overflow-hidden bg-[#0B0F0D] pt-[106px] sm:pt-32 lg:pt-[clamp(10.5rem,18vh,13.5rem)] pb-5"
     >
       {/* Background: noise + grid + spotlight + particles (Single unified continuous canvas) */}
       <HeroBackground />
 
       {/* Hero Headline content - Centered */}
-      <div className="relative z-10 w-[95%] max-w-5xl lg:max-w-6xl mx-auto flex flex-col items-center text-center mb-1 sm:mb-6 lg:mb-14">
+      <div className="relative z-10 w-[95%] max-w-5xl lg:max-w-6xl mx-auto flex flex-col items-center text-center mb-5">
         <HeroHeadline
           badgeRef={badgeRef}
           line1Ref={line1Ref}
@@ -110,9 +110,9 @@ export function Hero({
 
       {/* Services Section Transition / Intro Header (Between Hero and Services) */}
       {showServicesHeading && (
-        <div className="relative z-10 w-full px-4 mx-auto flex flex-col items-center text-center mb-6 sm:mb-8 lg:mb-14">
+        <div className="relative z-10 w-full px-4 mx-auto flex flex-col items-center text-center mb-5">
           {/* Pulsing Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#16A34A]/10 border border-[#22C55E]/25 text-[#22C55E] text-xs font-mono uppercase tracking-wider mb-1.5 sm:mb-4">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#16A34A]/10 border border-[#22C55E]/25 text-[#22C55E] text-xs font-mono uppercase tracking-wider mb-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22C55E] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]" />

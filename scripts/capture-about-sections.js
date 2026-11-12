@@ -77,3 +77,4 @@ if (!fs.existsSync(outDir)) {
   console.log('Horizontal overflow check complete. All passed:', allPass);
   await browser.close();
 })();
+
