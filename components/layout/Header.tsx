@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import {
   HiMenu,
@@ -32,6 +33,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
+  const pathname = usePathname();
   const { variant } = useSiteVariant();
   const isTopBarLight = theme
     ? theme === 'light' || theme === 'top-light'
@@ -88,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/' },
+    { label: 'About', href: '/about' },
     { label: 'Services', href: '/#services', hasMegaMenu: true },
     // { label: 'Industries', href: '#industries' },
     { label: 'Tech Stack', href: '/#tech-stack' },
@@ -330,18 +332,41 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                 );
               }
 
+              const isActive =
+                item.href === '/'
+                  ? pathname === '/'
+                  : item.href === '/about'
+                    ? pathname === '/about'
+                    : false;
+
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`group relative py-2 text-sm font-semibold transition-colors ${isNavLight
-                      ? 'text-[#0B0F0D] hover:text-[#16A34A]'
-                      : 'text-white/90 hover:text-white'
-                    }`}
+                  className={`group relative py-2 text-sm font-semibold transition-colors ${
+                    isActive
+                      ? isNavLight
+                        ? 'text-[#16A34A] font-bold'
+                        : 'text-[#22C55E] font-bold drop-shadow-[0_0_12px_rgba(34,197,94,0.35)]'
+                      : isNavLight
+                        ? 'text-[#0B0F0D] hover:text-[#16A34A]'
+                        : 'text-white/90 hover:text-white'
+                  }`}
                 >
-                  <span>{item.label}</span>
-                  {/* Animated underline */}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#16A34A] to-[#22C55E] transition-all duration-300 group-hover:w-full" />
+                  <span className="flex items-center gap-1.5">
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
+                    )}
+                    <span>{item.label}</span>
+                  </span>
+                  {/* Active / Animated underline */}
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#16A34A] to-[#22C55E] transition-all duration-300 ${
+                      isActive
+                        ? 'w-full shadow-[0_0_8px_rgba(34,197,94,0.6)]'
+                        : 'w-0 group-hover:w-full'
+                    }`}
+                  />
                 </Link>
               );
             })}
@@ -469,17 +494,37 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                   );
                 }
 
+                const isActive =
+                  item.href === '/'
+                    ? pathname === '/'
+                    : item.href === '/about'
+                      ? pathname === '/about'
+                      : false;
+
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`text-lg font-bold py-2 border-b hover:text-[#16A34A] transition-colors ${isNavLight
-                        ? 'text-[#0B0F0D] border-gray-200'
-                        : 'text-white border-[#1A2420]'
-                      }`}
+                    className={`text-lg font-bold py-2 border-b flex items-center justify-between transition-colors ${
+                      isActive
+                        ? 'text-[#16A34A] border-[#16A34A]/40'
+                        : isNavLight
+                          ? 'text-[#0B0F0D] border-gray-200 hover:text-[#16A34A]'
+                          : 'text-white border-[#1A2420] hover:text-[#22C55E]'
+                    }`}
                   >
-                    {item.label}
+                    <span className="flex items-center gap-2">
+                      {isActive && (
+                        <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
+                      )}
+                      <span>{item.label}</span>
+                    </span>
+                    {isActive && (
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#16A34A]/15 text-[#16A34A] border border-[#16A34A]/30 font-mono">
+                        Current
+                      </span>
+                    )}
                   </Link>
                 );
               })}

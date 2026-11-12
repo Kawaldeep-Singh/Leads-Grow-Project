@@ -77,8 +77,9 @@ export const metadata: Metadata = {
     images: ['/logo/leadsgrow-logo.png'],
   },
   icons: {
-    icon: '/icon.png',
-    apple: '/icon.png',
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
   robots: {
     index: true,
