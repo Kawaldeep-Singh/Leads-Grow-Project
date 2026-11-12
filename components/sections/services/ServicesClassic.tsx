@@ -47,17 +47,33 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
   });
 
   return (
-    <div className="relative z-10 w-[85%] mx-auto">
+    <div className="relative z-10 w-full overflow-hidden py-5 sm:py-8">
+      {/* Soft ambient motion gives the full services area a little depth. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(22,163,74,0.08),transparent_58%)]" />
+        <motion.div
+          className={`absolute -top-28 left-[8%] h-72 w-72 rounded-full blur-3xl ${isLight ? 'bg-[#22C55E]/[0.07]' : 'bg-[#22C55E]/[0.08]'}`}
+          animate={prefersReducedMotion ? undefined : { x: [0, 50, 0], y: [0, 35, 0], scale: [1, 1.12, 1] }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className={`absolute top-[38%] -right-24 h-80 w-80 rounded-full blur-3xl ${isLight ? 'bg-[#16A34A]/[0.05]' : 'bg-[#16A34A]/[0.07]'}`}
+          animate={prefersReducedMotion ? undefined : { x: [0, -45, 0], y: [0, 45, 0], scale: [1.08, 1, 1.08] }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 21, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <div className={`absolute inset-0 opacity-[0.035] ${isLight ? 'text-[#0B0F0D]' : 'text-white'}`} style={{ backgroundImage: 'radial-gradient(currentColor 0.7px, transparent 0.8px)', backgroundSize: '26px 26px', maskImage: 'linear-gradient(to bottom, transparent, black 18%, black 82%, transparent)' }} />
+      </div>
+
       {/* Switch Component Slot */}
       {switchComponent && (
-        <div className="flex justify-center -mt-6 sm:-mt-8 mb-12 sm:mb-16">
+        <div className="relative z-10 flex justify-center -mt-6 sm:-mt-8 mb-12 sm:mb-16">
           {switchComponent}
         </div>
       )}
 
       {/* Dynamic Grid: Centered gracefully depending on number of filtered cards */}
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 gap-6 transition-all duration-300 ${
+        className={`relative z-10 w-[85%] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 transition-all duration-300 ${
           filteredServices.length >= 4
             ? 'lg:grid-cols-4'
             : filteredServices.length === 3
