@@ -108,7 +108,7 @@ export default function RootLayout({
         contactPoint: [
           {
             '@type': 'ContactPoint',
-            telephone: '+91 98765 43210',
+            telephone: '+91 98915 05081',
             contactType: 'sales',
             email: 'info@leadsgrow.in',
             areaServed: 'Worldwide',
@@ -136,7 +136,7 @@ export default function RootLayout({
           longitude: 77.0898,
         },
         openingHours: 'Mo-Sa 09:30-19:30',
-        telephone: '+91 98765 43210',
+        telephone: '+91 98915 05081',
       },
     ],
   };

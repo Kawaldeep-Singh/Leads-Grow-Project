@@ -27,7 +27,7 @@ export function VariantOne({ onOpenModal }: VariantProps) {
       />
 
       {/* Standalone Stats Strip */}
-      <Stats overlap={false} />
+      {/* <Stats overlap={false} /> */}
 
       {/* Decorative Tilted Dual Marquee Band */}
       <MarqueeBand />

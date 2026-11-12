@@ -61,7 +61,7 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
       <div className="w-[85%] mx-auto relative z-10">
         {/* Section Heading */}
         <SectionHeading
-          badge="Industries"
+          badge="What We Serve"
           plainText="Growing Businesses"
           highlightText="Across Industries."
           subtext="Domain-specific growth funnels optimized for high ticket and high volume conversion."
@@ -121,17 +121,11 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
           })}
         </div>
 
-        {/* "And More..." Static Badge with Subtle Hover */}
-        <div className="mt-10 sm:mt-12 flex justify-center items-center">
-          <div
-            className="group relative inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-all duration-300 shadow-sm bg-white border border-gray-300 text-[#0B0F0D] hover:border-[#16A34A] hover:text-[#16A34A] hover:shadow-[0_10px_25px_rgba(22,163,74,0.12)] hover:-translate-y-0.5 select-none cursor-default"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22C55E] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]" />
-            </span>
-            <span>And More...</span>
-          </div>
+        {/* Small label aligned beneath the final card. */}
+        <div className="mt-2 sm:mt-3 flex justify-end">
+          <span className="text-[11px] sm:text-xs font-semibold text-[#5B6B63]">
+            And more...
+          </span>
         </div>
       </div>
     </section>

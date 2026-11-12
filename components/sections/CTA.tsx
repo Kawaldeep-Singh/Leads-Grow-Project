@@ -83,7 +83,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
         </h2>
 
         {/* Subtitle */}
-        <motion.p
+        {/* <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -91,7 +91,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
           className="text-base sm:text-xl text-[#9FB0A7] max-w-2xl mx-auto leading-relaxed mb-10 font-normal"
         >
           Book a 30-minute tailored growth consultation. We analyze your competitors, calculate your projected CPL, and deliver an actionable execution roadmap.
-        </motion.p>
+        </motion.p> */}
 
         {/* CTA Action Buttons */}
         <motion.div
@@ -116,7 +116,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
           </MagneticButton>
 
           {/* Secondary WhatsApp Button */}
-          <a
+          {/* <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -124,7 +124,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
           >
             <FaWhatsapp className="h-5 w-5 text-[#25D366]" />
             <span>Chat on WhatsApp</span>
-          </a>
+          </a> */}
         </motion.div>
 
         {/* Guarantee notes */}

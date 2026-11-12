@@ -367,7 +367,7 @@ export const Modal: React.FC<ModalProps> = ({
                             <FiPhone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                             <input
                               type="tel"
-                              placeholder="+91 98765 43210"
+                              placeholder="+91 98915 05081"
                               {...register('phone')}
                               className={`w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50/90 border text-sm text-gray-900 placeholder:text-gray-400 focus:bg-white focus:outline-none focus:border-[#16A34A] focus:ring-2 focus:ring-[#16A34A]/20 transition-all ${
                                 errors.phone ? 'border-red-400' : 'border-gray-200 hover:border-gray-300'

@@ -76,7 +76,7 @@ export async function sendLeadNotifications(lead: LeadEmailData): Promise<void> 
         <p style="margin: 4px 0; color: #9FB0A7; font-size: 14px;"><strong>Email:</strong> ${lead.email}</p>
       </div>
       <p style="color: #9FB0A7; line-height: 1.6; font-size: 14px;">
-        In a hurry? Feel free to contact our senior strategist directly via WhatsApp or call us at <strong>+91 98765 43210</strong>.
+        In a hurry? Feel free to contact our senior strategist directly via WhatsApp or call us at <strong>+91 98915 05081</strong>.
       </p>
       <hr style="border: 0; border-top: 1px solid #1A2420; margin: 24px 0;" />
       <p style="color: #5B6B63; font-size: 12px; margin: 0; text-align: center;">

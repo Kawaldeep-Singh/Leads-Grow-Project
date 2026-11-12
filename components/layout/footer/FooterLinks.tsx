@@ -16,8 +16,9 @@ import {
 import {
   FaFacebookF,
   FaInstagram,
-  FaLinkedinIn,
+  FaWhatsapp,
   FaXTwitter,
+  FaLinkedinIn,
   FaYoutube,
 } from 'react-icons/fa6';
 import { BRAND } from '@/lib/constants';
@@ -46,8 +47,13 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
   const socialLinks = [
     { icon: FaFacebookF, href: BRAND.socials.facebook, label: 'Facebook' },
     { icon: FaInstagram, href: BRAND.socials.instagram, label: 'Instagram' },
-    { icon: FaLinkedinIn, href: BRAND.socials.linkedin, label: 'LinkedIn' },
+    {
+      icon: FaWhatsapp,
+      href: `https://wa.me/${BRAND.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(BRAND.whatsappMessage)}`,
+      label: 'WhatsApp',
+    },
     { icon: FaXTwitter, href: BRAND.socials.x, label: 'Twitter (X)' },
+    { icon: FaLinkedinIn, href: BRAND.socials.linkedin, label: 'LinkedIn' },
     { icon: FaYoutube, href: BRAND.socials.youtube, label: 'YouTube' },
   ];
 

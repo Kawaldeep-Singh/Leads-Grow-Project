@@ -29,7 +29,7 @@ export const FooterBottomBar: React.FC<FooterBottomBarProps> = ({
           © {currentYear} {BRAND.name}
           {BRAND.trademark}. All rights reserved. •{' '}
         </span>
-        <span className="text-[#9FB0A7] font-medium">{BRAND.tagline}</span>
+        {/* <span className="text-[#9FB0A7] font-medium">{BRAND.tagline}</span> */}
       </div>
 
       {/* ── Center: Legal & Sitemap Links (Properly Centered) ── */}

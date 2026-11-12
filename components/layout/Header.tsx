@@ -57,11 +57,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
 
   const socialLinks = [
     {
-      name: 'WhatsApp',
-      href: `https://wa.me/${BRAND.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(BRAND.whatsappMessage)}`,
-      icon: FaWhatsapp,
-    },
-    {
       name: 'Facebook',
       href: BRAND.socials.facebook,
       icon: FaFacebookF,
@@ -72,14 +67,19 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
       icon: FaInstagram,
     },
     {
-      name: 'LinkedIn',
-      href: BRAND.socials.linkedin,
-      icon: FaLinkedinIn,
+      name: 'WhatsApp',
+      href: `https://wa.me/${BRAND.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(BRAND.whatsappMessage)}`,
+      icon: FaWhatsapp,
     },
     {
       name: 'Twitter (X)',
       href: BRAND.socials.x,
       icon: FaXTwitter,
+    },
+    {
+      name: 'LinkedIn',
+      href: BRAND.socials.linkedin,
+      icon: FaLinkedinIn,
     },
     {
       name: 'YouTube',
