@@ -4,6 +4,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiBolt, HiArrowRight, HiCheckCircle } from 'react-icons/hi2';
 import { servicesData } from '@/data/services';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { serviceIcons } from './serviceIcons';
 
 export type ServiceCategory = 'all' | 'leads' | 'development' | 'design';
@@ -22,6 +23,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
   activeCategory = 'all',
 }) => {
   const isLight = theme === 'light';
+  const prefersReducedMotion = useReducedMotion();
 
   // Filter services by category
   const filteredServices = servicesData.filter((service) => {
@@ -85,6 +87,86 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
                   : 'bg-[#111815] border border-[#1A2420] hover:border-[#22C55E]/50 hover:shadow-[0_10px_35px_rgba(22,163,74,0.18)]'
               }`}
             >
+              {/* Quiet card texture and service icon watermark */}
+              <div aria-hidden="true" className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <div
+                  className={`absolute -top-16 -right-12 h-48 w-48 rounded-full ${
+                    isLight
+                      ? 'bg-[radial-gradient(circle,rgba(34,197,94,0.13),transparent_70%)]'
+                      : 'bg-[radial-gradient(circle,rgba(34,197,94,0.09),transparent_70%)]'
+                  }`}
+                />
+                <motion.div
+                  className={`absolute right-5 top-14 h-24 w-24 rounded-full border ${
+                    isLight ? 'border-[#0B0F0D]/[0.08]' : 'border-white/[0.08]'
+                  }`}
+                  initial={{ scale: 0.96, opacity: 0.32 }}
+                  whileInView={prefersReducedMotion ? undefined : { scale: 1.06, opacity: 0.58 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 5.5, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: index * 0.16 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                />
+                <motion.div
+                  className={`absolute right-9 top-[4.5rem] h-16 w-16 rounded-full border ${
+                    isLight ? 'border-[#16A34A]/[0.07]' : 'border-[#22C55E]/[0.08]'
+                  }`}
+                  initial={{ scale: 1, opacity: 0.28 }}
+                  whileInView={prefersReducedMotion ? undefined : { scale: 1.12, opacity: 0.55 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 4.8, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: index * 0.16 + 0.35 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                />
+                <div
+                  className={`absolute inset-0 opacity-[0.06] ${
+                    isLight ? 'text-[#0B0F0D]' : 'text-white'
+                  }`}
+                  style={{
+                    backgroundImage: 'radial-gradient(currentColor 0.75px, transparent 0.85px)',
+                    backgroundSize: '16px 16px',
+                    maskImage: 'linear-gradient(135deg, transparent 25%, black 100%)',
+                    WebkitMaskImage: 'linear-gradient(135deg, transparent 25%, black 100%)',
+                  }}
+                />
+                <motion.div
+                  className={`absolute right-7 top-[4.25rem] ${isLight ? 'text-[#0B0F0D]' : 'text-white'}`}
+                  initial={{ y: 0, rotate: 8, opacity: 0.045 }}
+                  whileInView={prefersReducedMotion ? undefined : { y: -5, rotate: 12, opacity: 0.075 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 6, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: index * 0.2 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                >
+                  <Icon className="h-[4.5rem] w-[4.5rem] drop-shadow-[0_0_10px_rgba(22,163,74,0.12)]" />
+                </motion.div>
+                <motion.svg
+                  viewBox="0 0 180 170"
+                  fill="none"
+                  aria-hidden="true"
+                  className={`absolute -right-3 top-[34%] h-40 w-40 ${isLight ? 'text-[#0B0F0D]' : 'text-white'}`}
+                  initial={{ y: 0, opacity: 0.13 }}
+                  whileInView={prefersReducedMotion ? undefined : { y: -5, opacity: 0.21 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 6.5, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut', delay: index * 0.18 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                >
+                  <path d="M171 17 135 35 148 54 105 75 116 96 76 119 52 126 19 153" stroke="currentColor" strokeOpacity="0.14" strokeWidth="1.5" strokeDasharray="4 7" />
+                  <motion.path
+                    d="M171 17 135 35 148 54 105 75 116 96 76 119 52 126 19 153"
+                    stroke="#22C55E"
+                    strokeOpacity="0.4"
+                    strokeWidth="1.5"
+                    strokeDasharray="4 7"
+                    initial={{ strokeDashoffset: 0 }}
+                    whileInView={prefersReducedMotion ? undefined : { strokeDashoffset: -33 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 7, repeat: Infinity, ease: 'linear', delay: index * 0.18 }}
+                    viewport={{ once: false, amount: 0.2 }}
+                  />
+                  <circle cx="135" cy="35" r="3" fill="#22C55E" fillOpacity="0.45" />
+                  <circle cx="105" cy="75" r="2.5" fill="currentColor" fillOpacity="0.32" />
+                  <circle cx="76" cy="119" r="3" fill="#22C55E" fillOpacity="0.4" />
+                  <rect x="106" y="123" width="8" height="30" rx="2" fill="currentColor" fillOpacity="0.14" />
+                  <rect x="121" y="111" width="8" height="42" rx="2" fill="currentColor" fillOpacity="0.16" />
+                  <rect x="136" y="98" width="8" height="55" rx="2" fill="#22C55E" fillOpacity="0.16" />
+                  <rect x="151" y="84" width="8" height="69" rx="2" fill="currentColor" fillOpacity="0.14" />
+                </motion.svg>
+                <div className={`absolute left-7 top-0 h-px w-28 bg-gradient-to-r from-transparent ${isLight ? 'via-[#0B0F0D]/20' : 'via-white/20'} to-[#22C55E]/30`} />
+              </div>
+
               {/* Large Faded Outline Number in Background */}
               <span
                 className="absolute -top-3 -right-2 text-7xl font-black select-none pointer-events-none opacity-5 group-hover:opacity-15 transition-opacity duration-300"

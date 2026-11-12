@@ -229,15 +229,32 @@ export function useFooterAnimations({
           start: 'top 92%',
           end: 'bottom 88%',
           scrub: 0.2,
+          onEnter: () => {
+            if (growthLineEl) {
+              gsap.to(growthLineEl, {
+                strokeDashoffset: 0,
+                duration: 0.45,
+                ease: 'power3.out',
+                overwrite: true,
+                onComplete: () => {
+                  const arrowHead = wordmarkEl.querySelector('.footer-growth-arrow-head');
+                  const arrowParts = arrowHead ? [growthLineEl, arrowHead] : [growthLineEl];
+                  gsap.to(arrowParts, {
+                    y: -5,
+                    duration: 0.65,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut',
+                    overwrite: true,
+                  });
+                },
+              });
+            }
+          },
           onUpdate: (self) => {
             const progress = self.progress;
             const percentage = Math.min(100, Math.max(0, Math.round(progress * 100)));
             wordmarkEl.style.setProperty('--p', `${percentage}%`);
-
-            if (growthLineEl) {
-              const offset = totalLength * (1 - progress);
-              growthLineEl.style.strokeDashoffset = `${offset}`;
-            }
           },
         });
       }

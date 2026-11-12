@@ -29,35 +29,26 @@ export const FooterWordmark: React.FC<FooterWordmarkProps> = ({
           viewBox="0 0 900 110"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto max-h-28 opacity-85 overflow-visible"
+          className="w-full h-auto max-h-28 opacity-100 overflow-visible"
           preserveAspectRatio="none"
         >
-          {/* Faint guide track */}
-          <path
-            d="M 20 95 C 200 95, 360 75, 510 55 C 660 35, 760 20, 870 12"
-            stroke="rgba(34, 197, 94, 0.15)"
-            strokeWidth="2"
-            strokeDasharray="4 6"
-            fill="none"
-          />
-
-          {/* Active scrubbed growth line */}
+          {/* Diagonal growth arrow crossing behind the O in Grow */}
           <path
             ref={growthLineRef}
-            d="M 20 95 C 200 95, 360 75, 510 55 C 660 35, 760 20, 870 12"
-            stroke="#22C55E"
-            strokeWidth="2.5"
+            d="M 620 96 L 690 12"
+            stroke="#86EFAC"
+            strokeWidth="4"
             strokeLinecap="round"
             fill="none"
             className="filter drop-shadow-[0_0_8px_rgba(34,197,94,0.6)]"
           />
 
-          {/* Growth arrowhead indicator at peak */}
-          <g transform="translate(870, 12) rotate(-16)">
+          {/* Upward diagonal arrowhead */}
+          <g transform="translate(690, 12) rotate(-50)">
             <polygon
-              points="-3,-6 12,0 -3,6"
-              fill="#22C55E"
-              className="filter drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]"
+              points="-4,-6 12,0 -4,6"
+              fill="#86EFAC"
+              className="footer-growth-arrow-head filter drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]"
             />
           </g>
         </svg>
