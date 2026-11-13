@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
+    { label: 'About', href: '/' },
     { label: 'Services', href: '/#services', hasMegaMenu: true },
     // { label: 'Industries', href: '#industries' },
     { label: 'Tech Stack', href: '/#tech-stack' },

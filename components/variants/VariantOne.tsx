@@ -40,7 +40,7 @@ export function VariantOne({ onOpenModal }: VariantProps) {
       />
 
       {/* Standalone Stats Strip: "You Believe. We Achieve." */}
-      <Stats overlap={false} />
+      {/* <Stats overlap={false} /> */}
 
       {/* Standalone Stats Strip: "You Believe. We Achieve." */}
       <Stats overlap={false} />
