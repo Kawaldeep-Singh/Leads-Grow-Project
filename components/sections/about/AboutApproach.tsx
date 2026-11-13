@@ -1,269 +1,191 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { registerGsapPlugins, gsap, ScrollTrigger } from '@/lib/gsap-register';
 import { aboutContent } from '@/data/about';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { ScrollWords } from './ScrollWords';
+
+const desktopHeights = [220, 255, 290, 325, 365];
 
 export const AboutApproach: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ghostRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const prefersReduced = useReducedMotion();
+  const desktopTrackRef = useRef<HTMLDivElement>(null);
+  const desktopStageRef = useRef<HTMLDivElement>(null);
+  const desktopCardsRef = useRef<HTMLElement[]>([]);
+  const markerRef = useRef<HTMLDivElement>(null);
+  const baselineRef = useRef<HTMLDivElement>(null);
+  const mobileLineRef = useRef<HTMLDivElement>(null);
+  const mobileCardsRef = useRef<HTMLElement[]>([]);
+  const reduced = useReducedMotion();
+  const [activeStep, setActiveStep] = useState(0);
 
-  useGSAP(
-    () => {
-      if (prefersReduced || !sectionRef.current) return;
-      registerGsapPlugins();
+  useGSAP(() => {
+    if (reduced || !sectionRef.current) return;
+    registerGsapPlugins();
+    const media = gsap.matchMedia();
 
-      // 1. Center / Left Timeline draw
-      if (lineRef.current && dotRef.current) {
-        gsap.fromTo(
-          lineRef.current,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 65%',
-              end: 'bottom 80%',
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
+    media.add('(min-width: 1024px)', () => {
+      const cards = desktopCardsRef.current.filter(Boolean);
+      const track = desktopTrackRef.current;
+      const stage = desktopStageRef.current;
+      if (!track || !stage || !cards.length) return;
 
-        gsap.fromTo(
-          dotRef.current,
-          { top: '0%' },
-          {
-            top: '100%',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 65%',
-              end: 'bottom 80%',
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-      }
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: track,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.7,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const step = Math.min(4, Math.floor(self.progress * 5));
+            setActiveStep((current) => current === step ? current : step);
+            const width = stage.clientWidth - 110;
+            const height = stage.clientHeight * 0.42;
+            if (markerRef.current) gsap.set(markerRef.current, {
+              x: width * self.progress,
+              y: -height * self.progress,
+            });
+            if (baselineRef.current) gsap.set(baselineRef.current, { scaleX: self.progress });
+          },
+        },
+      });
+      gsap.fromTo(cards[0], { scaleY: 0, transformOrigin: '50% 100%' }, {
+        scaleY: 1,
+        duration: 0.65,
+        ease: 'back.out(1.4)',
+        scrollTrigger: { trigger: track, start: 'top 75%', once: true },
+      });
+      const firstCopy = cards[0].querySelectorAll<HTMLElement>('[data-step-copy]');
+      gsap.fromTo(firstCopy, { y: 18, opacity: 0 }, {
+        y: 0,
+        opacity: 1,
+        duration: 0.55,
+        stagger: 0.04,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: track, start: 'top 75%', once: true },
+      });
+      cards.slice(1).forEach((card, offset) => {
+        const index = offset + 1;
+        timeline.fromTo(card, { scaleY: 0, transformOrigin: '50% 100%' }, {
+          scaleY: 1,
+          duration: 0.18,
+          ease: 'none',
+        }, (index - 1) * 0.23);
+        const words = card.querySelectorAll<HTMLElement>('[data-step-copy]');
+        timeline.fromTo(words, { yPercent: 35, opacity: 0 }, {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.12,
+          stagger: 0.012,
+          ease: 'power2.out',
+        }, (index - 1) * 0.23 + 0.08);
+      });
+    });
 
-      // 2. Parallax ghost word "Approach"
-      if (ghostRef.current) {
-        gsap.to(ghostRef.current, {
-          y: 70,
+    media.add('(max-width: 1023px)', () => {
+      if (mobileLineRef.current) {
+        gsap.fromTo(mobileLineRef.current, { scaleY: 0 }, {
+          scaleY: 1,
+          transformOrigin: 'top center',
           ease: 'none',
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
+            trigger: mobileLineRef.current.parentElement,
+            start: 'top 75%',
+            end: 'bottom 65%',
             scrub: true,
             invalidateOnRefresh: true,
           },
         });
       }
-
-      // 3. Step cards reveal and active step calculation via single ScrollTrigger
-      const validCards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-      if (validCards.length > 0) {
-        validCards.forEach((card, idx) => {
-          const isEven = idx % 2 === 0;
-          gsap.fromTo(
-            card,
-            {
-              opacity: 0,
-              x: isEven ? -40 : 40,
-              rotateY: isEven ? -10 : 10,
-            },
-            {
-              opacity: 1,
-              x: 0,
-              rotateY: 0,
-              duration: 0.8,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 85%',
-                toggleActions: 'play none none none',
-              },
-            }
-          );
+      mobileCardsRef.current.filter(Boolean).forEach((card, index) => {
+        gsap.fromTo(card, { scaleY: 0.82, y: 24, opacity: 0 }, {
+          scaleY: 1,
+          y: 0,
+          opacity: 1,
+          transformOrigin: '50% 100%',
+          duration: 0.65,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: card, start: 'top 83%', once: true },
+          onStart: () => setActiveStep((current) => current === index ? current : index),
         });
+      });
+    });
 
-        // Single ScrollTrigger to compute active step nearest to viewport center
-        ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top center',
-          end: 'bottom center',
-          onUpdate: () => {
-            const viewportCenter = window.innerHeight / 2;
-            let closestIdx = 0;
-            let minDistance = Infinity;
+    return () => media.revert();
+  }, { dependencies: [reduced], revertOnUpdate: true });
 
-            validCards.forEach((card, i) => {
-              const rect = card.getBoundingClientRect();
-              const cardCenter = rect.top + rect.height / 2;
-              const distance = Math.abs(viewportCenter - cardCenter);
-              if (distance < minDistance) {
-                minDistance = distance;
-                closestIdx = i;
-              }
-            });
-
-            validCards.forEach((card, i) => {
-              if (i === closestIdx) {
-                card.style.opacity = '1';
-                card.style.transform = 'scale(1.02)';
-                card.style.boxShadow = '0 10px 30px rgba(34,197,94,0.15)';
-              } else {
-                card.style.opacity = '0.55';
-                card.style.transform = 'scale(1)';
-                card.style.boxShadow = 'none';
-              }
-            });
-          },
-        });
-      }
-    },
-    { dependencies: [prefersReduced] }
-  );
+  const emphasis = (title: string) => {
+    const [first, last] = title.split(' to ');
+    return <>{first} to <span className="text-[#16A34A]">{last}</span></>;
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      aria-labelledby="about-approach-title"
-      className="relative bg-[#FFFFFF] text-[#0B0F0D] py-8 sm:py-12 lg:py-16 overflow-x-clip"
-    >
-      {/* Decorative Light Theme Background (aria-hidden, hidden on reduced-motion) */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none select-none overflow-hidden"
-      >
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full bg-[#16A34A]/8 blur-[130px]" />
-        <div className="absolute bottom-10 left-10 w-[450px] h-[450px] rounded-full bg-[#22C55E]/6 blur-[110px]" />
-
-        {/* Faint Grid */}
-        <div
-          className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage: `linear-gradient(to right, #16A34A 1px, transparent 1px), linear-gradient(to bottom, #16A34A 1px, transparent 1px)`,
-            backgroundSize: '40px 40px',
-          }}
-        />
-
-        {/* Ghost Outline Word "Approach" */}
-        {!prefersReduced && (
-          <div
-            ref={ghostRef}
-            className="decorative-ghost motion-reduce:hidden hidden lg:block absolute left-8 top-20 text-[13rem] font-display font-extrabold text-transparent select-none opacity-[0.035] leading-none"
-            style={{ WebkitTextStroke: '2px #16A34A' }}
-          >
-            Approach
-          </div>
-        )}
-      </div>
-
-      <div className="relative z-10 w-[92%] sm:w-[85%] max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/25 w-fit mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#16A34A]" aria-hidden="true" />
-            <span className="text-xs sm:text-sm font-mono font-bold tracking-wider text-[#16A34A]">
-              {aboutContent.approach.eyebrow}
-            </span>
-          </div>
-
-          <h2
-            id="about-approach-title"
-            className="font-display font-extrabold text-[#0B0F0D] text-[clamp(1.75rem,4.2vw,3.2rem)] leading-[1.12] tracking-[-0.03em] mb-4"
-          >
-            <span>From Strategy to </span>
-            <span className="bg-gradient-to-r from-[#16A34A] to-[#22C55E] bg-clip-text text-transparent">
-              Success.
-            </span>
+    <section ref={sectionRef} aria-labelledby="about-approach-title" className="relative overflow-x-clip bg-[#F6FAF7] py-24 text-[#0B0F0D] sm:py-28 lg:py-32">
+      <div aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-[34rem] w-[34rem] rounded-full bg-[#16A34A]/[0.06] blur-[120px]" />
+      <div className="relative z-10 mx-auto w-[90%] max-w-[88rem]">
+        <div className="mb-12 max-w-3xl sm:mb-16">
+          <p className="mb-5 font-mono text-xs font-semibold tracking-[0.16em] text-[#15803D]">{aboutContent.approach.eyebrow}</p>
+          <h2 id="about-approach-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
+            {emphasis(aboutContent.approach.title)}
           </h2>
-
-          <p className="text-base sm:text-lg text-[#5B6B63] leading-relaxed">
-            {aboutContent.approach.intro}
-          </p>
+          <p className="mt-5 text-base text-[#5B6B63] sm:text-lg">{aboutContent.approach.intro}</p>
         </div>
 
-        {/* Vertical Timeline */}
-        <div className="relative">
-          {/* Vertical Track Line (Centered on desktop, left on mobile) */}
-          <div
-            aria-hidden="true"
-            className="absolute top-0 bottom-8 w-1 bg-gray-200/80 rounded-full left-[18px] lg:left-1/2 lg:-translate-x-1/2"
-          >
-            <div
-              ref={lineRef}
-              className="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-[#16A34A] to-[#22C55E] rounded-full origin-top"
-              style={{ transform: prefersReduced ? 'none' : 'scaleY(0)' }}
-            />
-            {!prefersReduced && (
-              <div
-                ref={dotRef}
-                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-[#22C55E] shadow-[0_0_12px_rgba(34,197,94,0.9)] border-2 border-white"
-              />
-            )}
-            {/* Arrowhead at Step 05 */}
-            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[#16A34A]">
-              <svg viewBox="0 0 16 16" className="w-4 h-4 fill-current">
-                <path d="M8 14L2 6h12L8 14z" />
-              </svg>
+        <div ref={desktopTrackRef} className="approach-track hidden lg:block" style={{ minHeight: 'calc(100svh + 280svh)' }}>
+          <div ref={desktopStageRef} className="sticky top-0 flex h-[100svh] items-end overflow-hidden pb-[12svh]">
+            <div className="absolute bottom-[12svh] left-0 right-0 h-px bg-[#0B0F0D]/20">
+              <div ref={baselineRef} className="h-full w-full origin-left scale-x-0 bg-[#16A34A]" />
+              {aboutContent.approach.steps.map((step, index) => (
+                <span key={step.number} className="absolute -top-1 h-2 w-px bg-[#0B0F0D]/40" style={{ left: `${8 + index * 21}%` }} />
+              ))}
+            </div>
+            <div className="absolute bottom-[calc(12svh-18px)] left-0 right-0 h-0">
+              <div ref={markerRef} aria-hidden="true" className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 text-[#16A34A]">
+                <svg viewBox="0 0 28 28" className="h-8 w-8 fill-none stroke-current" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 20 20 5M9 5h11v11" /></svg>
+              </div>
+            </div>
+
+            <div className="grid w-full grid-cols-5 items-end gap-3 xl:gap-5">
+              {aboutContent.approach.steps.map((step, index) => (
+                <article
+                  key={step.number}
+                  ref={(node) => { if (node) desktopCardsRef.current[index] = node; }}
+                  aria-labelledby={`approach-desktop-${step.number}`}
+                  className={`relative flex min-w-0 origin-bottom flex-col justify-end border-t-2 p-4 pb-5 xl:p-5 ${activeStep === index ? 'border-[#16A34A] bg-white shadow-[0_14px_42px_rgba(11,15,13,0.1)]' : 'border-[#0B0F0D]/15 bg-white/75'}`}
+                  style={{ height: `${desktopHeights[index]}px` }}
+                >
+                  <span data-step-copy className="mb-auto font-display text-5xl font-extrabold leading-none tracking-[-0.06em] text-[#16A34A]/35 xl:text-6xl">{step.number}</span>
+                  <h3 id={`approach-desktop-${step.number}`} data-step-copy className="mb-2 font-display text-lg font-extrabold leading-tight tracking-tight text-[#0B0F0D] xl:text-xl">{step.title}</h3>
+                  <p data-step-copy className="text-xs leading-relaxed text-[#5B6B63] xl:text-sm">{step.text}</p>
+                </article>
+              ))}
             </div>
           </div>
+        </div>
 
-          {/* 5 Step Cards */}
-          <div className="flex flex-col gap-10 sm:gap-14 lg:gap-20">
-            {aboutContent.approach.steps.map((step, idx) => {
-              const isEven = idx % 2 === 0;
-              return (
-                <div
-                  key={step.number}
-                  className={`relative flex items-center ${
-                    isEven
-                      ? 'lg:flex-row'
-                      : 'lg:flex-row-reverse'
-                  } pl-12 lg:pl-0`}
-                >
-                  {/* Step Node Icon on Line */}
-                  <div
-                    className="absolute left-[18px] lg:left-1/2 -translate-x-1/2 w-9 h-9 lg:w-11 lg:h-11 rounded-full bg-white border-2 border-[#16A34A] shadow-[0_0_12px_rgba(22,163,74,0.3)] flex items-center justify-center font-mono font-bold text-xs lg:text-sm text-[#16A34A] z-20"
-                  >
-                    {step.number}
-                  </div>
-
-                  {/* Step Card Content */}
-                  <div
-                    ref={(el) => {
-                      cardsRef.current[idx] = el;
-                    }}
-                    className={`w-full lg:w-[45%] transition-all duration-400 p-6 sm:p-8 rounded-3xl bg-white/90 border border-gray-100 shadow-lg shadow-gray-200/50 hover:border-[#16A34A]/40 ${
-                      isEven ? 'lg:mr-auto lg:text-right' : 'lg:ml-auto lg:text-left'
-                    }`}
-                  >
-                    <h3 className="font-display font-extrabold text-xl sm:text-2xl text-[#0B0F0D] tracking-tight mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-[#5B6B63] leading-relaxed">
-                      {step.text}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+        <div className="relative lg:hidden">
+          <div aria-hidden="true" className="absolute bottom-0 left-[17px] top-0 w-px bg-[#0B0F0D]/15">
+            <div ref={mobileLineRef} className="h-full w-full origin-top bg-[#16A34A]" />
+          </div>
+          <div className="flex flex-col gap-5 pl-12 sm:gap-7 sm:pl-16">
+            {aboutContent.approach.steps.map((step, index) => (
+              <article
+                key={step.number}
+                ref={(node) => { if (node) mobileCardsRef.current[index] = node; }}
+                aria-labelledby={`approach-mobile-${step.number}`}
+                className={`relative origin-bottom rounded-2xl border border-black/5 bg-white p-5 shadow-[0_8px_28px_rgba(11,15,13,0.07)] sm:p-7 ${activeStep === index ? 'border-[#16A34A]/40' : ''}`}
+              >
+                <span aria-hidden="true" className="absolute -left-[43px] top-6 flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#16A34A] bg-[#F6FAF7] font-mono text-xs font-bold text-[#15803D] sm:-left-[57px]">{step.number}</span>
+                <h3 id={`approach-mobile-${step.number}`} className="font-display text-xl font-extrabold text-[#0B0F0D]">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#5B6B63]">{step.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: '@media (prefers-reduced-motion: reduce) { .decorative-ghost { display: none !important; } }' }} />
     </section>
   );
 };

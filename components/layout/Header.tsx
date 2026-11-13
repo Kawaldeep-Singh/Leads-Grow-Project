@@ -35,11 +35,13 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
   const pathname = usePathname();
   const { variant } = useSiteVariant();
-  const isTopBarLight = theme
-    ? theme === 'light' || theme === 'top-light'
-    : variant === 'v2' || variant === 'v3';
-  const isNavLight = theme ? theme === 'light' : variant === 'v2';
   const [isScrolled, setIsScrolled] = useState(false);
+  const isAboutPage = pathname === '/about';
+  const isHeaderScrolled = isScrolled || isAboutPage;
+  const isTopBarLight = !isAboutPage && (theme
+    ? theme === 'light' || theme === 'top-light'
+    : variant === 'v2' || variant === 'v3');
+  const isNavLight = !isAboutPage && (theme ? theme === 'light' : variant === 'v2');
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileServicesAccordion, setMobileServicesAccordion] = useState(false);
@@ -90,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/' },
+    { label: 'About', href: '/about' },
     { label: 'Services', href: '/#services', hasMegaMenu: true },
     // { label: 'Industries', href: '#industries' },
     { label: 'Tech Stack', href: '/#tech-stack' },
@@ -105,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
         className={`hidden lg:flex items-center text-xs transition-all duration-300 ${isTopBarLight
             ? 'bg-white border-b border-gray-200/90 text-gray-700 shadow-xs'
             : 'bg-[#0B0F0D] border-b border-[#1A2420] text-[#9FB0A7]'
-          } ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-b-0' : 'h-10.5 py-1.5 opacity-100'
+          } ${isHeaderScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-b-0' : 'h-10.5 py-1.5 opacity-100'
           }`}
       >
         <div className="w-[85%] mx-auto flex items-center justify-between">
@@ -175,10 +177,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
         {/* Main Navigation Bar */}
         <nav
           className={`w-full transition-all duration-300 ${isNavLight
-              ? isScrolled
+              ? isHeaderScrolled
                 ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-md shadow-gray-200/50 py-3.5'
                 : 'bg-white border-b border-gray-200/80 py-4 shadow-sm shadow-gray-100'
-              : isScrolled
+              : isHeaderScrolled
                 ? 'glass-nav shadow-lg shadow-black/30 py-3.5'
                 : 'bg-[#0B0F0D]/90 backdrop-blur-md border-b border-[#1A2420]/60 py-4 shadow-md shadow-black/20'
             }`}

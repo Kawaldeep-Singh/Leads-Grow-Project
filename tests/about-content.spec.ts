@@ -14,8 +14,10 @@ test.describe('About Page Content Accuracy', () => {
     });
 
     await page.goto('/about', { waitUntil: 'domcontentloaded' });
+    const preloader = page.locator('[aria-label="Loading LeadsGrow"]');
+    await preloader.waitFor({ state: 'attached', timeout: 8000 });
+    await preloader.waitFor({ state: 'detached', timeout: 8000 });
     await page.waitForSelector('main');
-    await page.waitForTimeout(300);
 
     // 2. Assert exactly one <h1> and its text equals hero.title
     const h1Elements = page.locator('h1');

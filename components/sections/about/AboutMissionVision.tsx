@@ -1,255 +1,130 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { registerGsapPlugins, gsap } from '@/lib/gsap-register';
 import { aboutContent } from '@/data/about';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
+type Panel = 'mission' | 'vision' | null;
+
 export const AboutMissionVision: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const cardMissionRef = useRef<HTMLDivElement>(null);
-  const cardVisionRef = useRef<HTMLDivElement>(null);
-  const ghostMissionRef = useRef<HTMLDivElement>(null);
-  const ghostVisionRef = useRef<HTMLDivElement>(null);
-  const prefersReduced = useReducedMotion();
+  const missionRef = useRef<HTMLElement>(null);
+  const visionRef = useRef<HTMLElement>(null);
+  const missionBarsRef = useRef<SVGRectElement[]>([]);
+  const reduced = useReducedMotion();
+  const [activePanel, setActivePanel] = useState<Panel>(null);
 
-  useGSAP(
-    () => {
-      if (prefersReduced || !sectionRef.current) return;
-      registerGsapPlugins();
+  useGSAP(() => {
+    if (reduced || !sectionRef.current) return;
+    registerGsapPlugins();
+    const panels = [missionRef.current, visionRef.current].filter((panel): panel is HTMLElement => Boolean(panel));
+    gsap.fromTo(panels, { clipPath: 'inset(100% 0 0 0)' }, {
+      clipPath: 'inset(0% 0 0 0)',
+      duration: 0.9,
+      stagger: 0.15,
+      ease: 'expo.out',
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 78%', once: true },
+    });
+    panels.forEach((panel) => {
+      const words = panel.querySelectorAll<HTMLElement>('[data-panel-word]');
+      gsap.fromTo(words, { scaleY: 0, transformOrigin: '50% 100%' }, {
+        scaleY: 1,
+        duration: 0.6,
+        stagger: 0.045,
+        ease: 'back.out(1.5)',
+        scrollTrigger: { trigger: panel, start: 'top 78%', once: true },
+      });
+    });
+    gsap.fromTo(missionBarsRef.current.filter(Boolean), { scaleY: 0, transformOrigin: '50% 100%' }, {
+      scaleY: 1,
+      duration: 0.55,
+      stagger: 0.12,
+      ease: 'back.out(1.5)',
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 70%', once: true },
+    });
+  }, { dependencies: [reduced], revertOnUpdate: true });
 
-      // 1. Entrance in 3D
-      const cards = [cardMissionRef.current, cardVisionRef.current].filter(Boolean);
-      if (cards.length > 0) {
-        gsap.fromTo(
-          cards,
-          {
-            opacity: 0,
-            y: 60,
-            rotateY: (idx) => (idx === 0 ? -20 : 20),
-          },
-          {
-            opacity: 1,
-            y: 0,
-            rotateY: 0,
-            stagger: 0.15,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 75%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      }
-
-      // 2. Ghost words drifting in opposite horizontal directions
-      if (ghostMissionRef.current) {
-        gsap.to(ghostMissionRef.current, {
-          x: -60,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
-      if (ghostVisionRef.current) {
-        gsap.to(ghostVisionRef.current, {
-          x: 60,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
-    },
-    { dependencies: [prefersReduced] }
-  );
-
-  // Mouse tilt for desktop cards (max 7deg)
-  const setupTilt = (card: HTMLDivElement | null) => {
-    if (!card || prefersReduced || typeof window === 'undefined') return;
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouch) return;
-
-    const xTo = gsap.quickTo(card, 'rotateY', { duration: 0.4, ease: 'power2.out' });
-    const yTo = gsap.quickTo(card, 'rotateX', { duration: 0.4, ease: 'power2.out' });
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      xTo(x * 12);
-      yTo(-y * 12);
-    };
-
-    const handleMouseLeave = () => {
-      xTo(0);
-      yTo(0);
-    };
-
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-  };
+  const canExpand = () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches;
+  const panelGrow = (panel: Panel) => activePanel === null ? 1 : activePanel === panel ? 1.35 : 1;
 
   return (
-    <section
-      ref={sectionRef}
-      aria-labelledby="about-mission-title"
-      className="relative bg-[#0B0F0D] py-8 sm:py-12 lg:py-16 overflow-x-clip"
-      style={{ perspective: '1200px' }}
-    >
-      {/* Background Decorative Ghost Words (aria-hidden, hidden on reduced-motion) */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none select-none overflow-hidden"
-      >
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-[#16A34A]/8 blur-[140px]" />
-
-        {!prefersReduced && (
-          <>
-            <div
-              ref={ghostMissionRef}
-              className="decorative-ghost motion-reduce:hidden hidden lg:block absolute left-4 top-12 text-[12rem] font-display font-extrabold text-transparent select-none opacity-[0.035] leading-none"
-              style={{ WebkitTextStroke: '2px #22C55E' }}
-            >
-              Mission
-            </div>
-            <div
-              ref={ghostVisionRef}
-              className="decorative-ghost motion-reduce:hidden hidden lg:block absolute right-4 bottom-12 text-[12rem] font-display font-extrabold text-transparent select-none opacity-[0.035] leading-none"
-              style={{ WebkitTextStroke: '2px #22C55E' }}
-            >
-              Vision
-            </div>
-          </>
-        )}
-      </div>
-
-      <div className="relative z-10 w-[92%] sm:w-[85%] max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
-          {/* Card 1: Mission */}
-          <div
-            ref={(el) => {
-              cardMissionRef.current = el;
-              setupTilt(el);
-            }}
-            className="group relative rounded-3xl p-8 sm:p-10 lg:p-12 bg-[#111815]/90 border border-[#1A2420] hover:border-[#22C55E]/40 backdrop-blur-xl shadow-2xl transition-colors duration-300 flex flex-col justify-between overflow-hidden"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            {/* Card inner glow */}
-            <div
-              aria-hidden="true"
-              className="absolute -top-24 -right-24 w-60 h-60 rounded-full bg-[#16A34A]/10 blur-3xl pointer-events-none group-hover:bg-[#22C55E]/15 transition-colors"
-            />
-
-            <div>
-              {/* Decorative SVG Graphic: Rising Arrow line */}
-              <div
-                aria-hidden="true"
-                className="w-14 h-14 rounded-2xl bg-[#16A34A]/10 border border-[#22C55E]/20 flex items-center justify-center mb-6 text-[#22C55E]"
-              >
-                <svg viewBox="0 0 40 40" className="w-8 h-8">
-                  <path
-                    d="M 8 32 L 28 12 M 28 12 L 14 12 M 28 12 L 28 26"
-                    fill="none"
-                    stroke="#22C55E"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <circle cx="8" cy="32" r="2.5" fill="#B6F23D" />
-                </svg>
-              </div>
-
-              {/* Eyebrow */}
-              <div className="text-xs sm:text-sm font-mono font-bold tracking-wider text-[#22C55E] mb-3">
-                {aboutContent.mission.eyebrow}
-              </div>
-
-              {/* H2 Title */}
-              <h2
-                id="about-mission-title"
-                className="font-display font-extrabold text-white text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1.15] tracking-[-0.03em] mb-5"
-              >
-                <span>Making Business </span>
-                <span className="bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-clip-text text-transparent">
-                  Growth Easier.
-                </span>
-              </h2>
-
-              {/* Mission Text */}
-              <p className="text-base sm:text-lg text-[#9FB0A7] leading-relaxed">
-                {aboutContent.mission.text}
-              </p>
-            </div>
+    <section ref={sectionRef} className="overflow-x-clip bg-[#0B0F0D]">
+      <div className="flex flex-col lg:flex-row min-h-0 lg:min-h-[34rem]">
+        <article
+          ref={missionRef}
+          aria-labelledby="about-mission-title"
+          tabIndex={0}
+          onMouseEnter={() => { if (canExpand()) setActivePanel('mission'); }}
+          onMouseLeave={() => setActivePanel(null)}
+          onFocus={() => { if (canExpand()) setActivePanel('mission'); }}
+          onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setActivePanel(null); }}
+          style={{ flexGrow: panelGrow('mission') }}
+          className="about-split-panel relative isolate flex min-h-[27rem] flex-col justify-center overflow-hidden bg-[#16A34A] px-[7%] py-16 text-[#0B0F0D] outline-none transition-[flex-grow] duration-500 ease-out focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#0B0F0D] lg:min-h-[34rem] lg:basis-0 lg:flex-1"
+        >
+          <MissionArt barsRef={missionBarsRef} />
+          <div className="relative z-10 mx-auto w-full max-w-2xl">
+            <p className="mb-6 font-mono text-xs font-semibold tracking-[0.16em]">{aboutContent.mission.eyebrow}</p>
+            <h2 id="about-mission-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
+              <span data-panel-word className="inline-block">Making</span>{' '}
+              <span data-panel-word className="inline-block">Business</span>{' '}
+              <span data-panel-word className="inline-block px-[0.08em] underline decoration-[#0B0F0D] decoration-[0.12em] underline-offset-[0.16em]">Growth</span>{' '}
+              <span data-panel-word className="inline-block px-[0.08em] underline decoration-[#0B0F0D] decoration-[0.12em] underline-offset-[0.16em]">Easier.</span>
+            </h2>
+            <p className="mt-7 max-w-xl text-base leading-relaxed text-[#0B0F0D]/85 sm:text-lg">{aboutContent.mission.text}</p>
           </div>
+        </article>
 
-          {/* Card 2: Vision */}
-          <div
-            ref={(el) => {
-              cardVisionRef.current = el;
-              setupTilt(el);
-            }}
-            className="group relative rounded-3xl p-8 sm:p-10 lg:p-12 bg-[#111815]/90 border border-[#1A2420] hover:border-[#22C55E]/40 backdrop-blur-xl shadow-2xl transition-colors duration-300 flex flex-col justify-between overflow-hidden"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            {/* Card inner glow */}
-            <div
-              aria-hidden="true"
-              className="absolute -bottom-24 -left-24 w-60 h-60 rounded-full bg-[#22C55E]/10 blur-3xl pointer-events-none group-hover:bg-[#22C55E]/15 transition-colors"
-            />
-
-            <div>
-              {/* Decorative SVG Graphic: Expanding Rings / Orbit */}
-              <div
-                aria-hidden="true"
-                className="w-14 h-14 rounded-2xl bg-[#16A34A]/10 border border-[#22C55E]/20 flex items-center justify-center mb-6 text-[#22C55E]"
-              >
-                <svg viewBox="0 0 40 40" className="w-8 h-8">
-                  <circle cx="20" cy="20" r="14" fill="none" stroke="#22C55E" strokeWidth="1.5" strokeDasharray="3 3" />
-                  <circle cx="20" cy="20" r="8" fill="none" stroke="#22C55E" strokeWidth="2" />
-                  <circle cx="20" cy="20" r="3" fill="#B6F23D" />
-                  <ellipse cx="20" cy="20" rx="16" ry="6" fill="none" stroke="#22C55E" strokeWidth="1" transform="rotate(-30 20 20)" opacity="0.6" />
-                </svg>
-              </div>
-
-              {/* Eyebrow */}
-              <div className="text-xs sm:text-sm font-mono font-bold tracking-wider text-[#22C55E] mb-3">
-                {aboutContent.vision.eyebrow}
-              </div>
-
-              {/* H2 Title */}
-              <h2
-                id="about-vision-title"
-                className="font-display font-extrabold text-white text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1.15] tracking-[-0.03em] mb-5"
-              >
-                <span>Building Brands </span>
-                <span className="bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-clip-text text-transparent">
-                  Without Boundaries.
-                </span>
-              </h2>
-
-              {/* Vision Text */}
-              <p className="text-base sm:text-lg text-[#9FB0A7] leading-relaxed">
-                {aboutContent.vision.text}
-              </p>
-            </div>
+        <article
+          ref={visionRef}
+          aria-labelledby="about-vision-title"
+          tabIndex={0}
+          onMouseEnter={() => { if (canExpand()) setActivePanel('vision'); }}
+          onMouseLeave={() => setActivePanel(null)}
+          onFocus={() => { if (canExpand()) setActivePanel('vision'); }}
+          onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setActivePanel(null); }}
+          style={{ flexGrow: panelGrow('vision') }}
+          className="about-split-panel relative isolate flex min-h-[27rem] flex-col justify-center overflow-hidden bg-[#0B0F0D] px-[7%] py-16 text-white outline-none transition-[flex-grow] duration-500 ease-out focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#22C55E] lg:min-h-[34rem] lg:basis-0 lg:flex-1"
+        >
+          <VisionArt />
+          <div className="relative z-10 mx-auto w-full max-w-2xl">
+            <p className="mb-6 font-mono text-xs font-semibold tracking-[0.16em] text-[#22C55E]">{aboutContent.vision.eyebrow}</p>
+            <h2 id="about-vision-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
+              <span data-panel-word className="inline-block">Building</span>{' '}
+              <span data-panel-word className="inline-block">Brands</span>{' '}
+              <span data-panel-word className="inline-block px-[0.08em] bg-[#16A34A] text-[#0B0F0D]">Without</span>{' '}
+              <span data-panel-word className="inline-block px-[0.08em] bg-[#16A34A] text-[#0B0F0D]">Boundaries.</span>
+            </h2>
+            <p className="mt-7 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">{aboutContent.vision.text}</p>
           </div>
-        </div>
+        </article>
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: '@media (prefers-reduced-motion: reduce) { .decorative-ghost { display: none !important; } }' }} />
     </section>
   );
 };
+
+const MissionArt: React.FC<{ barsRef: React.MutableRefObject<SVGRectElement[]> }> = ({ barsRef }) => (
+  <svg aria-hidden="true" viewBox="0 0 220 150" className="pointer-events-none absolute bottom-8 right-[8%] hidden h-36 w-52 opacity-35 sm:block">
+    <path d="M10 130H205" stroke="#0B0F0D" strokeOpacity=".55" />
+    {[{ x: 30, y: 100, h: 30 }, { x: 70, y: 78, h: 52 }, { x: 110, y: 55, h: 75 }, { x: 150, y: 31, h: 99 }].map((bar, index) => (
+      <rect key={bar.x} ref={(node) => { if (node) barsRef.current[index] = node; }} x={bar.x} y={bar.y} width="24" height={bar.h} rx="4" fill="#0B0F0D" />
+    ))}
+    <path d="M170 37l18-13m-18 0 18 0v13" fill="none" stroke="#0B0F0D" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const VisionArt: React.FC = () => (
+  <svg aria-hidden="true" viewBox="0 0 260 170" className="pointer-events-none absolute bottom-4 right-[7%] hidden h-44 w-64 overflow-visible opacity-35 sm:block">
+    <g fill="none" stroke="#22C55E" strokeWidth="1.5">
+      <path d="M20 150a110 110 0 0 1 220 0" />
+      <path d="M48 150a82 82 0 0 1 164 0" />
+      <path d="M76 150a54 54 0 0 1 108 0" />
+    </g>
+    <g className="about-orbit" style={{ transformOrigin: '130px 150px' }}>
+      <circle cx="20" cy="150" r="4" fill="#B6F23D" />
+      <circle cx="240" cy="150" r="3" fill="#22C55E" />
+    </g>
+    <style>{'@keyframes about-orbit{to{transform:rotate(360deg)}} .about-orbit{animation:about-orbit 24s linear infinite} @media(prefers-reduced-motion:reduce){.about-orbit{animation:none!important}}'}</style>
+  </svg>
+);
