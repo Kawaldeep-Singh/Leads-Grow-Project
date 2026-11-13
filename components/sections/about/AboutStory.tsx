@@ -6,6 +6,7 @@ import { registerGsapPlugins, gsap } from '@/lib/gsap-register';
 import { aboutContent } from '@/data/about';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ScrollWords } from './ScrollWords';
+import { SectionLabel } from './SectionLabel';
 
 export const AboutStory: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -70,9 +71,9 @@ export const AboutStory: React.FC = () => {
         </svg>
       </div>
 
-      <div className="relative z-10 mx-auto grid w-[90%] max-w-[88rem] grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
+      <div className="relative z-10 mx-auto grid w-[90%] grid-cols-1 gap-14 lg:w-[85%] lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
-          <p className="mb-6 font-mono text-xs font-semibold tracking-[0.16em] text-[#22C55E]">{aboutContent.story.eyebrow}</p>
+          <SectionLabel tone="dark">{aboutContent.story.eyebrow}</SectionLabel>
           <h2 ref={headingRef} id="about-story-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
             <span data-story-word className="inline-block">Every</span>{' '}
             <span data-story-word className="inline-block">Brand</span>{' '}
@@ -87,7 +88,7 @@ export const AboutStory: React.FC = () => {
         </div>
 
         <div className="relative flex gap-6 sm:gap-8 lg:col-span-7">
-          <div aria-hidden="true" className="absolute bottom-0 left-[11px] top-2 w-px bg-white/15 sm:left-[15px]">
+          <div aria-hidden="true" className="absolute bottom-0 left-2 top-2 w-px bg-white/15 sm:left-[10px]">
             <div ref={stemRef} className="h-full w-full origin-top bg-gradient-to-b from-[#22C55E] to-[#16A34A]" />
           </div>
           <div className="relative flex w-full flex-col gap-10 pl-9 sm:gap-12 sm:pl-12">

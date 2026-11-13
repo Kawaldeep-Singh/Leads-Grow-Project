@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react';
 import { registerGsapPlugins, gsap } from '@/lib/gsap-register';
 import { aboutContent } from '@/data/about';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { SectionLabel } from './SectionLabel';
 
 type Panel = 'mission' | 'vision' | null;
 
@@ -65,7 +66,7 @@ export const AboutMissionVision: React.FC = () => {
         >
           <MissionArt barsRef={missionBarsRef} />
           <div className="relative z-10 mx-auto w-full max-w-2xl">
-            <p className="mb-6 font-mono text-xs font-semibold tracking-[0.16em]">{aboutContent.mission.eyebrow}</p>
+            <SectionLabel tone="green">{aboutContent.mission.eyebrow}</SectionLabel>
             <h2 id="about-mission-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
               <span data-panel-word className="inline-block">Making</span>{' '}
               <span data-panel-word className="inline-block">Business</span>{' '}
@@ -89,7 +90,7 @@ export const AboutMissionVision: React.FC = () => {
         >
           <VisionArt />
           <div className="relative z-10 mx-auto w-full max-w-2xl">
-            <p className="mb-6 font-mono text-xs font-semibold tracking-[0.16em] text-[#22C55E]">{aboutContent.vision.eyebrow}</p>
+            <SectionLabel tone="ink">{aboutContent.vision.eyebrow}</SectionLabel>
             <h2 id="about-vision-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
               <span data-panel-word className="inline-block">Building</span>{' '}
               <span data-panel-word className="inline-block">Brands</span>{' '}

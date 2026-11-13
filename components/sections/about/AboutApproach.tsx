@@ -6,6 +6,7 @@ import { registerGsapPlugins, gsap, ScrollTrigger } from '@/lib/gsap-register';
 import { aboutContent } from '@/data/about';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ScrollWords } from './ScrollWords';
+import { SectionLabel } from './SectionLabel';
 
 const desktopHeights = [220, 255, 290, 325, 365];
 
@@ -125,9 +126,9 @@ export const AboutApproach: React.FC = () => {
   return (
     <section ref={sectionRef} aria-label={aboutContent.approach.eyebrow} className="relative overflow-x-clip bg-[#F6FAF7] py-24 text-[#0B0F0D] sm:py-28 lg:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-[34rem] w-[34rem] rounded-full bg-[#16A34A]/[0.06] blur-[120px]" />
-      <div className="relative z-10 mx-auto w-[90%] max-w-[88rem]">
+      <div className="relative z-10 mx-auto w-[90%] lg:w-[85%]">
         <div className="mb-12 max-w-3xl sm:mb-16 lg:hidden">
-          <p className="mb-5 font-mono text-xs font-semibold tracking-[0.16em] text-[#15803D]">{aboutContent.approach.eyebrow}</p>
+          <SectionLabel tone="light">{aboutContent.approach.eyebrow}</SectionLabel>
           <h2 id="about-approach-title-mobile" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
             {emphasis(aboutContent.approach.title)}
           </h2>
@@ -135,22 +136,22 @@ export const AboutApproach: React.FC = () => {
         </div>
 
         <div ref={desktopTrackRef} className="approach-track hidden lg:block" style={{ minHeight: 'calc(100svh + 280svh)' }}>
-          <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-[10svh] pb-[12svh]">
-            <div className="mx-auto w-[90%] max-w-[88rem] shrink-0 pb-7">
-              <p className="mb-5 font-mono text-xs font-semibold tracking-[0.16em] text-[#15803D]">{aboutContent.approach.eyebrow}</p>
+          <div className="sticky top-[88px] flex h-[calc(100svh-88px)] flex-col overflow-hidden pt-6 pb-[4svh]">
+            <div className="mx-auto w-full shrink-0 pb-5">
+              <SectionLabel tone="light">{aboutContent.approach.eyebrow}</SectionLabel>
               <h2 id="about-approach-title-desktop" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
                 {emphasis(aboutContent.approach.title)}
               </h2>
               <p className="mt-5 text-base text-[#5B6B63] sm:text-lg">{aboutContent.approach.intro}</p>
             </div>
-            <div ref={desktopStageRef} className="relative mx-auto flex min-h-0 w-[90%] max-w-[88rem] flex-1 items-end overflow-hidden pb-[4svh]">
+            <div ref={desktopStageRef} className="relative mx-auto flex min-h-0 w-full flex-1 items-end overflow-hidden pb-[3svh]">
             <div className="absolute bottom-[4svh] left-0 right-0 h-px bg-[#0B0F0D]/20">
               <div ref={baselineRef} className="h-full w-full origin-left scale-x-0 bg-[#16A34A]" />
               {aboutContent.approach.steps.map((step, index) => (
                 <span key={step.number} className="absolute -top-1 h-2 w-px bg-[#0B0F0D]/40" style={{ left: `${8 + index * 21}%` }} />
               ))}
             </div>
-            <div className="absolute bottom-[calc(4svh-18px)] left-0 right-0 h-0">
+            <div className="absolute bottom-[calc(3svh-18px)] left-0 right-0 h-0">
               <div ref={markerRef} aria-hidden="true" className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 text-[#16A34A]">
                 <svg viewBox="0 0 28 28" className="h-8 w-8 fill-none stroke-current" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 20 20 5M9 5h11v11" /></svg>
               </div>
@@ -163,7 +164,7 @@ export const AboutApproach: React.FC = () => {
                   ref={(node) => { if (node) desktopCardsRef.current[index] = node; }}
                   aria-labelledby={`approach-desktop-${step.number}`}
                   className={`relative flex min-w-0 origin-bottom flex-col justify-end border-t-2 p-4 pb-5 xl:p-5 ${activeStep === index ? 'border-[#16A34A] bg-white shadow-[0_14px_42px_rgba(11,15,13,0.1)]' : 'border-[#0B0F0D]/15 bg-white/75'}`}
-                  style={{ height: `${desktopHeights[index]}px` }}
+                  style={{ height: `${desktopHeights[index]}px`, maxHeight: 'max(190px, calc(100svh - 344px))' }}
                 >
                   <span data-step-copy className="mb-auto font-display text-5xl font-extrabold leading-none tracking-[-0.06em] text-[#16A34A]/35 xl:text-6xl">{step.number}</span>
                   <h3 id={`approach-desktop-${step.number}`} data-step-copy className="mb-2 font-display text-lg font-extrabold leading-tight tracking-tight text-[#0B0F0D] xl:text-xl">{step.title}</h3>
