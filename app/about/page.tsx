@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { AboutPage } from '@/components/sections/about/AboutPage';
 
+const ABOUT_HERO_VARIANT: 'v1' | 'v2' = 'v2';
+
 export const metadata: Metadata = {
   title: 'About LeadsGrow',
   description:
@@ -12,6 +14,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
-  return <AboutPage />;
+export default async function Page({ searchParams }: { searchParams: Promise<{ hero?: string }> }) {
+  const params = await searchParams;
+  const variant = params.hero === 'v1' || params.hero === 'v2' ? params.hero : ABOUT_HERO_VARIANT;
+  return <AboutPage heroVariant={variant} />;
 }

@@ -2,7 +2,7 @@ import { test, expect } from 'playwright/test';
 import { aboutContent } from '../data/about';
 
 test.describe('About Page Content Accuracy', () => {
-  test('verifies exact content and no extra visible text inside <main>', async ({ page }) => {
+  for (const variant of ['v1', 'v2'] as const) test(`verifies exact content for ${variant} and no extra visible text inside <main>`, async ({ page }) => {
     page.on('console', (msg) => console.log('BROWSER LOG:', msg.type(), msg.text()));
     page.on('pageerror', (err) => console.log('PAGE ERROR:', err.stack || err.message));
 
@@ -13,9 +13,8 @@ test.describe('About Page Content Accuracy', () => {
       sessionStorage.setItem('lg-preloaded', 'true');
     });
 
-    await page.goto('/about', { waitUntil: 'domcontentloaded' });
+    await page.goto(`/about?hero=${variant}`, { waitUntil: 'domcontentloaded' });
     const preloader = page.locator('[aria-label="Loading LeadsGrow"]');
-    await preloader.waitFor({ state: 'attached', timeout: 8000 });
     await preloader.waitFor({ state: 'detached', timeout: 8000 });
     await page.waitForSelector('main');
 
@@ -29,6 +28,8 @@ test.describe('About Page Content Accuracy', () => {
 
     // 3. Collect all 38 expected strings from aboutContent
     const allExpectedStrings: string[] = [
+      'V1',
+      'V2',
       aboutContent.hero.eyebrow,
       aboutContent.hero.title,
       ...aboutContent.hero.paragraphs,

@@ -126,7 +126,7 @@ export const AboutApproach: React.FC = () => {
     <section ref={sectionRef} aria-labelledby="about-approach-title" className="relative overflow-x-clip bg-[#F6FAF7] py-24 text-[#0B0F0D] sm:py-28 lg:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-[34rem] w-[34rem] rounded-full bg-[#16A34A]/[0.06] blur-[120px]" />
       <div className="relative z-10 mx-auto w-[90%] max-w-[88rem]">
-        <div className="mb-12 max-w-3xl sm:mb-16">
+        <div className="mb-12 max-w-3xl sm:mb-16 lg:sticky lg:top-24 lg:z-20 lg:mb-0 lg:bg-[#F6FAF7] lg:pb-5">
           <p className="mb-5 font-mono text-xs font-semibold tracking-[0.16em] text-[#15803D]">{aboutContent.approach.eyebrow}</p>
           <h2 id="about-approach-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
             {emphasis(aboutContent.approach.title)}
@@ -135,14 +135,14 @@ export const AboutApproach: React.FC = () => {
         </div>
 
         <div ref={desktopTrackRef} className="approach-track hidden lg:block" style={{ minHeight: 'calc(100svh + 280svh)' }}>
-          <div ref={desktopStageRef} className="sticky top-0 flex h-[100svh] items-end overflow-hidden pb-[12svh]">
-            <div className="absolute bottom-[12svh] left-0 right-0 h-px bg-[#0B0F0D]/20">
+          <div ref={desktopStageRef} className="sticky top-[280px] flex h-[calc(100svh-300px)] items-end overflow-hidden pb-[4svh]">
+            <div className="absolute bottom-[4svh] left-0 right-0 h-px bg-[#0B0F0D]/20">
               <div ref={baselineRef} className="h-full w-full origin-left scale-x-0 bg-[#16A34A]" />
               {aboutContent.approach.steps.map((step, index) => (
                 <span key={step.number} className="absolute -top-1 h-2 w-px bg-[#0B0F0D]/40" style={{ left: `${8 + index * 21}%` }} />
               ))}
             </div>
-            <div className="absolute bottom-[calc(12svh-18px)] left-0 right-0 h-0">
+            <div className="absolute bottom-[calc(4svh-18px)] left-0 right-0 h-0">
               <div ref={markerRef} aria-hidden="true" className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 text-[#16A34A]">
                 <svg viewBox="0 0 28 28" className="h-8 w-8 fill-none stroke-current" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 20 20 5M9 5h11v11" /></svg>
               </div>
