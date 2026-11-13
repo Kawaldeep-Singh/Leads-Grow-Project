@@ -36,7 +36,7 @@ export const AboutApproach: React.FC = () => {
         scrollTrigger: {
           trigger: track,
           start: 'top top',
-          end: 'bottom bottom',
+          end: 'bottom 150%',
           scrub: 0.7,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
@@ -123,19 +123,27 @@ export const AboutApproach: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} aria-labelledby="about-approach-title" className="relative overflow-x-clip bg-[#F6FAF7] py-24 text-[#0B0F0D] sm:py-28 lg:py-32">
+    <section ref={sectionRef} aria-label={aboutContent.approach.eyebrow} className="relative overflow-x-clip bg-[#F6FAF7] py-24 text-[#0B0F0D] sm:py-28 lg:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-[34rem] w-[34rem] rounded-full bg-[#16A34A]/[0.06] blur-[120px]" />
       <div className="relative z-10 mx-auto w-[90%] max-w-[88rem]">
-        <div className="mb-12 max-w-3xl sm:mb-16 lg:sticky lg:top-24 lg:z-20 lg:mb-0 lg:bg-[#F6FAF7] lg:pb-5">
+        <div className="mb-12 max-w-3xl sm:mb-16 lg:hidden">
           <p className="mb-5 font-mono text-xs font-semibold tracking-[0.16em] text-[#15803D]">{aboutContent.approach.eyebrow}</p>
-          <h2 id="about-approach-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
+          <h2 id="about-approach-title-mobile" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
             {emphasis(aboutContent.approach.title)}
           </h2>
           <p className="mt-5 text-base text-[#5B6B63] sm:text-lg">{aboutContent.approach.intro}</p>
         </div>
 
         <div ref={desktopTrackRef} className="approach-track hidden lg:block" style={{ minHeight: 'calc(100svh + 280svh)' }}>
-          <div ref={desktopStageRef} className="sticky top-[280px] flex h-[calc(100svh-300px)] items-end overflow-hidden pb-[4svh]">
+          <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-[10svh] pb-[12svh]">
+            <div className="mx-auto w-[90%] max-w-[88rem] shrink-0 pb-7">
+              <p className="mb-5 font-mono text-xs font-semibold tracking-[0.16em] text-[#15803D]">{aboutContent.approach.eyebrow}</p>
+              <h2 id="about-approach-title-desktop" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
+                {emphasis(aboutContent.approach.title)}
+              </h2>
+              <p className="mt-5 text-base text-[#5B6B63] sm:text-lg">{aboutContent.approach.intro}</p>
+            </div>
+            <div ref={desktopStageRef} className="relative mx-auto flex min-h-0 w-[90%] max-w-[88rem] flex-1 items-end overflow-hidden pb-[4svh]">
             <div className="absolute bottom-[4svh] left-0 right-0 h-px bg-[#0B0F0D]/20">
               <div ref={baselineRef} className="h-full w-full origin-left scale-x-0 bg-[#16A34A]" />
               {aboutContent.approach.steps.map((step, index) => (
@@ -162,6 +170,7 @@ export const AboutApproach: React.FC = () => {
                   <p data-step-copy className="text-xs leading-relaxed text-[#5B6B63] xl:text-sm">{step.text}</p>
                 </article>
               ))}
+            </div>
             </div>
           </div>
         </div>
