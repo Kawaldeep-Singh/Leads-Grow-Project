@@ -7,8 +7,6 @@ import { gsap, registerGsapPlugins } from '@/lib/gsap-register';
 import { useGSAP } from '@gsap/react';
 import { RisingArrow } from './RisingArrow';
 
-const titleLines = [['We', 'Don’t', 'Just'], ['Build', 'Brands.', 'We'], ['Grow', 'Businesses.']];
-
 export function AboutHeroV2() {
   const rootRef = useRef<HTMLElement>(null);
   const eyebrowRef = useRef<HTMLDivElement>(null);
@@ -38,18 +36,24 @@ export function AboutHeroV2() {
   }, { scope: rootRef, dependencies: [reduced], revertOnUpdate: true });
 
   const paragraphs = aboutContent.hero.paragraphs;
+  const titleBeforeGrowth = aboutContent.hero.title.slice(0, aboutContent.hero.title.indexOf('Grow Businesses.')).trimEnd();
+  const titleWords = [...titleBeforeGrowth.split(' '), 'Grow', 'Businesses.'];
+  const titleLines = [titleWords.slice(0, 3), titleWords.slice(3, 6), titleWords.slice(6)];
 
   return (
     <section ref={rootRef} aria-labelledby="about-hero-v2-title" className="relative overflow-hidden bg-[linear-gradient(180deg,#FFFFFF_0%,#FFFFFF_72%,#F6FAF7_100%)] text-[#0B0F0D]">
-      <div className="mx-auto w-[90%] max-w-[1200px] pt-28 pb-14 sm:w-[88%] lg:min-h-[100svh] lg:pt-20 lg:pb-12">
-        <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-12 sm:gap-5 lg:min-h-[calc(100svh-250px)] lg:gap-0">
+      <div className="mx-auto w-[90%] max-w-[1200px] pb-12 pt-28 sm:w-[88%] lg:flex lg:min-h-[calc(100svh-72px)] lg:flex-col lg:justify-center lg:pt-24">
+        <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-12 sm:gap-5 lg:flex-1 lg:grid-cols-12 lg:gap-0">
           <div className="sm:col-span-8 lg:col-span-7">
             <div ref={eyebrowRef} className="mb-5 flex items-center gap-3 font-mono text-[12px] tracking-[0.18em] text-[#15803D]">
               <span ref={eyebrowRuleRef} className="h-px w-6 bg-[#16A34A]" aria-hidden="true" />
               <span>{aboutContent.hero.eyebrow}</span>
             </div>
-            <h1 id="about-hero-v2-title" ref={titleRef} className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">
-              {titleLines.map((line, lineIndex) => <span key={`line-${lineIndex}`} ref={lineIndex === 2 ? greenWordsRef : undefined} className={`lg:block ${lineIndex === 2 ? 'text-[#16A34A]' : ''}`}>{line.map((word, wordIndex) => <span key={`${word}-${wordIndex}`}><span className="inline-block overflow-hidden align-bottom"><span data-hero-word className="inline-block">{word}</span></span>{wordIndex < line.length - 1 ? ' ' : ''}</span>)}{lineIndex < titleLines.length - 1 ? ' ' : ''}</span>)}
+            <h1 id="about-hero-v2-title" ref={titleRef} className="max-w-[13ch] font-display text-[clamp(2.2rem,9vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.035em] lg:max-w-none lg:text-[clamp(2.6rem,5.2vw,5rem)]">
+              {titleLines.map((line, lineIndex) => <span key={`line-${lineIndex}`} ref={lineIndex === 2 ? greenWordsRef : undefined} className={`lg:block ${lineIndex === 2 ? 'text-[#16A34A]' : ''}`}>{line.map((word, wordIndex) => {
+                const span = <span className="inline-block overflow-hidden align-bottom"><span data-hero-word className="inline-block">{word}</span></span>;
+                return <span key={`${word}-${wordIndex}`}>{span}{wordIndex < line.length - 1 ? ' ' : ''}</span>;
+              })}</span>)}
             </h1>
             <span ref={titleRuleRef} className="mt-6 block h-[3px] w-[72px] bg-[#16A34A]" aria-hidden="true" />
           </div>

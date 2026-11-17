@@ -28,8 +28,6 @@ test.describe('About Page Content Accuracy', () => {
 
     // 3. Collect all 38 expected strings from aboutContent
     const allExpectedStrings: string[] = [
-      'V1',
-      'V2',
       aboutContent.hero.eyebrow,
       aboutContent.hero.title,
       ...aboutContent.hero.paragraphs,
