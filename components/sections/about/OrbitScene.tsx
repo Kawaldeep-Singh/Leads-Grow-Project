@@ -155,10 +155,12 @@ export function OrbitScene({ introReady, reducedMotion }: { introReady: boolean;
           </g>
           <circle ref={(node) => { if (node) rippleRefs.current[0] = node; }} cx="300" cy="300" r="82" fill="none" stroke="#22C55E" strokeWidth="1" opacity={reducedMotion ? 0.16 : 0.18} />
           <circle ref={(node) => { if (node) rippleRefs.current[1] = node; }} cx="300" cy="300" r="128" fill="none" stroke="#16A34A" strokeWidth="1" opacity={reducedMotion ? 0.12 : 0.14} />
-          <g ref={arrowGroupRef} transform="translate(300 300)">
-            <g transform="rotate(-50) scale(3.15)" filter="url(#orbit-arrow-glow)" mask="url(#orbit-arrow-mask)">
-              <polygon points="100,0 80,-11.5 80,-5.4 0,0 80,5.4 80,11.5" fill="url(#orbit-arrow-gradient)" />
-              <path ref={sparkRef} d="M100,-5 102,-2 105,0 102,2 100,5 98,2 95,0 98,-2Z" fill="#F4FFD6" opacity={reducedMotion ? 1 : 0} />
+          <g transform="translate(223 392)">
+            <g ref={arrowGroupRef}>
+              <g transform="rotate(-50) scale(2.4)" filter="url(#orbit-arrow-glow)" mask="url(#orbit-arrow-mask)">
+                <polygon points="100,0 80,-11.5 80,-5.4 0,0 80,5.4 80,11.5" fill="url(#orbit-arrow-gradient)" />
+                <path ref={sparkRef} d="M100,-5 102,-2 105,0 102,2 100,5 98,2 95,0 98,-2Z" fill="#F4FFD6" opacity={reducedMotion ? 1 : 0} />
+              </g>
             </g>
           </g>
         </svg>

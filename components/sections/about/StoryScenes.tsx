@@ -4,8 +4,8 @@ import { useEffect, useRef } from 'react';
 import { ServiceIcon, type ServiceIconName } from './OrbitScene';
 
 const serviceIcons: ServiceIconName[] = ['megaphone', 'branding', 'website', 'performance', 'offline'];
-const roofStarts = [[72, 78], [420, 82], [82, 340], [418, 342], [250, 54]];
-const roofSlots = [158, 205, 250, 295, 342];
+const roofStarts = [[150, 338], [200, 338], [250, 338], [300, 338], [350, 338]];
+const roofSlots = [150, 200, 250, 300, 350];
 const barHeights = [75, 116, 158, 204, 255];
 
 function SceneOneRoof() {
@@ -16,13 +16,13 @@ function SceneOneRoof() {
       </defs>
       <g data-roof-final opacity="0">
         <path data-roof-outline d="M100 190 250 70 400 190M132 170v190h236V170" fill="none" stroke="url(#roof-stroke)" strokeWidth="3" strokeLinejoin="round" pathLength="1" strokeDasharray="1" strokeDashoffset="1" />
-        {roofSlots.map((x) => <rect key={x} data-roof-slot x={x - 15} y="224" width="30" height="52" rx="5" fill="#0B0F0D" stroke="#16A34A" strokeWidth="1.5" />)}
+        {roofSlots.map((x) => <rect key={x} data-roof-slot x={x - 24} y="248" width="48" height="4" rx="2" fill="#16A34A" />)}
       </g>
       <g data-roof-flying>
         {serviceIcons.map((icon, index) => (
           <g key={icon} data-roof-icon transform={`translate(${roofStarts[index][0]} ${roofStarts[index][1]})`}>
-            <circle r="23" fill="#F6FAF7" stroke="#16A34A" strokeWidth="1.5" />
-            <ServiceIcon name={icon} x={-13} y={-13} size={26} className="text-[#0B0F0D]" />
+            <circle r="18" fill="#F6FAF7" stroke="#16A34A" strokeWidth="1.5" />
+            <ServiceIcon name={icon} x={-11} y={-11} size={22} className="text-[#0B0F0D]" />
           </g>
         ))}
       </g>
@@ -83,15 +83,15 @@ export function renderStoryScene(scene: HTMLElement, chapter: number, progress: 
     const finalGroup = scene.querySelector<SVGGElement>('[data-roof-final]');
     const outline = scene.querySelector<SVGPathElement>('[data-roof-outline]');
     const icons = [...scene.querySelectorAll<SVGGElement>('[data-roof-icon]')];
-    flying?.setAttribute('opacity', String(1 - clamp((local - 0.58) / 0.28)));
-    finalGroup?.setAttribute('opacity', String(clamp((local - 0.42) / 0.4)));
-    outline?.setAttribute('stroke-dashoffset', String(1 - clamp((local - 0.42) / 0.48)));
-    scene.querySelectorAll<SVGRectElement>('[data-roof-slot]').forEach((slot, index) => slot.setAttribute('opacity', String(clamp((local - 0.55 - index * 0.025) / 0.25))));
+    flying?.setAttribute('opacity', String(1 - clamp((local - 0.82) / 0.16)));
+    finalGroup?.setAttribute('opacity', String(clamp((local - 0.1) / 0.28)));
+    outline?.setAttribute('stroke-dashoffset', String(1 - clamp((local - 0.1) / 0.38)));
+    scene.querySelectorAll<SVGRectElement>('[data-roof-slot]').forEach((slot, index) => slot.setAttribute('opacity', String(clamp((local - 0.2 - index * 0.015) / 0.2))));
     icons.forEach((icon, index) => {
       const [sx, sy] = roofStarts[index];
       const tx = roofSlots[index];
       const ty = 250;
-      const t = clamp(local / 0.72);
+      const t = clamp(local / 0.35);
       const x = sx + (tx - sx) * t;
       const y = sy + (ty - sy) * t;
       icon.setAttribute('transform', `translate(${x} ${y})`);

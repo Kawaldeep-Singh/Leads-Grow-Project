@@ -32,7 +32,9 @@ export function AboutStoryV3() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const layoutRef = useRef<HTMLDivElement>(null);
   const articleRefs = useRef<HTMLElement[]>([]);
+  const dividerRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const dotRefs = useRef<HTMLSpanElement[]>([]);
   const reducedMotion = useReducedMotion();
@@ -63,6 +65,19 @@ export function AboutStoryV3() {
           const scene = scenes[index];
           if (scene) renderStoryScene(scene, index, clamp(phase - index));
         });
+        const activeIndex = weights.indexOf(Math.max(...weights));
+        const activeText = articles[activeIndex]?.querySelector('p');
+        const layoutBounds = layoutRef.current?.getBoundingClientRect();
+        const textBounds = activeText?.getBoundingClientRect();
+        if (dividerRef.current && layoutBounds && textBounds) {
+          const top = textBounds.top - layoutBounds.top;
+          const height = textBounds.height;
+          dividerRef.current.style.top = `${top}px`;
+          dividerRef.current.style.height = `${height}px`;
+          dotRefs.current.filter(Boolean).forEach((dot, index) => {
+            dot.style.top = `${top + height * (index / 2)}px`;
+          });
+        }
         if (progressRef.current) progressRef.current.style.transform = `scaleY(${progress})`;
         dotRefs.current.filter(Boolean).forEach((dot, index) => {
           const active = weights[index] > 0.5;
@@ -118,13 +133,13 @@ export function AboutStoryV3() {
   return (
     <section ref={sectionRef} aria-label="About LeadsGrow story" className="relative bg-[#F6FAF7] text-[#0B0F0D]">
       <div ref={trackRef} data-story-track className={`relative ${reducedMotion ? '' : 'lg:h-[310svh]'}`}>
-        <div ref={stageRef} className={`relative ${reducedMotion ? '' : 'lg:sticky lg:top-0 lg:h-[100svh]'}`}>
+        <div ref={stageRef} className={`relative ${reducedMotion ? '' : 'lg:sticky lg:top-[76px] lg:h-[calc(100svh-76px)]'}`}>
           <div className={`relative mx-auto w-[90%] max-w-[1280px] py-16 sm:w-[88%] sm:py-20 lg:w-[85%] ${reducedMotion ? '' : 'lg:h-full lg:py-0'}`}>
-            <div className={`relative ${reducedMotion ? 'flex flex-col gap-14' : 'lg:h-full'}`}>
-              {!reducedMotion && <div aria-hidden="true" className="absolute left-1/2 top-[15%] hidden h-[70%] w-[3px] -translate-x-1/2 bg-[#0B0F0D]/15 lg:ml-4 lg:block">
+            <div ref={layoutRef} className={`relative ${reducedMotion ? 'flex flex-col gap-14' : 'lg:h-full'}`}>
+              {!reducedMotion && <div ref={dividerRef} aria-hidden="true" className="absolute left-[57.8%] top-0 hidden w-[3px] bg-[#0B0F0D]/15 lg:block">
                 <div ref={progressRef} className="h-full w-full origin-top scale-y-0 bg-[#16A34A]" />
               </div>}
-              {!reducedMotion && [0, 1, 2].map((index) => <span key={index} ref={(node) => { if (node) dotRefs.current[index] = node; }} aria-hidden="true" className="absolute left-1/2 z-20 hidden size-[10px] -translate-x-1/2 rounded-full border-2 border-[#16A34A] bg-[#F6FAF7] transition-transform lg:ml-4 lg:block" style={{ top: index === 0 ? '15%' : index === 1 ? '50%' : '85%' }} />)}
+              {!reducedMotion && [0, 1, 2].map((index) => <span key={index} ref={(node) => { if (node) dotRefs.current[index] = node; }} aria-hidden="true" className="absolute left-[calc(57.8%+1.5px)] z-20 hidden size-[10px] rounded-full border-2 border-[#16A34A] bg-[#F6FAF7] transition-transform lg:block" />)}
 
               {paragraphs.map((paragraph, index) => (
                 <article
