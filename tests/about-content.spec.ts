@@ -2,7 +2,7 @@ import { test, expect } from 'playwright/test';
 import { aboutContent } from '../data/about';
 
 test.describe('About Page Content Accuracy', () => {
-  for (const variant of ['v1', 'v2'] as const) test(`verifies exact content for ${variant} and no extra visible text inside <main>`, async ({ page }) => {
+  for (const variant of ['v1', 'v2', 'v3'] as const) test(`verifies exact content for ${variant} and no extra visible text inside <main>`, async ({ page }) => {
     page.on('console', (msg) => console.log('BROWSER LOG:', msg.type(), msg.text()));
     page.on('pageerror', (err) => console.log('PAGE ERROR:', err.stack || err.message));
 

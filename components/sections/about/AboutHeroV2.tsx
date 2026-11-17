@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { aboutContent } from '@/data/about';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { gsap, registerGsapPlugins } from '@/lib/gsap-register';
@@ -50,10 +50,19 @@ export function AboutHeroV2() {
               <span>{aboutContent.hero.eyebrow}</span>
             </div>
             <h1 id="about-hero-v2-title" ref={titleRef} className="max-w-[13ch] font-display text-[clamp(2.2rem,9vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.035em] lg:max-w-none lg:text-[clamp(2.6rem,5.2vw,5rem)]">
-              {titleLines.map((line, lineIndex) => <span key={`line-${lineIndex}`} ref={lineIndex === 2 ? greenWordsRef : undefined} className={`lg:block ${lineIndex === 2 ? 'text-[#16A34A]' : ''}`}>{line.map((word, wordIndex) => {
-                const span = <span className="inline-block overflow-hidden align-bottom"><span data-hero-word className="inline-block">{word}</span></span>;
-                return <span key={`${word}-${wordIndex}`}>{span}{wordIndex < line.length - 1 ? ' ' : ''}</span>;
-              })}</span>)}
+              {titleLines.map((line, lineIndex) => (
+                <Fragment key={`line-${lineIndex}`}>
+                  <span ref={lineIndex === 2 ? greenWordsRef : undefined} className={`lg:block ${lineIndex === 2 ? 'text-[#16A34A]' : ''}`}>
+                    {line.map((word, wordIndex) => (
+                      <span key={`${word}-${wordIndex}`}>
+                        <span className="inline-block overflow-hidden align-bottom"><span data-hero-word className="inline-block">{word}</span></span>
+                        {wordIndex < line.length - 1 ? ' ' : ''}
+                      </span>
+                    ))}
+                  </span>
+                  {lineIndex < titleLines.length - 1 ? ' ' : null}
+                </Fragment>
+              ))}
             </h1>
             <span ref={titleRuleRef} className="mt-6 block h-[3px] w-[72px] bg-[#16A34A]" aria-hidden="true" />
           </div>
