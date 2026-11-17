@@ -37,10 +37,10 @@ export function ServiceLandingPage({ content }: { content: ServicePageContent })
         <ServiceHero content={content} />
         <ServiceOverview content={content} />
         <ServiceCatalog content={content} />
-        <ServiceProof content={content} />
-        <ServiceProcess content={content} />
-        <ServiceIndustries content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
-        <ServiceCTA content={content} />
+        {/* <ServiceProof content={content} /> */}
+        {/* <ServiceProcess content={content} /> */}
+        {/* <ServiceIndustries content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} /> */}
+        {/* <ServiceCTA content={content} /> */}
       </main>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} defaultService={selectedService} source={modalSource} />
       <Footer />
