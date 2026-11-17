@@ -164,7 +164,13 @@ export function Hero({
       {/* Services Grid - Unified inside same section with same continuous background */}
       <div id="services" className="relative z-10 w-full">
         <ServicesClassic
-          onSelectService={onSelectService || (() => { })}
+          onSelectService={(serviceTitle) => {
+            if (serviceTitle === 'Digital Marketing') {
+              window.location.assign('/services/digital-marketing');
+              return;
+            }
+            onSelectService?.(serviceTitle);
+          }}
           theme={theme}
           activeCategory={activeCategory}
         />
