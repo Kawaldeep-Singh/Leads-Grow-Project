@@ -1,169 +1,138 @@
 'use client';
 
-import { useId, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { aboutContent } from '@/data/about';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { gsap, registerGsapPlugins, SplitText } from '@/lib/gsap-register';
+import { OrbitScene } from './OrbitScene';
 
 export function AboutHeroV3() {
   const rootRef = useRef<HTMLElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const eyebrowRef = useRef<HTMLDivElement>(null);
-  const eyebrowRuleRef = useRef<HTMLSpanElement>(null);
+  const ruleRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const firstLineRef = useRef<HTMLSpanElement>(null);
-  const secondLineRef = useRef<HTMLSpanElement>(null);
-  const gradientWordRef = useRef<HTMLSpanElement>(null);
+  const lineOneRef = useRef<HTMLSpanElement>(null);
+  const lineTwoRef = useRef<HTMLSpanElement>(null);
+  const lineThreeRef = useRef<HTMLSpanElement>(null);
+  const underlineRef = useRef<SVGPathElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
-  const arrowContainerRef = useRef<HTMLDivElement>(null);
-  const arrowMaskRef = useRef<SVGRectElement>(null);
-  const sparkRef = useRef<SVGPathElement>(null);
-  const reduced = useReducedMotion();
-  const reactId = useId();
-  const arrowId = `about-growth-${reactId.replace(/:/g, '')}`;
-
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  const [introReady, setIntroReady] = useState(false);
   const { title, eyebrow, paragraphs } = aboutContent.hero;
-  const growthPhraseStart = title.lastIndexOf('We Grow ');
-  const firstLine = title.slice(0, growthPhraseStart).trimEnd();
-  const secondLine = title.slice(growthPhraseStart);
-  const growthWord = 'Businesses.';
-  const secondLinePrefix = secondLine.slice(0, secondLine.length - growthWord.length);
+  const titleWords = title.split(' ');
+  const lines = [titleWords.slice(0, 3).join(' '), titleWords.slice(3, 5).join(' '), titleWords.slice(5).join(' ')];
+
+  useEffect(() => {
+    if (reducedMotion || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIntroReady(true);
+      return;
+    }
+    let timer: number | undefined;
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      window.removeEventListener('leadsgrow:preloaderComplete', start);
+      if (timer !== undefined) window.clearTimeout(timer);
+      setIntroReady(true);
+    };
+    let preloaded = false;
+    try { preloaded = sessionStorage.getItem('lg-preloaded') === 'true'; } catch { /* Fall back to the preloader event. */ }
+    if (preloaded) start();
+    else {
+      window.addEventListener('leadsgrow:preloaderComplete', start, { once: true });
+      timer = window.setTimeout(start, 600);
+    }
+    return () => {
+      window.removeEventListener('leadsgrow:preloaderComplete', start);
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [reducedMotion]);
 
   useGSAP(() => {
     registerGsapPlugins();
     const root = rootRef.current;
-    if (!root || reduced || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const eyebrow = eyebrowRef.current;
+    const rule = ruleRef.current;
+    const titleElement = titleRef.current;
+    const lineOne = lineOneRef.current;
+    const lineTwo = lineTwoRef.current;
+    const lineThree = lineThreeRef.current;
+    const underline = underlineRef.current;
+    const paragraph = paragraphRef.current;
+    const scene = sceneRef.current;
+    if (!root || !eyebrow || !rule || !titleElement || !lineOne || !lineTwo || !lineThree || !underline || !paragraph || !scene || !introReady || reducedMotion) return;
 
-    let started = false;
-    let startTimer: number | undefined;
-    let context: gsap.Context | undefined;
-    let observer: IntersectionObserver | undefined;
+    const context = gsap.context(() => {
+      const splitOne = new SplitText(lineOne, { type: 'words', mask: 'words' });
+      const splitTwo = new SplitText(lineTwo, { type: 'words', mask: 'words' });
+      const splitThree = new SplitText(lineThree, { type: 'words', mask: 'words' });
+      const gradientWords = splitThree.words.map((word) => word.firstElementChild).filter((word): word is HTMLElement => word instanceof HTMLElement);
+      gradientWords.forEach((word) => {
+        word.style.backgroundImage = 'linear-gradient(90deg, #22C55E 0%, #B6F23D 100%)';
+        word.style.backgroundSize = '200% 100%';
+        word.style.backgroundPosition = '100% 0%';
+        word.style.backgroundClip = 'text';
+        word.style.webkitBackgroundClip = 'text';
+        word.style.color = 'transparent';
+      });
+      const intro = gsap.timeline();
+      intro.fromTo(eyebrow, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0);
+      intro.fromTo(rule, { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 0.5, ease: 'power2.out' }, 0);
+      const revealWords = (words: Element[], at: number) => intro.fromTo(words,
+        { yPercent: 100, rotationX: 40, transformOrigin: '50% 100%', transformPerspective: 600 },
+        { yPercent: 0, rotationX: 0, duration: 0.9, stagger: 0.06, ease: 'expo.out' }, at,
+      );
+      revealWords(splitOne.words, 0.3);
+      revealWords(splitTwo.words, 0.42);
+      revealWords(splitThree.words, 0.54);
+      intro.to(lineTwo, { webkitTextFillColor: '#FFFFFF', duration: 0.2, ease: 'power1.out' }, 1.42);
+      intro.to(lineTwo, { webkitTextFillColor: 'transparent', duration: 0.2, ease: 'power1.out' }, 1.62);
+      intro.fromTo(gradientWords, { backgroundPosition: '100% 0%' }, { backgroundPosition: '0% 0%', duration: 0.55, ease: 'power2.out' }, 1.55);
+      intro.fromTo(underline, { strokeDashoffset: 500 }, { strokeDashoffset: 0, duration: 0.6, ease: 'power2.out' }, 1.6);
+      intro.fromTo(paragraph, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, 2.0);
 
-    const onPreloaderComplete = () => startAnimations();
-    const startAnimations = () => {
-      if (started) return;
-      started = true;
-      window.removeEventListener('leadsgrow:preloaderComplete', onPreloaderComplete);
-      if (startTimer !== undefined) window.clearTimeout(startTimer);
+      const scrollOut = gsap.timeline({
+        scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: true, invalidateOnRefresh: true },
+      });
+      scrollOut.to(scene, { scale: 1.15, opacity: 0, ease: 'none' }, 0);
+      scrollOut.to(titleElement, { yPercent: -6, ease: 'none' }, 0);
 
-      const eyebrow = eyebrowRef.current;
-      const eyebrowRule = eyebrowRuleRef.current;
-      const titleElement = titleRef.current;
-      const firstLineElement = firstLineRef.current;
-      const secondLineElement = secondLineRef.current;
-      const gradientWord = gradientWordRef.current;
-      const paragraph = paragraphRef.current;
-      const arrow = arrowContainerRef.current;
-      const maskRect = arrowMaskRef.current;
-      const spark = sparkRef.current;
-      const content = contentRef.current;
-      if (!eyebrow || !eyebrowRule || !titleElement || !firstLineElement || !secondLineElement || !gradientWord || !paragraph || !arrow || !maskRect || !spark || !content) return;
+      return () => {
+        splitOne.revert();
+        splitTwo.revert();
+        splitThree.revert();
+      };
+    }, root);
 
-      context = gsap.context(() => {
-        const firstSplit = new SplitText(firstLineElement, { type: 'words', mask: 'words' });
-        const secondSplit = new SplitText(secondLineElement, { type: 'words', mask: 'words' });
-        const titleWords = [...firstSplit.words, ...secondSplit.words];
-        maskRect.setAttribute('width', '0');
-
-        gsap.fromTo(eyebrow, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' });
-        gsap.fromTo(eyebrowRule, { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 0.5, ease: 'power2.out' });
-        gsap.fromTo(titleWords, { yPercent: 100 }, { yPercent: 0, duration: 0.9, stagger: 0.06, ease: 'expo.out', delay: 0.1 });
-        gsap.fromTo(gradientWord, { opacity: 0.82 }, { opacity: 1, duration: 0.5, ease: 'power1.out', delay: 0.95 });
-        gsap.fromTo(paragraph, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: 0.8 });
-
-        const reveal = { width: 0 };
-        gsap.to(reveal, {
-          width: 106,
-          duration: 1.8,
-          ease: 'power3.inOut',
-          onUpdate: () => maskRect.setAttribute('width', String(reveal.width)),
-          onComplete: () => gsap.fromTo(spark, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(3)', onComplete: () => gsap.to(spark, { opacity: 0, duration: 0.5, delay: 0.55, ease: 'power1.out' }) }),
-        });
-
-        const drift = gsap.to(arrow, { y: '+=6', duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1, paused: true });
-        observer = new IntersectionObserver(([entry]) => {
-          if (entry.isIntersecting) drift.play();
-          else drift.pause();
-        }, { threshold: 0.01 });
-        observer.observe(arrow);
-
-        gsap.to(content, {
-          yPercent: -6,
-          opacity: 0.4,
-          ease: 'none',
-          scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: true, invalidateOnRefresh: true },
-        });
-
-        return () => {
-          firstSplit.revert();
-          secondSplit.revert();
-        };
-      }, root);
-    };
-
-    let alreadyPreloaded = false;
-    try {
-      alreadyPreloaded = sessionStorage.getItem('lg-preloaded') === 'true';
-    } catch {
-      // Restricted storage falls back to the preloader event or short timeout.
-    }
-    if (alreadyPreloaded) startAnimations();
-    else {
-      window.addEventListener('leadsgrow:preloaderComplete', onPreloaderComplete, { once: true });
-      startTimer = window.setTimeout(startAnimations, 600);
-    }
-
-    return () => {
-      window.removeEventListener('leadsgrow:preloaderComplete', onPreloaderComplete);
-      if (startTimer !== undefined) window.clearTimeout(startTimer);
-      observer?.disconnect();
-      context?.revert();
-    };
-  }, { scope: rootRef, dependencies: [reduced], revertOnUpdate: true });
+    return () => context.revert();
+  }, { scope: rootRef, dependencies: [introReady, reducedMotion], revertOnUpdate: true });
 
   return (
     <section ref={rootRef} aria-labelledby="about-hero-v3-title" className="relative isolate min-h-[100svh] overflow-hidden bg-[#0B0F0D] text-white">
-      <div ref={contentRef} className="relative z-10 mx-auto flex min-h-[100svh] w-[90%] max-w-[1200px] flex-col justify-center pb-12 pt-[clamp(14rem,30vh,17rem)] sm:w-[88%] lg:w-[85%] lg:pt-[88px] lg:pb-10">
-        <div className="relative z-10 max-w-[52rem] lg:w-full lg:max-w-none">
-          <div ref={eyebrowRef} className="mb-6 flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-[#22C55E] sm:text-[12px]">
-            <span ref={eyebrowRuleRef} className="h-px w-6 origin-left bg-[#22C55E]" aria-hidden="true" />
-            <span>{eyebrow}</span>
-          </div>
-          <h1 id="about-hero-v3-title" ref={titleRef} className="font-display text-[clamp(2.1rem,9.5vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.035em] lg:text-[clamp(2.8rem,5.8vw,5.5rem)] lg:leading-none">
-            <span ref={firstLineRef} className="block lg:whitespace-nowrap">{firstLine}</span>
-            <span ref={secondLineRef} className="mt-[0.08em] block text-[#22C55E] lg:whitespace-nowrap">
-              {secondLinePrefix}<span ref={gradientWordRef} className="bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-clip-text text-transparent">{growthWord}</span>
-            </span>
-          </h1>
-          <p ref={paragraphRef} className="mt-7 max-w-[40em] text-[18px] leading-[1.65] text-white/[0.72] sm:text-[20px] lg:text-[22px]">
-            {paragraphs[0]}
-          </p>
+      <div className="relative z-10 mx-auto grid min-h-[100svh] w-[90%] max-w-[1280px] grid-cols-1 content-center gap-x-4 gap-y-4 pb-12 pt-24 sm:w-[88%] lg:min-h-[100svh] lg:w-[85%] lg:grid-cols-12 lg:gap-x-4 xl:gap-x-8 lg:gap-y-0 lg:pb-10 lg:pt-[88px]">
+        <div ref={eyebrowRef} className="order-1 mb-1 flex items-center gap-3 font-mono text-[12px] tracking-[0.2em] text-[#22C55E] lg:col-span-7 lg:col-start-1 lg:row-start-1">
+          <span ref={ruleRef} className="h-px w-6 origin-left bg-[#22C55E]" aria-hidden="true" />
+          <span>{eyebrow}</span>
         </div>
-      </div>
-
-      <div ref={arrowContainerRef} aria-hidden="true" className="pointer-events-none absolute right-10 top-28 z-0 w-[11rem] origin-center sm:right-12 sm:top-24 sm:w-[12rem] lg:right-[-1rem] lg:top-[-4rem] lg:w-[min(48vw,42rem)]">
-        <svg viewBox="0 -12 106 24" className="h-auto w-full rotate-[-50deg] overflow-visible drop-shadow-[0_0_22px_rgba(34,197,94,0.18)]" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id={`${arrowId}-fill`} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#15803D" />
-              <stop offset="58%" stopColor="#22C55E" />
-              <stop offset="100%" stopColor="#B6F23D" />
-            </linearGradient>
-            <filter id={`${arrowId}-soft`} x="-10%" y="-100%" width="120%" height="300%">
-              <feGaussianBlur stdDeviation="1.3" />
-            </filter>
-            <mask id={`${arrowId}-mask`} maskUnits="userSpaceOnUse" x="0" y="-12" width="106" height="24">
-              <rect ref={arrowMaskRef} x="0" y="-12" width="106" height="24" fill="white" filter={`url(#${arrowId}-soft)`} />
-            </mask>
-          </defs>
-          <polygon
-            points="0,0 80,-11.5 80,-5.4 100,0 80,5.4 80,11.5"
-            fill={`url(#${arrowId}-fill)`}
-            mask={`url(#${arrowId}-mask)`}
-          />
-          <path ref={sparkRef} d="M100,-4.5 101.7,-1.7 104.5,0 101.7,1.7 100,4.5 98.3,1.7 95.5,0 98.3,-1.7Z" fill="#F4FFD6" opacity="0" transform-box="fill-box" transform-origin="center" />
-        </svg>
+        <h1 id="about-hero-v3-title" ref={titleRef} className="order-2 m-0 font-display text-[clamp(2.1rem,9.5vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.035em] lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:text-[clamp(2.8rem,4vw,4rem)] lg:leading-none">
+          <span ref={lineOneRef} className="block lg:whitespace-nowrap">{lines[0]}</span>
+          <span ref={lineTwoRef} className="block text-transparent lg:whitespace-nowrap" style={{ WebkitTextStroke: '1.5px rgba(255,255,255,.92)', WebkitTextFillColor: 'transparent' }}>{lines[1]}</span>
+          <span className="relative block pb-[0.12em] lg:whitespace-nowrap">
+            <span ref={lineThreeRef} className={`inline-block ${reducedMotion ? 'bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-[length:200%_100%] bg-clip-text text-transparent' : 'text-[#22C55E]'}`} style={{ backgroundPosition: '0% 0%' }}>{lines[2]}</span>
+            <svg className="pointer-events-none absolute -bottom-[0.02em] left-[1.15em] h-[0.13em] w-[calc(100%-1.15em)] overflow-visible" viewBox="0 0 500 18" preserveAspectRatio="none" aria-hidden="true">
+              <path ref={underlineRef} d="M2 11 C 72 4, 125 15, 194 8 S 330 13, 498 5" fill="none" stroke="#B6F23D" strokeWidth="4" strokeLinecap="round" strokeDasharray="500" strokeDashoffset={reducedMotion ? 0 : 500} />
+            </svg>
+          </span>
+        </h1>
+        <div ref={sceneRef} className="order-3 mx-auto w-[min(280px,82vw)] lg:col-span-5 lg:col-start-8 lg:row-span-3 lg:row-start-1 lg:w-[min(600px,42vw)] lg:max-w-none">
+          <OrbitScene introReady={introReady} reducedMotion={reducedMotion} />
+        </div>
+        <p ref={paragraphRef} className="order-4 mt-1 max-w-[36em] text-[18px] leading-[1.65] text-white/[0.72] sm:text-[20px] lg:col-span-7 lg:col-start-1 lg:row-start-3 lg:mt-7 lg:text-[21px]">
+          {paragraphs[0]}
+        </p>
       </div>
     </section>
   );

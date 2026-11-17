@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { AboutPage } from '@/components/sections/about/AboutPage';
 
-const ABOUT_HERO_VARIANT: 'v1' | 'v2' | 'v3' = 'v2';
+const ABOUT_HERO_VARIANT: 'v1' | 'v2' | 'v3' = 'v3';
 
 export const metadata: Metadata = {
   title: 'About LeadsGrow',

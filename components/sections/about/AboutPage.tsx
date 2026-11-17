@@ -10,13 +10,13 @@ import { registerGsapPlugins, ScrollTrigger } from '@/lib/gsap-register';
 import { AboutHero } from './AboutHero';
 import { AboutHeroV2 } from './AboutHeroV2';
 import { AboutHeroV3 } from './AboutHeroV3';
-import { AboutIntroV3 } from './AboutIntroV3';
+import { AboutStoryV3 } from './AboutStoryV3';
 import { AboutStory } from './AboutStory';
 import { AboutMissionVision } from './AboutMissionVision';
 import { AboutApproach } from './AboutApproach';
 import { AboutCTA } from './AboutCTA';
 
-export const AboutPage: React.FC<{ heroVariant?: 'v1' | 'v2' | 'v3' }> = ({ heroVariant = 'v2' }) => {
+export const AboutPage: React.FC<{ heroVariant?: 'v1' | 'v2' | 'v3' }> = ({ heroVariant = 'v3' }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string | undefined>();
   const [modalSource, setModalSource] = useState('about-cta');
@@ -45,7 +45,7 @@ export const AboutPage: React.FC<{ heroVariant?: 'v1' | 'v2' | 'v3' }> = ({ hero
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
         {heroVariant === 'v1' ? <AboutHero /> : heroVariant === 'v2' ? <AboutHeroV2 /> : <AboutHeroV3 />}
-        {heroVariant === 'v3' && <AboutIntroV3 />}
+        {heroVariant === 'v3' && <AboutStoryV3 />}
         <AboutStory />
         <AboutMissionVision />
         <AboutApproach />
