@@ -154,11 +154,11 @@ export function WebsiteHero({ content }: { content: WebsiteDevelopmentContent })
     <section ref={sectionRef} aria-labelledby="website-hero-title" className="website-development-hero relative isolate min-h-[100svh] overflow-hidden bg-[#0B0F0D] text-white">
       <div className="relative z-10 mx-auto grid min-h-[100svh] w-[85%] max-w-[1280px] grid-cols-1 content-center gap-y-5 pb-10 pt-28 sm:gap-y-7 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0 lg:pb-8 lg:pt-[112px]">
         <div className="order-1 flex items-center lg:col-span-7 lg:col-start-1 lg:row-start-1">
-          <span ref={eyebrowRef} className="inline-flex items-center gap-2 rounded-full border border-[#22C55E]/30 bg-[#16A34A] px-4 py-2 text-sm font-semibold text-[#0B0F0D] shadow-[0_0_22px_rgba(34,197,94,.16)]">
+          {/* <span ref={eyebrowRef} className="inline-flex items-center gap-2 rounded-full border border-[#22C55E]/30 bg-[#16A34A] px-4 py-2 text-sm font-semibold text-[#0B0F0D] shadow-[0_0_22px_rgba(34,197,94,.16)]">
             <span aria-hidden="true" className="size-2 rounded-full bg-[#0B0F0D]" />{content.hero.eyebrow}
-          </span>
+          </span> */}
         </div>
-        <h1 id="website-hero-title" className="order-2 m-0 font-display text-[clamp(2.1rem,9.5vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.035em] lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:text-[clamp(2.6rem,5vw,4.7rem)]">
+        <h1 id="website-hero-title" className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1 lg:row-start-2">
           <span ref={(node) => { if (node) lineRefs.current[0] = node; }} className="block">We Turn Your Ideas</span>{' '}
           <span ref={(node) => { if (node) lineRefs.current[1] = node; }} data-outline-line className="block text-transparent" style={{ WebkitTextStroke: '1.5px rgba(255,255,255,.9)', WebkitTextFillColor: 'transparent' }}>into Powerful</span>{' '}
           <span ref={(node) => { if (node) lineRefs.current[2] = node; }} className="block bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-clip-text text-transparent">Websites.</span>

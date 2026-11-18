@@ -217,7 +217,7 @@ export function ServiceHero({ content }: { content: DigitalMarketingContent }) {
             <span aria-hidden="true" className="size-2 rounded-full bg-[#0B0F0D]" />{content.hero.eyebrow}
           </span>
         </div> */}
-        <h1 id="service-hero-title" ref={titleRef} className="order-2 m-0 font-display text-[clamp(2rem,7vw,2.8rem)] font-extrabold leading-[1.05] tracking-[-0.03em] lg:col-span-7 lg:col-start-1 lg:text-[clamp(2.5rem,5vw,4.75rem)]">
+        <h1 id="service-hero-title" ref={titleRef} className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1">
           {titleLines.map((line, index) => <span key={line} ref={(element) => { if (element) titleLineRefs.current[index] = element; }} className={`block ${index === 1 ? 'text-transparent' : ''} ${index === 2 ? 'bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-clip-text text-transparent' : ''}`} style={index === 1 ? { WebkitTextStroke: '1.5px rgba(255,255,255,.92)', WebkitTextFillColor: 'transparent' } : undefined}>{index === 0 ? line : ` ${line}`}</span>)}
         </h1>
         <p ref={paragraphRef} className="order-4 mt-1 max-w-[36em] text-base leading-[1.65] text-white/[0.76] sm:text-[17px] lg:col-span-7 lg:col-start-1 lg:mt-6 lg:text-[18px]">{content.hero.text}</p>

@@ -178,3 +178,18 @@ html.lenis, html.lenis body {
   color: #FFFFFF;
 }
 
+/* Shared headline scale used by the Home and inner-page hero sections. */
+.hero-display-title {
+  font-family: var(--font-sora), var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+  font-size: clamp(1.35rem, 4vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 640px) {
+  .hero-display-title {
+    line-height: 1.2;
+  }
+}
+

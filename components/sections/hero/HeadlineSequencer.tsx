@@ -575,7 +575,7 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'visible' }}
         >
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] sm:leading-[1.2] tracking-[-0.03em] text-[clamp(1.35rem,4vw,3.1rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+          <div className="slide-main-line hero-display-title text-white flex flex-col items-center justify-center gap-1 sm:gap-2">
             <div className="line-1 flex flex-wrap items-center justify-center gap-x-[0.28em]">
               <span className="word inline-block">Everything</span>
               <span className="word inline-block">Under</span>
@@ -616,7 +616,7 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'hidden' }}
         >
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] sm:leading-[1.2] tracking-[-0.03em] text-[clamp(1.35rem,4vw,3.1rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+          <div className="slide-main-line hero-display-title text-white flex flex-col items-center justify-center gap-1 sm:gap-2">
             <div className="line-1 flex flex-wrap items-center justify-center gap-x-[0.28em]">
               <span className="word inline-block">We</span>
               <span className="word inline-block">Don’t</span>
@@ -659,7 +659,7 @@ export function HeadlineSequencer() {
           className="[grid-area:stack] w-full flex flex-col items-center text-center justify-center overflow-visible"
           style={{ visibility: 'hidden' }}
         >
-          <div className="slide-main-line font-display font-extrabold text-white leading-[1.25] sm:leading-[1.2] tracking-[-0.03em] text-[clamp(1.35rem,4vw,3.1rem)] flex flex-col items-center justify-center gap-1 sm:gap-2">
+          <div className="slide-main-line hero-display-title text-white flex flex-col items-center justify-center gap-1 sm:gap-2">
             <div className="line-1 flex flex-wrap items-center justify-center gap-x-[0.28em]">
               <span className="word inline-block">
                 <span

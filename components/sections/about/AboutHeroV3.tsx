@@ -117,7 +117,7 @@ export function AboutHeroV3() {
           <span ref={ruleRef} className="h-px w-6 origin-left bg-[#22C55E]" aria-hidden="true" />
           <span>{eyebrow}</span>
         </div>
-        <h1 id="about-hero-v3-title" ref={titleRef} className="order-2 m-0 font-display text-[clamp(2.1rem,9.5vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.035em] lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:text-[clamp(2.8rem,4vw,4rem)] lg:leading-none">
+        <h1 id="about-hero-v3-title" ref={titleRef} className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1 lg:row-start-2">
           <span ref={lineOneRef} className="block lg:whitespace-nowrap">{lines[0]}</span>
           <span ref={lineTwoRef} className="block text-transparent lg:whitespace-nowrap" style={{ WebkitTextStroke: '1.5px rgba(255,255,255,.92)', WebkitTextFillColor: 'transparent' }}>{lines[1]}</span>
           <span className="relative block pb-[0.12em] lg:whitespace-nowrap">

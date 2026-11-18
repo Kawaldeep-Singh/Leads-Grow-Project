@@ -49,7 +49,7 @@ export function AboutHeroV2() {
               <span ref={eyebrowRuleRef} className="h-px w-6 bg-[#16A34A]" aria-hidden="true" />
               <span>{aboutContent.hero.eyebrow}</span>
             </div>
-            <h1 id="about-hero-v2-title" ref={titleRef} className="max-w-[13ch] font-display text-[clamp(2.2rem,9vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.035em] lg:max-w-none lg:text-[clamp(2.6rem,5.2vw,5rem)]">
+            <h1 id="about-hero-v2-title" ref={titleRef} className="hero-display-title max-w-[13ch] lg:max-w-none">
               {titleLines.map((line, lineIndex) => (
                 <Fragment key={`line-${lineIndex}`}>
                   <span ref={lineIndex === 2 ? greenWordsRef : undefined} className={`lg:block ${lineIndex === 2 ? 'text-[#16A34A]' : ''}`}>

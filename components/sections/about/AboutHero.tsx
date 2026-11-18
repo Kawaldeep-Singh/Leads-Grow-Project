@@ -67,7 +67,7 @@ export const AboutHero: React.FC = () => {
             <h1
               id="about-hero-title"
               ref={headingRef}
-              className="font-display font-extrabold text-[clamp(1.35rem,4vw,3.1rem)] leading-[1.25] sm:leading-[1.2] tracking-[-0.03em] mb-8"
+              className="hero-display-title mb-8"
             >
               {introWords.map((word, index) => (
                 <React.Fragment key={word + index}>

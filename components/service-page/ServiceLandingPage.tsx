@@ -44,10 +44,10 @@ export function ServiceLandingPage({ content }: { content: ServicePageContent })
         case 'hero': return <WebsiteHero key={section} content={content} />;
         case 'why': return <WebsiteWhySection key={section} content={content} />;
         case 'services': return <WebsiteServices key={section} content={content} />;
-        case 'process': return <WebsiteDevelopmentProcess key={section} content={content} />;
-        case 'techStack': return <TechStack key={section} />;
-        case 'whyLeadsGrow': return <AboutStory key={section} />;
-        case 'counters': return <Stats key={section} overlap={false} />;
+        // case 'process': return <WebsiteDevelopmentProcess key={section} content={content} />;
+        // case 'techStack': return <TechStack key={section} />;
+        // case 'whyLeadsGrow': return <AboutStory key={section} />;
+        // case 'counters': return <Stats key={section} overlap={false} />;
       }
     });
 
