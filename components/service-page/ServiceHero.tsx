@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react';
 import { HiArrowRight } from 'react-icons/hi2';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { gsap, registerGsapPlugins, ScrollTrigger, SplitText } from '@/lib/gsap-register';
-import type { ServicePageContent } from '@/data/servicePages';
+import type { DigitalMarketingContent } from '@/data/servicePages';
 
 const prospectDots = [
   [110, 68], [185, 44], [270, 60], [355, 48], [430, 72], [145, 112],
@@ -133,7 +133,7 @@ function FunnelScene({ reducedMotion }: { reducedMotion: boolean }) {
   );
 }
 
-export function ServiceHero({ content }: { content: ServicePageContent }) {
+export function ServiceHero({ content }: { content: DigitalMarketingContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const eyebrowRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);

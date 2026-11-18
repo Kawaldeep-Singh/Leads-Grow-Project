@@ -169,6 +169,10 @@ export function Hero({
               window.location.assign('/services/digital-marketing');
               return;
             }
+            if (serviceTitle === 'Website Development') {
+              window.location.assign('/services/website-development');
+              return;
+            }
             onSelectService?.(serviceTitle);
           }}
           theme={theme}

@@ -4,10 +4,11 @@ import { useRef } from 'react';
 import {
   FileText, Heart, Infinity as InfinityIcon, Mail, Megaphone, MessageCircle,
   MessagesSquare, Network, Search, Share2, Target, ArrowUpRight,
+  Compass, TrendingUp, TrendingDown, Users, Building2,
 } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import { industriesData } from '@/data/industries';
-import type { ServicePageContent } from '@/data/servicePages';
+import type { DigitalMarketingContent } from '@/data/servicePages';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { gsap, registerGsapPlugins, ScrollTrigger } from '@/lib/gsap-register';
 import { Eyebrow } from './ServiceUI';
@@ -75,7 +76,7 @@ function RevealWords({ text, className = '' }: { text: string; className?: strin
   return <p ref={paragraphRef} className={className}>{text.split(/(\s+)/).map((part, index) => /\s+/.test(part) ? part : <span data-copy-word key={`${index}-${part}`}>{part}</span>)}</p>;
 }
 
-export function ServiceOverview({ content }: { content: ServicePageContent }) {
+export function ServiceOverview({ content }: { content: DigitalMarketingContent }) {
   const reducedMotion = useReducedMotion();
   return (
     <section aria-labelledby="service-what-title" className="relative overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-28">
@@ -92,7 +93,7 @@ export function ServiceOverview({ content }: { content: ServicePageContent }) {
   );
 }
 
-export function ServiceCatalog({ content }: { content: ServicePageContent }) {
+export function ServiceCatalog({ content }: { content: DigitalMarketingContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<HTMLLIElement[]>([]);
   const reducedMotion = useReducedMotion();
@@ -145,7 +146,9 @@ export function ServiceCatalog({ content }: { content: ServicePageContent }) {
   );
 }
 
-export function ServiceProof({ content }: { content: ServicePageContent }) {
+const proofIcons = [Compass, TrendingUp, TrendingDown, Users, Building2];
+
+export function ServiceProof({ content }: { content: DigitalMarketingContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const tileRefs = useRef<HTMLLIElement[]>([]);
   const reducedMotion = useReducedMotion();
@@ -167,14 +170,22 @@ export function ServiceProof({ content }: { content: ServicePageContent }) {
           start: 'top 88%',
           once: true,
           onEnter: () => {
-            finalValue.style.opacity = '0';
+            finalValue.style.display = 'none';
+            overlay.style.display = 'inline-flex';
             overlay.style.opacity = '1';
             gsap.to(counter, {
               value: target,
               duration: 1.6,
               ease: 'power2.out',
-              onUpdate: () => { numeric.textContent = Math.round(counter.value).toLocaleString('en-US'); },
-              onComplete: () => { finalValue.style.opacity = '1'; overlay.style.opacity = '0'; },
+              onUpdate: () => {
+                numeric.textContent = Math.round(counter.value).toLocaleString('en-US');
+              },
+              onComplete: () => {
+                overlay.style.display = 'none';
+                overlay.style.opacity = '0';
+                finalValue.style.display = 'inline-flex';
+                finalValue.style.opacity = '1';
+              },
             });
           },
         });
@@ -184,27 +195,104 @@ export function ServiceProof({ content }: { content: ServicePageContent }) {
   }, { scope: sectionRef, dependencies: [reducedMotion], revertOnUpdate: true });
 
   return (
-    <section ref={sectionRef} aria-labelledby="service-proof-title" className="relative overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-28">
-      <div className="mx-auto w-[85%]">
+    <section ref={sectionRef} aria-labelledby="service-proof-title" className="relative isolate overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-28">
+      {/* Subtle ambient lighting */}
+      <div aria-hidden="true" className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-[#22C55E]/[0.08] blur-[120px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[#16A34A]/[0.06] blur-[120px]" />
+
+      <div className="relative z-10 mx-auto w-[85%]">
         <Eyebrow tone="ink">{content.why.eyebrow}</Eyebrow>
-        <h2 id="service-proof-title" className="mt-5 max-w-[20em] font-display text-[clamp(1.65rem,3.5vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">{content.why.title}</h2>
-        <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {content.why.stats.map((stat, index) => <li key={stat.label} ref={(element) => { if (element) tileRefs.current[index] = element; }} data-stat-value={stat.value} className={`group relative isolate flex min-h-[190px] flex-col justify-between overflow-hidden rounded-3xl border border-[#0B0F0D]/10 bg-white p-6 transition-transform duration-300 hover:-translate-y-1 ${index === 0 ? 'sm:col-span-2 lg:min-h-[260px]' : ''}`}>
-            <svg aria-hidden="true" className="absolute right-4 top-4 h-14 w-20 opacity-15 transition-opacity group-hover:opacity-50" viewBox="0 0 80 56" fill="none"><path d="M2 48 23 34 38 39 58 17 77 7" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="m66 7 11 0 0 11" stroke="#16A34A" strokeWidth="2" /></svg>
-            <span data-final-value className="font-display text-[clamp(2.25rem,4.5vw,4.25rem)] font-extrabold leading-none tracking-[-0.04em] transition-opacity">{stat.value.replace(/(°|L\+|\+|%)$/, '')}<span className="text-[#16A34A]">{stat.value.match(/(°|L\+|\+|%)$/)?.[0]}</span></span>
-            <span aria-hidden="true" data-counter-overlay className="pointer-events-none absolute left-6 top-6 font-display text-[clamp(2.25rem,4.5vw,4.25rem)] font-extrabold leading-none tracking-[-0.04em] opacity-0">
-              {stat.value.match(/^(.*?)(\d[\d,]*)(.*)$/)?.[1]}<span data-counter-number>0</span><span data-counter-suffix className="text-[#16A34A]">{stat.value.match(/^(.*?)(\d[\d,]*)(.*)$/)?.[3]}</span>
-            </span>
-            <span className="text-[14px] font-medium text-[#5B6B63] sm:text-[16px]">{stat.label}</span>
-            <span aria-hidden="true" className="absolute bottom-0 left-6 h-1 w-0 bg-[#16A34A] transition-all duration-500 group-hover:w-16" />
-          </li>)}
+        <h2 id="service-proof-title" className="mt-5 max-w-[20em] font-display text-[clamp(1.75rem,3.5vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-[#0B0F0D]">
+          {content.why.title}
+        </h2>
+
+        <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-6 lg:gap-6">
+          {content.why.stats.map((stat: { value: string; label: string }, index: number) => {
+            const Icon = proofIcons[index] ?? Compass;
+            const match = stat.value.match(/^(.*?)(\d[\d,]*)(.*)$/);
+            const prefix = match ? match[1] : '';
+            const num = match ? match[2] : stat.value;
+            const suffix = match ? match[3] : '';
+
+            // Balanced Bento Layout:
+            // Mobile (1 col): full width
+            // Tablet (2 cols): 1st item spans 2 cols, rest span 1 col
+            // Desktop (6 cols): 1st & 2nd items span 3 cols (50% each), 3rd, 4th, 5th span 2 cols (33.3% each) -> 100% full, 0 empty holes!
+            const spanClass = index === 0
+              ? 'sm:col-span-2 lg:col-span-3'
+              : index === 1
+                ? 'sm:col-span-1 lg:col-span-3'
+                : 'sm:col-span-1 lg:col-span-2';
+
+            return (
+              <li
+                key={stat.label}
+                ref={(element) => { if (element) tileRefs.current[index] = element; }}
+                data-stat-value={stat.value}
+                className={`group relative isolate flex flex-col justify-between overflow-hidden rounded-3xl border border-[#0B0F0D]/[0.08] bg-white p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#16A34A]/40 hover:shadow-[0_20px_40px_-15px_rgba(22,163,74,0.18)] sm:p-7 lg:p-8 ${spanClass}`}
+              >
+                {/* Top card bar: Icon pill & growth spark indicator */}
+                <div className="flex items-center justify-between">
+                  <span
+                    aria-hidden="true"
+                    className="flex size-11 items-center justify-center rounded-2xl border border-[#16A34A]/20 bg-[#16A34A]/[0.08] text-[#16A34A] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] transition-all duration-300 group-hover:scale-110 group-hover:border-[#16A34A]/45 group-hover:bg-[#16A34A]/[0.15] sm:size-12"
+                  >
+                    <Icon className="size-5 sm:size-6" strokeWidth={1.8} />
+                  </span>
+
+                  <span
+                    aria-hidden="true"
+                    className="flex size-7 items-center justify-center rounded-full bg-[#0B0F0D]/[0.04] text-[#16A34A] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#16A34A]/10 group-hover:text-[#16A34A]"
+                  >
+                    <ArrowUpRight className="size-4" strokeWidth={2.2} />
+                  </span>
+                </div>
+
+                {/* Middle metric number */}
+                <div className="my-6">
+                  {/* Default & Final Value Display */}
+                  <span
+                    data-final-value
+                    className="inline-flex items-baseline font-display text-[clamp(2.35rem,4.2vw,3.75rem)] font-extrabold leading-none tracking-[-0.035em] text-[#0B0F0D]"
+                  >
+                    {prefix && <span className="mr-2.5 text-[clamp(1.1rem,1.8vw,1.5rem)] font-bold text-[#5B6B63]">{prefix.trim()}</span>}
+                    <span>{num}</span>
+                    <span className="text-[#16A34A]">{suffix}</span>
+                  </span>
+
+                  {/* Animated Counter Overlay (Hidden by default & on complete) */}
+                  <span
+                    aria-hidden="true"
+                    data-counter-overlay
+                    style={{ display: 'none' }}
+                    className="pointer-events-none inline-flex items-baseline font-display text-[clamp(2.35rem,4.2vw,3.75rem)] font-extrabold leading-none tracking-[-0.035em] text-[#0B0F0D]"
+                  >
+                    {prefix && <span className="mr-2.5 text-[clamp(1.1rem,1.8vw,1.5rem)] font-bold text-[#5B6B63]">{prefix.trim()}</span>}
+                    <span data-counter-number>0</span>
+                    <span data-counter-suffix className="text-[#16A34A]">{suffix}</span>
+                  </span>
+                </div>
+
+                {/* Bottom label */}
+                <span className="text-[15px] font-semibold text-[#45544C] sm:text-[16px] lg:text-[17px] leading-snug">
+                  {stat.label}
+                </span>
+
+                {/* Bottom subtle green accent on hover */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#16A34A] to-[#22C55E] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                />
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
   );
 }
 
-export function ServiceIndustries({ content, onSelectIndustry }: { content: ServicePageContent; onSelectIndustry: (name: string) => void }) {
+export function ServiceIndustries({ content, onSelectIndustry }: { content: DigitalMarketingContent; onSelectIndustry: (name: string) => void }) {
   return (
     <section aria-labelledby="service-industries-title" className="overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-24">
       <div className="mx-auto w-[85%]">
@@ -219,7 +307,7 @@ export function ServiceIndustries({ content, onSelectIndustry }: { content: Serv
   );
 }
 
-export function ServiceCTA({ content }: { content: ServicePageContent }) {
+export function ServiceCTA({ content }: { content: DigitalMarketingContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<SVGCircleElement>(null);

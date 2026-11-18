@@ -3,7 +3,7 @@
 import { useRef, type CSSProperties } from 'react';
 import { useGSAP } from '@gsap/react';
 import { Eyebrow } from './ServiceUI';
-import type { ServicePageContent } from '@/data/servicePages';
+import type { DigitalMarketingContent } from '@/data/servicePages';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { gsap, registerGsapPlugins, ScrollTrigger } from '@/lib/gsap-register';
 
@@ -15,7 +15,7 @@ const stepPoints = [
   { x: 93, y: 10, left: '82%', top: '43%' },
 ];
 
-export function ServiceProcess({ content }: { content: ServicePageContent }) {
+export function ServiceProcess({ content }: { content: DigitalMarketingContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
