@@ -26,6 +26,7 @@ import { BRAND } from '@/lib/constants';
 import { servicesData } from '@/data/services';
 import { Button } from '@/components/ui/Button';
 import { useSiteVariant } from '@/context/VariantContext';
+import { useActiveNav } from '@/hooks/useActiveNav';
 
 interface HeaderProps {
   onOpenAudit: () => void;
@@ -34,6 +35,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
   const pathname = usePathname();
+  const { activeKey, ariaCurrent } = useActiveNav();
   const { variant } = useSiteVariant();
   const [isScrolled, setIsScrolled] = useState(false);
   const isAboutPage = pathname === '/about';
@@ -203,8 +205,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
             <div className="hidden xl:flex items-center gap-8">
               {navLinks.map((item) => {
                 if (item.hasMegaMenu) {
-                  const isServicesActive = pathname.startsWith('/services');
-                  const isServicesSelected = isServicesActive || megaMenuOpen;
+                  const isServicesActive = activeKey === item.label;
 
                   return (
                     <div
@@ -215,39 +216,27 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                     >
                       <Link
                         href="/#services"
-                        className={`group relative flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                          isServicesSelected
+                        aria-current={isServicesActive ? ariaCurrent : undefined}
+                        className={`group relative isolate flex items-center gap-1.5 rounded-full border px-3 py-2 text-sm font-semibold transition-colors duration-250 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#16A34A] focus-visible:outline-offset-[3px] ${
+                          isServicesActive
                             ? isNavLight
-                              ? 'text-[#16A34A] font-bold'
-                              : 'text-[#22C55E] font-bold drop-shadow-[0_0_12px_rgba(34,197,94,0.35)]'
+                              ? 'border-[#16A34A]/40 bg-[#16A34A]/10 text-[#15803D]'
+                              : 'border-[#22C55E]/45 bg-[#22C55E]/10 text-[#22C55E]'
                             : isNavLight
-                              ? 'text-[#0B0F0D] hover:text-[#16A34A]'
-                              : 'text-white/90 hover:text-white'
+                              ? 'border-transparent text-[#0B0F0D] hover:border-[#16A34A]/35 hover:bg-[#16A34A]/10 hover:text-[#15803D]'
+                              : 'border-transparent text-white/90 hover:border-[#22C55E]/35 hover:bg-[#22C55E]/10 hover:text-[#22C55E]'
                         }`}
                       >
-                        <span className="flex items-center gap-1.5">
-                          {isServicesSelected && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
-                          )}
-                          <span>{item.label}</span>
-                        </span>
+                        <span className="relative z-10">{item.label}</span>
                         <HiChevronDown
                           className={`h-4 w-4 transition-transform duration-300 ${
                             megaMenuOpen
                               ? 'rotate-180 text-[#22C55E]'
                               : isServicesActive
-                                ? 'text-[#22C55E]'
+                                ? isNavLight ? 'text-[#16A34A]' : 'text-[#22C55E]'
                                 : isNavLight
                                   ? 'text-gray-500 group-hover:text-[#16A34A]'
-                                  : 'text-white/60 group-hover:text-white'
-                          }`}
-                        />
-                        {/* Active / Animated underline */}
-                        <span
-                          className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#16A34A] to-[#22C55E] transition-all duration-300 ${
-                            isServicesSelected
-                              ? 'w-full shadow-[0_0_8px_rgba(34,197,94,0.6)]'
-                              : 'w-0 group-hover:w-full'
+                                  : 'text-white/60 group-hover:text-[#22C55E]'
                           }`}
                         />
                       </Link>
@@ -313,11 +302,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                                     key={svc.id}
                                     href={serviceHref}
                                     onClick={() => setMegaMenuOpen(false)}
+                                    aria-current={isCurrentService ? 'page' : undefined}
                                     className={`group relative p-3.5 rounded-2xl border transition-all duration-300 flex flex-col justify-between ${
                                       isCurrentService
                                         ? isNavLight
-                                          ? 'bg-[#16A34A]/15 border-[#16A34A] shadow-[0_0_15px_rgba(22,163,74,0.2)]'
-                                          : 'bg-[#16A34A]/20 border-[#22C55E] shadow-[0_0_15px_rgba(34,197,94,0.3)]'
+                                          ? 'border-l-4 border-l-[#16A34A] bg-[#16A34A]/15 border-[#16A34A] shadow-[0_0_15px_rgba(22,163,74,0.2)]'
+                                          : 'border-l-4 border-l-[#22C55E] bg-[#16A34A]/20 border-[#22C55E] shadow-[0_0_15px_rgba(34,197,94,0.3)]'
                                         : isNavLight
                                           ? 'bg-gray-50/80 border-gray-100 hover:border-[#16A34A]/60 hover:bg-[#16A34A]/10 hover:shadow-md'
                                           : 'bg-[#111815]/60 border-transparent hover:border-[#22C55E]/60 hover:bg-[#16A34A]/15 hover:shadow-[0_0_15px_rgba(34,197,94,0.15)]'
@@ -333,8 +323,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                                           {svc.number}
                                         </span>
                                         {isCurrentService ? (
-                                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#16A34A] text-white flex items-center gap-1 shadow-xs">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#16A34A] text-white shadow-xs">
                                             Active
                                           </span>
                                         ) : (
@@ -427,40 +416,26 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
               }
 
               const isActive =
-                item.href === '/'
-                  ? pathname === '/'
-                  : item.href === '/about'
-                    ? pathname === '/about'
-                    : false;
+                activeKey === item.label;
 
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`group relative py-2 text-sm font-semibold transition-colors ${
+                  aria-current={isActive ? ariaCurrent : undefined}
+                  className={`group relative isolate rounded-full border px-3 py-2 text-sm font-semibold transition-colors duration-250 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#16A34A] focus-visible:outline-offset-[3px] ${
                     isActive
                       ? isNavLight
-                        ? 'text-[#16A34A] font-bold'
-                        : 'text-[#22C55E] font-bold drop-shadow-[0_0_12px_rgba(34,197,94,0.35)]'
+                        ? 'border-[#16A34A]/40 bg-[#16A34A]/10 text-[#15803D]'
+                        : 'border-[#22C55E]/45 bg-[#22C55E]/10 text-[#22C55E]'
                       : isNavLight
-                        ? 'text-[#0B0F0D] hover:text-[#16A34A]'
-                        : 'text-white/90 hover:text-white'
+                        ? 'border-transparent text-[#0B0F0D] hover:border-[#16A34A]/35 hover:bg-[#16A34A]/10 hover:text-[#15803D]'
+                        : 'border-transparent text-white/90 hover:border-[#22C55E]/35 hover:bg-[#22C55E]/10 hover:text-[#22C55E]'
                   }`}
                 >
-                  <span className="flex items-center gap-1.5">
-                    {isActive && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
-                    )}
-                    <span>{item.label}</span>
+                  <span className="relative z-10 inline-block">
+                    {item.label}
                   </span>
-                  {/* Active / Animated underline */}
-                  <span
-                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#16A34A] to-[#22C55E] transition-all duration-300 ${
-                      isActive
-                        ? 'w-full shadow-[0_0_8px_rgba(34,197,94,0.6)]'
-                        : 'w-0 group-hover:w-full'
-                    }`}
-                  />
                 </Link>
               );
             })}
@@ -534,7 +509,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
             <div className="py-6 flex flex-col gap-4">
               {navLinks.map((item) => {
                 if (item.hasMegaMenu) {
-                  const isServicesActive = pathname.startsWith('/services');
+                  const isServicesActive = activeKey === item.label;
 
                   return (
                     <div
@@ -544,29 +519,29 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                     >
                       <button
                         onClick={() => setMobileServicesAccordion(!mobileServicesAccordion)}
-                        className={`w-full flex items-center justify-between text-lg font-bold py-2 transition-colors ${
+                        aria-current={isServicesActive ? ariaCurrent : undefined}
+                        aria-expanded={mobileServicesAccordion}
+                        className={`relative min-h-12 w-full flex items-center justify-between rounded-[14px] px-4 py-3 text-lg font-bold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#16A34A] focus-visible:outline-offset-[3px] ${
                           isServicesActive
-                            ? isNavLight ? 'text-[#16A34A]' : 'text-[#22C55E]'
+                            ? isNavLight ? 'bg-[#22C55E]/10 text-[#15803D]' : 'bg-[#22C55E]/10 text-[#22C55E]'
                             : isNavLight ? 'text-[#0B0F0D]' : 'text-white'
                         }`}
                       >
+                        {isServicesActive && <span aria-hidden="true" className="absolute bottom-2 left-0 top-2 w-1 rounded-full bg-[#16A34A]" />}
                         <span className="flex items-center gap-2">
-                          {isServicesActive && (
-                            <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
-                          )}
                           <span>{item.label}</span>
                         </span>
-                        <HiChevronDown
-                          className={`h-5 w-5 transition-transform duration-200 ${
-                            mobileServicesAccordion
-                              ? 'rotate-180 text-[#16A34A]'
-                              : isServicesActive
-                                ? 'text-[#22C55E]'
-                                : isNavLight
-                                  ? 'text-gray-500'
-                                  : 'text-[#9FB0A7]'
-                          }`}
-                        />
+                        <span className="flex items-center gap-3">
+                          <HiChevronDown
+                            className={`h-5 w-5 transition-transform duration-200 ${
+                              mobileServicesAccordion
+                                ? 'rotate-180 text-[#16A34A]'
+                                : isServicesActive
+                                  ? isNavLight ? 'text-[#15803D]' : 'text-[#22C55E]'
+                                  : isNavLight ? 'text-gray-500' : 'text-[#9FB0A7]'
+                            }`}
+                          />
+                        </span>
                       </button>
 
                       {/* Accordion content */}
@@ -592,24 +567,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                                   key={s.id}
                                   href={serviceHref}
                                   onClick={() => setMobileMenuOpen(false)}
-                                  className={`text-sm py-2 px-3 rounded-xl flex items-center justify-between transition-colors ${
+                                  aria-current={isCurrentService ? 'page' : undefined}
+                                  className={`relative min-h-12 text-sm py-2 px-3 rounded-xl flex items-center justify-between transition-colors ${
                                     isCurrentService
-                                      ? 'bg-[#16A34A]/20 text-[#22C55E] font-bold border border-[#22C55E]/40'
+                                      ? `bg-[#22C55E]/10 ${isNavLight ? 'text-[#15803D]' : 'text-[#22C55E]'} font-bold border border-[#22C55E]/40`
                                       : isNavLight
                                         ? 'text-gray-600 hover:text-[#16A34A] hover:bg-gray-100'
                                         : 'text-[#9FB0A7] hover:text-[#22C55E] hover:bg-[#111815]'
-                                  }`}
+                                  } focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#16A34A] focus-visible:outline-offset-[3px]`}
                                 >
+                                  {isCurrentService && <span aria-hidden="true" className="absolute bottom-2 left-0 top-2 w-1 rounded-full bg-[#16A34A]" />}
                                   <div className="flex items-center gap-2">
-                                    {isCurrentService && (
-                                      <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
-                                    )}
                                     <span>{s.title}</span>
                                   </div>
                                   <span
                                     className={`text-xs ${
                                       isCurrentService
-                                        ? 'text-[#22C55E] font-bold'
+                                        ? isNavLight ? 'text-[#15803D] font-bold' : 'text-[#22C55E] font-bold'
                                         : isNavLight
                                           ? 'text-gray-400'
                                           : 'text-[#5B6B63]'
@@ -628,36 +602,22 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                 }
 
                 const isActive =
-                  item.href === '/'
-                    ? pathname === '/'
-                    : item.href === '/about'
-                      ? pathname === '/about'
-                      : false;
+                  activeKey === item.label;
 
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`text-lg font-bold py-2 border-b flex items-center justify-between transition-colors ${
+                    aria-current={isActive ? ariaCurrent : undefined}
+                    className={`relative min-h-12 rounded-[14px] px-4 text-lg font-bold py-3 border-b flex items-center justify-between transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#16A34A] focus-visible:outline-offset-[3px] ${
                       isActive
-                        ? 'text-[#16A34A] border-[#16A34A]/40'
-                        : isNavLight
-                          ? 'text-[#0B0F0D] border-gray-200 hover:text-[#16A34A]'
-                          : 'text-white border-[#1A2420] hover:text-[#22C55E]'
+                        ? `bg-[#22C55E]/10 ${isNavLight ? 'text-[#15803D]' : 'text-[#22C55E]'} border-[#16A34A]/40`
+                        : isNavLight ? 'text-[#0B0F0D] border-gray-200 hover:text-[#16A34A]' : 'text-white border-[#1A2420] hover:text-[#22C55E]'
                     }`}
                   >
-                    <span className="flex items-center gap-2">
-                      {isActive && (
-                        <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
-                      )}
-                      <span>{item.label}</span>
-                    </span>
-                    {isActive && (
-                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#16A34A]/15 text-[#16A34A] border border-[#16A34A]/30 font-mono">
-                        Current
-                      </span>
-                    )}
+                    {isActive && <span aria-hidden="true" className="absolute bottom-2 left-0 top-2 w-1 rounded-full bg-[#16A34A]" />}
+                    <span>{item.label}</span>
                   </Link>
                 );
               })}
