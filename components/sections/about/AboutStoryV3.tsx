@@ -1,162 +1,289 @@
 'use client';
 
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { aboutContent } from '@/data/about';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { gsap, registerGsapPlugins, ScrollTrigger } from '@/lib/gsap-register';
-import { renderStoryScene, StoryScenes } from './StoryScenes';
+import { StackCard, type CardTheme } from './story-v3/StackCard';
+import { OneRoofArt, type OneRoofArtHandle } from './story-v3/OneRoofArt';
+import { ThreeForcesArt, type ThreeForcesArtHandle } from './story-v3/ThreeForcesArt';
+import { SeedToSkylineArt, type SeedToSkylineArtHandle } from './story-v3/SeedToSkylineArt';
 
-const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-
-function chapterWeights(progress: number) {
-  const phase = clamp(progress) * 3;
-  const chapter = Math.min(2, Math.floor(phase));
-  const local = phase - chapter;
-  const weights = [0, 0, 0];
-  if (chapter < 2 && local >= 0.94) {
-    const nextWeight = clamp((local - 0.94) / 0.12);
-    weights[chapter] = 1 - nextWeight;
-    weights[chapter + 1] = nextWeight;
-  } else if (chapter > 0 && local <= 0.06) {
-    const currentWeight = clamp(0.5 + local / 0.12);
-    weights[chapter - 1] = 1 - currentWeight;
-    weights[chapter] = currentWeight;
-  } else {
-    weights[chapter] = 1;
-  }
-  return { phase, weights };
-}
+// 3 Color-blocked Themes
+const CARD_THEMES: CardTheme[] = [
+  {
+    bg: '#0B0F0D', // Ink
+    text: '#FFFFFF', // White
+    accent: '#16A34A', // Brand green
+    dotColor: '#16A34A',
+  },
+  {
+    bg: '#16A34A', // Brand Green
+    text: '#FFFFFF', // White
+    accent: '#16A34A', // Brand green
+    dotColor: '#FFFFFF',
+  },
+  {
+    bg: '#0B0F0D', // Ink
+    text: '#FFFFFF', // White
+    accent: '#16A34A', // Brand green
+    dotColor: '#16A34A',
+  },
+];
 
 export function AboutStoryV3() {
   const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const layoutRef = useRef<HTMLDivElement>(null);
-  const articleRefs = useRef<HTMLElement[]>([]);
-  const dividerRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const dotRefs = useRef<HTMLSpanElement[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const accentLineRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const paragraphRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const graphicWrapperRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const dimOverlayRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Art Handles
+  const oneRoofRef = useRef<OneRoofArtHandle>(null);
+  const threeForcesRef = useRef<ThreeForcesArtHandle>(null);
+  const seedToSkylineRef = useRef<SeedToSkylineArtHandle>(null);
+
   const reducedMotion = useReducedMotion();
+  // Fixed word-for-word paragraphs [1..3]
   const paragraphs = aboutContent.hero.paragraphs.slice(1);
 
   useGSAP(() => {
     registerGsapPlugins();
     const section = sectionRef.current;
-    if (!section || reducedMotion) return;
+    if (!section) return;
+
+    // In reduced motion, display final static states without animation
+    if (reducedMotion) {
+      oneRoofRef.current?.setFinal();
+      threeForcesRef.current?.setFinal();
+      seedToSkylineRef.current?.setFinal();
+      return;
+    }
+
+    const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
+    const paragraphsList = paragraphRefs.current.filter(Boolean) as HTMLParagraphElement[];
+    const accentLines = accentLineRefs.current.filter(Boolean) as HTMLDivElement[];
+    const graphicWrappers = graphicWrapperRefs.current.filter(Boolean) as HTMLDivElement[];
+    const dimOverlays = dimOverlayRefs.current.filter(Boolean) as HTMLDivElement[];
+
+    const artHandles = [oneRoofRef.current, threeForcesRef.current, seedToSkylineRef.current];
+
+    // 1. Entrance Animation per Card (ScrollTrigger start: "top 60%", once: true)
+    cards.forEach((card, index) => {
+      const art = artHandles[index];
+      const para = paragraphsList[index];
+      const line = accentLines[index];
+      const wrapper = graphicWrappers[index];
+
+      // Initial states
+      if (line) gsap.set(line, { scaleX: 0 });
+      if (para) gsap.set(para, { y: 24, opacity: 0 });
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top 60%',
+        once: true,
+        onEnter: () => {
+          // Play graphic
+          art?.play();
+
+          // Accent line draws
+          if (line) {
+            gsap.to(line, {
+              scaleX: 1,
+              duration: 0.6,
+              delay: 0.15,
+              ease: 'power2.out',
+            });
+          }
+
+          // Paragraph fades + rises 24px (0.8s) 0.2s after graphic starts
+          if (para) {
+            gsap.to(para, {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              delay: 0.2,
+              ease: 'power2.out',
+            });
+          }
+
+          // Gentle breathing float after entrance completes (6px float, 6s sine yoyo)
+          if (wrapper) {
+            const floatTween = gsap.to(wrapper, {
+              y: -6,
+              duration: 6,
+              ease: 'sine.inOut',
+              yoyo: true,
+              repeat: -1,
+              delay: 1.8,
+            });
+
+            // Pause off-screen via IntersectionObserver
+            let inView = false;
+            const observer = new IntersectionObserver(
+              ([entry]) => {
+                inView = entry.isIntersecting;
+                if (inView && !document.hidden) floatTween.play();
+                else floatTween.pause();
+              },
+              { threshold: 0.05 }
+            );
+            observer.observe(card);
+
+            const handleVisibility = () => {
+              if (document.hidden) floatTween.pause();
+              else if (inView) floatTween.play();
+            };
+            document.addEventListener('visibilitychange', handleVisibility);
+
+            return () => {
+              observer.disconnect();
+              document.removeEventListener('visibilitychange', handleVisibility);
+              floatTween.kill();
+            };
+          }
+        },
+      });
+    });
+
+    // 2. STACK DEPTH: Scrubbed ScrollTrigger on desktop/tablet (min-width: 640px)
+    // As card (i + 1) slides over card (i), card (i) scales down to 0.94 and dims via overlay opacity
     const media = gsap.matchMedia();
 
-    media.add('(min-width: 1024px)', () => {
-      const track = trackRef.current;
-      const stage = stageRef.current;
-      if (!track || !stage) return;
-      const articles = articleRefs.current.filter(Boolean);
-      const scenes = articles.map((article) => article.querySelector<HTMLElement>('[data-story-scene]')).filter((scene): scene is HTMLElement => Boolean(scene));
-      const driver = { target: 0, current: 0 };
-      let inView = false;
+    media.add('(min-width: 640px)', () => {
+      cards.forEach((card, index) => {
+        if (index >= cards.length - 1) return; // Last card doesn't get covered
+        const nextCard = cards[index + 1];
+        const overlay = dimOverlays[index];
 
-      const applyFrame = (progress: number) => {
-        const { phase, weights } = chapterWeights(progress);
-        articles.forEach((article, index) => {
-          const weight = weights[index];
-          const direction = index < phase ? -20 : 20;
-          article.style.opacity = String(weight);
-          article.style.transform = `translate3d(0, ${direction * (1 - weight)}px, 0)`;
-          const scene = scenes[index];
-          if (scene) renderStoryScene(scene, index, clamp(phase - index));
-        });
-        const activeIndex = weights.indexOf(Math.max(...weights));
-        const activeText = articles[activeIndex]?.querySelector('p');
-        const layoutBounds = layoutRef.current?.getBoundingClientRect();
-        const textBounds = activeText?.getBoundingClientRect();
-        if (dividerRef.current && layoutBounds && textBounds) {
-          const top = textBounds.top - layoutBounds.top;
-          const height = textBounds.height;
-          dividerRef.current.style.top = `${top}px`;
-          dividerRef.current.style.height = `${height}px`;
-          dotRefs.current.filter(Boolean).forEach((dot, index) => {
-            dot.style.top = `${top + height * (index / 2)}px`;
-          });
-        }
-        if (progressRef.current) progressRef.current.style.transform = `scaleY(${progress})`;
-        dotRefs.current.filter(Boolean).forEach((dot, index) => {
-          const active = weights[index] > 0.5;
-          dot.style.transform = `translate(-50%, -50%) scale(${active ? 1.25 : 1})`;
-          dot.style.opacity = active ? '1' : '0.55';
-        });
-      };
+        if (!nextCard || !overlay) return;
 
-      applyFrame(0);
-      const trigger = ScrollTrigger.create({
-        trigger: track,
-        start: 'top top',
-        end: 'bottom bottom',
-        invalidateOnRefresh: true,
-        onUpdate: (self) => { driver.target = self.progress; },
-        onRefresh: (self) => { driver.target = self.progress; },
-      });
-      const ticker = (_time: number, delta: number) => {
-        if (!inView) return;
-        const dt = Math.max(0, delta) / 1000;
-        driver.current += (driver.target - driver.current) * (1 - Math.exp(-dt * 10));
-        applyFrame(driver.current);
-      };
-      gsap.ticker.add(ticker);
-      const observer = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; }, { threshold: 0.01 });
-      observer.observe(stage);
+        gsap.fromTo(
+          card,
+          { scale: 1, transformOrigin: 'top center' },
+          {
+            scale: 0.94,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: nextCard,
+              start: 'top 85%',
+              end: 'top top+=116',
+              scrub: true,
+            },
+          }
+        );
 
-      return () => {
-        gsap.ticker.remove(ticker);
-        observer.disconnect();
-        trigger.kill();
-      };
-    });
-
-    media.add('(max-width: 1023px)', () => {
-      const articles = articleRefs.current.filter(Boolean);
-      articles.forEach((article, index) => {
-        const scene = article.querySelector<HTMLElement>('[data-story-scene]');
-        if (!scene) return;
-        renderStoryScene(scene, index, 0);
-        const local = { value: 0 };
-        const timeline = gsap.timeline({
-          scrollTrigger: { trigger: article, start: 'top 82%', once: true },
-        });
-        timeline.fromTo(scene, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: 'power2.out' }, 0);
-        timeline.to(local, { value: 1, duration: 1.35, ease: 'power2.inOut', onUpdate: () => renderStoryScene(scene, index, local.value) }, 0);
+        gsap.fromTo(
+          overlay,
+          { opacity: 0 },
+          {
+            opacity: 0.18, // Brightness .88
+            ease: 'none',
+            scrollTrigger: {
+              trigger: nextCard,
+              start: 'top 85%',
+              end: 'top top+=116',
+              scrub: true,
+            },
+          }
+        );
       });
     });
 
-    return () => media.revert();
+    // 3. Fine Pointer Cursor Parallax (desktop with mouse: up to 10px parallax)
+    if (window.matchMedia('(pointer: fine)').matches) {
+      cards.forEach((card, index) => {
+        const wrapper = graphicWrapperRefs.current[index];
+        if (!wrapper) return;
+
+        const xTo = gsap.quickTo(wrapper, 'x', { duration: 0.6, ease: 'power2.out' });
+        const yTo = gsap.quickTo(wrapper, 'y', { duration: 0.6, ease: 'power2.out' });
+
+        const handlePointerMove = (e: MouseEvent) => {
+          const rect = card.getBoundingClientRect();
+          const relX = (e.clientX - rect.left) / rect.width - 0.5;
+          const relY = (e.clientY - rect.top) / rect.height - 0.5;
+          xTo(relX * 16);
+          yTo(relY * 16);
+        };
+
+        const handlePointerLeave = () => {
+          xTo(0);
+          yTo(0);
+        };
+
+        card.addEventListener('mousemove', handlePointerMove);
+        card.addEventListener('mouseleave', handlePointerLeave);
+
+        return () => {
+          card.removeEventListener('mousemove', handlePointerMove);
+          card.removeEventListener('mouseleave', handlePointerLeave);
+        };
+      });
+    }
+
+    return () => {
+      media.revert();
+    };
   }, { scope: sectionRef, dependencies: [reducedMotion], revertOnUpdate: true });
 
   return (
-    <section ref={sectionRef} aria-label="About LeadsGrow story" className="relative bg-[#F6FAF7] text-[#0B0F0D]">
-      <div ref={trackRef} data-story-track className={`relative ${reducedMotion ? '' : 'lg:h-[310svh]'}`}>
-        <div ref={stageRef} className={`relative ${reducedMotion ? '' : 'lg:sticky lg:top-[76px] lg:h-[calc(100svh-76px)]'}`}>
-          <div className={`relative mx-auto w-[90%] max-w-[1280px] py-16 sm:w-[88%] sm:py-20 lg:w-[85%] ${reducedMotion ? '' : 'lg:h-full lg:py-0'}`}>
-            <div ref={layoutRef} className={`relative ${reducedMotion ? 'flex flex-col gap-14' : 'lg:h-full'}`}>
-              {!reducedMotion && <div ref={dividerRef} aria-hidden="true" className="absolute left-[57.8%] top-0 hidden w-[3px] bg-[#0B0F0D]/15 lg:block">
-                <div ref={progressRef} className="h-full w-full origin-top scale-y-0 bg-[#16A34A]" />
-              </div>}
-              {!reducedMotion && [0, 1, 2].map((index) => <span key={index} ref={(node) => { if (node) dotRefs.current[index] = node; }} aria-hidden="true" className="absolute left-[calc(57.8%+1.5px)] z-20 hidden size-[10px] rounded-full border-2 border-[#16A34A] bg-[#F6FAF7] transition-transform lg:block" />)}
+    <section
+      ref={sectionRef}
+      aria-labelledby="about-hero-v3-title"
+      className="relative bg-[#F6FAF7] pt-[clamp(72px,9vw,140px)] pb-[clamp(96px,12vw,180px)]"
+    >
+      <div className="mx-auto w-[90%] sm:w-[88%] lg:w-[85%] max-w-[1280px]">
+        {/* Card 1: INK #0B0F0D */}
+        <StackCard
+          key={paragraphs[0]}
+          index={0}
+          paragraph={paragraphs[0]}
+          theme={CARD_THEMES[0]}
+          isLast={false}
+          ref={(node) => { cardRefs.current[0] = node; }}
+          accentLineRef={(node) => { accentLineRefs.current[0] = node; }}
+          paragraphRef={(node) => { paragraphRefs.current[0] = node; }}
+          graphicWrapperRef={(node) => { graphicWrapperRefs.current[0] = node; }}
+          dimOverlayRef={(node) => { dimOverlayRefs.current[0] = node; }}
+        >
+          <OneRoofArt ref={oneRoofRef} reducedMotion={reducedMotion} />
+        </StackCard>
 
-              {paragraphs.map((paragraph, index) => (
-                <article
-                  key={paragraph}
-                  ref={(node) => { if (node) articleRefs.current[index] = node; }}
-                  className={`relative grid grid-cols-1 gap-5 ${reducedMotion ? 'border-t border-[#0B0F0D]/15 pt-8' : `lg:absolute lg:inset-0 lg:h-full lg:grid-cols-12 lg:items-center lg:gap-8 lg:border-0 lg:pt-0 ${index === 0 ? 'lg:opacity-100' : 'lg:opacity-0'}`}`}
-                  style={{ zIndex: paragraphs.length - index }}
-                >
-                  <StoryScenes chapter={index} final={reducedMotion} className="mx-auto h-[220px] w-full max-w-[360px] lg:col-span-6 lg:col-start-1 lg:h-[min(72vh,520px)] lg:max-w-none" />
-                  <p className="text-[18px] font-medium leading-[1.5] text-[#0B0F0D] sm:text-[20px] lg:col-span-5 lg:col-start-8 lg:text-[clamp(1.25rem,calc(1rem_+_1vw),1.75rem)]">
-                    {paragraph}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Card 2: BRAND GREEN #16A34A */}
+        <StackCard
+          key={paragraphs[1]}
+          index={1}
+          paragraph={paragraphs[1]}
+          theme={CARD_THEMES[1]}
+          isLast={false}
+          ref={(node) => { cardRefs.current[1] = node; }}
+          accentLineRef={(node) => { accentLineRefs.current[1] = node; }}
+          paragraphRef={(node) => { paragraphRefs.current[1] = node; }}
+          graphicWrapperRef={(node) => { graphicWrapperRefs.current[1] = node; }}
+          dimOverlayRef={(node) => { dimOverlayRefs.current[1] = node; }}
+        >
+          <ThreeForcesArt ref={threeForcesRef} reducedMotion={reducedMotion} />
+        </StackCard>
+
+        {/* Card 3: BRAND GREEN #16A34A */}
+        <StackCard
+          key={paragraphs[2]}
+          index={2}
+          paragraph={paragraphs[2]}
+          theme={CARD_THEMES[2]}
+          isLast={true}
+          ref={(node) => { cardRefs.current[2] = node; }}
+          accentLineRef={(node) => { accentLineRefs.current[2] = node; }}
+          paragraphRef={(node) => { paragraphRefs.current[2] = node; }}
+          graphicWrapperRef={(node) => { graphicWrapperRefs.current[2] = node; }}
+          dimOverlayRef={(node) => { dimOverlayRefs.current[2] = node; }}
+        >
+          <SeedToSkylineArt ref={seedToSkylineRef} reducedMotion={reducedMotion} />
+        </StackCard>
       </div>
     </section>
   );

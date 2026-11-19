@@ -62,7 +62,7 @@ export const Stats: React.FC<StatsProps> = ({ overlap = false, className = '' })
             className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.15] mb-3"
           >
             You Believe.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#22C55E] via-[#4ADE80] to-[#B6F23D] drop-shadow-[0_0_25px_rgba(34,197,94,0.4)]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#22C55E] via-[#4ADE80] to-[#16A34A] drop-shadow-[0_0_25px_rgba(34,197,94,0.4)]">
               We Achieve.
             </span>
           </motion.h2>
@@ -102,7 +102,7 @@ export const Stats: React.FC<StatsProps> = ({ overlap = false, className = '' })
                   </div>
 
                   {/* Animated Stat Value with suffix */}
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-1 group-hover:text-[#B6F23D] transition-colors">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-1 group-hover:text-[#16A34A] transition-colors">
                     <Counter value={stat.value} suffix={stat.suffix} />
                   </div>
 

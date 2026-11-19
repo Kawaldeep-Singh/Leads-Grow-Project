@@ -48,19 +48,19 @@ function StorefrontScene({ reducedMotion }: { reducedMotion: boolean }) {
             <div className="grid h-[87%] grid-cols-[1.3fr_.7fr] gap-[4%] p-[5%]">
               <div className="flex flex-col justify-center gap-[6%] rounded-md bg-[#F6FAF7] p-[6%]">
                 <i className="h-2 w-[80%] rounded-full bg-[#0B0F0D]/30" /><i className="h-2 w-[62%] rounded-full bg-[#0B0F0D]/15" /><i className="h-[13%] w-[35%] rounded-full bg-[#16A34A]" />
-                <div className="mt-auto grid grid-cols-2 gap-2"><i className="h-8 rounded bg-[#22C55E]/15" /><i className="h-8 rounded bg-[#B6F23D]/35" /></div>
+                <div className="mt-auto grid grid-cols-2 gap-2"><i className="h-8 rounded bg-[#22C55E]/15" /><i className="h-8 rounded bg-[#16A34A]/35" /></div>
               </div>
-              <div className="relative overflow-hidden rounded-md bg-gradient-to-br from-[#16A34A]/30 to-[#B6F23D]/45">
+              <div className="relative overflow-hidden rounded-md bg-gradient-to-br from-[#16A34A]/30 to-[#16A34A]/45">
                 <div className="absolute bottom-0 left-0 h-[55%] w-full rounded-t-[50%] bg-[#16A34A]/60" />
                 <div className="absolute bottom-0 left-[20%] h-[38%] w-[100%] rounded-t-[50%] bg-[#0B0F0D]/20" />
-                <span className="absolute right-[16%] top-[17%] size-4 rounded-full bg-[#B6F23D]" />
+                <span className="absolute right-[16%] top-[17%] size-4 rounded-full bg-[#16A34A]" />
                 <div className="absolute bottom-[14%] left-[12%] grid size-5 place-items-center rounded-full bg-[#16A34A] text-white"><Check className="size-3" /></div>
               </div>
             </div>
           </div>
         </div>
       </BrowserFrame>
-      <div className="absolute -right-1 top-[38%] z-20 flex h-7 w-7 items-center justify-center rounded-full border border-[#16A34A]/30 bg-[#B6F23D] text-[#0B0F0D] shadow-lg sm:-right-3 sm:h-9 sm:w-9">
+      <div className="absolute -right-1 top-[38%] z-20 flex h-7 w-7 items-center justify-center rounded-full border border-[#16A34A]/30 bg-[#16A34A] text-[#0B0F0D] shadow-lg sm:-right-3 sm:h-9 sm:w-9">
         <ArrowDownRight className="size-4 sm:size-5" />
       </div>
       <div ref={customersRef} className="absolute right-[-2%] top-[41%] z-30 flex gap-2 opacity-0 sm:right-[-4%]">
@@ -134,11 +134,11 @@ function ThumbnailArt({ index }: { index: number }) {
   const iconList = [PanelsTopLeft, Building2, ShoppingCart, Braces, LayoutTemplate, ArrowUpRight, LayoutGrid, Layers3, LayoutDashboard, Wrench];
   const Icon = iconList[index] ?? PanelsTopLeft;
   return (
-    <div aria-hidden="true" className={`relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#16A34A]/[0.12] via-[#0B0F0D]/20 to-[#B6F23D]/[0.08] ${index === 2 || index === 3 ? 'sm:min-h-[160px]' : 'sm:min-h-[96px]'}`}>
+    <div aria-hidden="true" className={`relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#16A34A]/[0.12] via-[#0B0F0D]/20 to-[#16A34A]/[0.08] ${index === 2 || index === 3 ? 'sm:min-h-[160px]' : 'sm:min-h-[96px]'}`}>
       <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px)', backgroundSize: '18px 18px' }} />
       {index === 2 ? (
         <div className="relative z-10 grid w-[74%] grid-cols-3 gap-2 transition-transform duration-500 group-hover:scale-105">
-          {[0, 1, 2, 3, 4, 5].map((item) => <span key={item} className={`relative aspect-square rounded-lg border border-white/10 ${item % 2 === 0 ? 'bg-[#16A34A]/25' : 'bg-[#B6F23D]/15'}`}><span className="absolute bottom-1 left-1 h-1 w-[55%] rounded-full bg-white/30" />{item === 0 && <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-[#B6F23D] text-[#0B0F0D]"><Plus className="size-3" /></span>}</span>)}
+          {[0, 1, 2, 3, 4, 5].map((item) => <span key={item} className={`relative aspect-square rounded-lg border border-white/10 ${item % 2 === 0 ? 'bg-[#16A34A]/25' : 'bg-[#16A34A]/15'}`}><span className="absolute bottom-1 left-1 h-1 w-[55%] rounded-full bg-white/30" />{item === 0 && <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-[#16A34A] text-[#0B0F0D]"><Plus className="size-3" /></span>}</span>)}
         </div>
       ) : index === 3 ? (
         <div className="relative z-10 flex w-[82%] items-center gap-3 transition-transform duration-500 group-hover:translate-x-1">
@@ -146,7 +146,7 @@ function ThumbnailArt({ index }: { index: number }) {
         </div>
       ) : index === 7 ? (
         <div className="relative z-10 grid w-[72%] grid-cols-2 gap-2 transition-transform duration-500 group-hover:scale-105">
-          <div className="h-12 rounded-lg bg-white/10" /><div className="h-12 rounded-lg bg-[#22C55E]/20" /><div className="absolute inset-y-0 left-1/2 w-px bg-[#B6F23D]" /><div className="absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#B6F23D] bg-[#0B0F0D]" />
+          <div className="h-12 rounded-lg bg-white/10" /><div className="h-12 rounded-lg bg-[#22C55E]/20" /><div className="absolute inset-y-0 left-1/2 w-px bg-[#16A34A]" /><div className="absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#16A34A] bg-[#0B0F0D]" />
         </div>
       ) : index === 8 ? (
         <div className="relative z-10 grid w-[78%] grid-cols-[.35fr_1fr] gap-2 transition-transform duration-500 group-hover:scale-105">
@@ -154,14 +154,14 @@ function ThumbnailArt({ index }: { index: number }) {
           <div className="grid grid-rows-[auto_1fr] gap-2"><div className="flex gap-2">{[0,1,2].map((item) => <i key={item} className="h-5 flex-1 rounded bg-white/10" />)}</div><div className="flex items-end gap-1 rounded bg-white/[0.04] p-2">{[30,60,43,78,52,90].map((height, item) => <i key={item} className="flex-1 rounded-t bg-[#22C55E]/60" style={{ height: `${height}%` }} />)}</div></div>
         </div>
       ) : index === 9 ? (
-        <div className="relative z-10 flex w-[75%] items-center justify-center gap-4 text-[#22C55E]"><Wrench className="size-8 transition-transform duration-500 group-hover:-rotate-12" /><span className="h-px flex-1 bg-[#22C55E]/40" /><ShieldCheck className="size-8 text-[#B6F23D]" /><HeartPulse className="absolute bottom-1 left-1/2 size-5 -translate-x-1/2 text-[#22C55E]" /></div>
+        <div className="relative z-10 flex w-[75%] items-center justify-center gap-4 text-[#22C55E]"><Wrench className="size-8 transition-transform duration-500 group-hover:-rotate-12" /><span className="h-px flex-1 bg-[#22C55E]/40" /><ShieldCheck className="size-8 text-[#16A34A]" /><HeartPulse className="absolute bottom-1 left-1/2 size-5 -translate-x-1/2 text-[#22C55E]" /></div>
       ) : (
         <div className="relative z-10 flex w-[66%] items-center justify-center transition-transform duration-500 group-hover:-translate-y-1">
           <Icon className="size-9 text-[#22C55E] sm:size-11" strokeWidth={1.5} />
           <div className="absolute -bottom-3 right-[12%] flex gap-1">{[0,1,2].map((item) => <i key={item} className={`h-2 rounded-full ${item === index % 3 ? 'w-7 bg-[#22C55E]/60' : 'w-3 bg-white/15'}`} />)}</div>
         </div>
       )}
-      <span className="absolute bottom-2 right-2 size-1.5 rounded-full bg-[#B6F23D]/75 transition-transform duration-300 group-hover:scale-150" />
+      <span className="absolute bottom-2 right-2 size-1.5 rounded-full bg-[#16A34A]/75 transition-transform duration-300 group-hover:scale-150" />
     </div>
   );
 }

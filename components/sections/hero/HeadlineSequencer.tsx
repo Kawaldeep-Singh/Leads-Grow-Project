@@ -533,7 +533,7 @@ export function HeadlineSequencer() {
           ref={mainStreakRef}
           className="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-[38vw] rounded-full pointer-events-none opacity-0"
           style={{
-            background: 'linear-gradient(90deg, transparent, #22C55E 40%, #B6F23D 60%, transparent)',
+            background: 'linear-gradient(90deg, transparent, #22C55E 40%, #16A34A 60%, transparent)',
             boxShadow: '0 0 18px rgba(34,197,94,0.6)',
           }}
         />
@@ -542,7 +542,7 @@ export function HeadlineSequencer() {
           className="absolute left-0 top-1/2 -translate-y-[calc(50%+14px)] h-[1.5px] w-[28vw] rounded-full pointer-events-none opacity-0"
           style={{
             background:
-              'linear-gradient(90deg, transparent, rgba(34,197,94,0.6) 40%, rgba(182,242,61,0.6) 60%, transparent)',
+              'linear-gradient(90deg, transparent, rgba(34,197,94,0.6) 40%, rgba(22, 163, 74, 0.6) 60%, transparent)',
             boxShadow: '0 0 12px rgba(34,197,94,0.4)',
           }}
         />
@@ -551,7 +551,7 @@ export function HeadlineSequencer() {
           className="absolute left-0 top-1/2 -translate-y-[calc(50%-14px)] h-[1.5px] w-[32vw] rounded-full pointer-events-none opacity-0"
           style={{
             background:
-              'linear-gradient(90deg, transparent, rgba(34,197,94,0.6) 40%, rgba(182,242,61,0.6) 60%, transparent)',
+              'linear-gradient(90deg, transparent, rgba(34,197,94,0.6) 40%, rgba(22, 163, 74, 0.6) 60%, transparent)',
             boxShadow: '0 0 12px rgba(34,197,94,0.4)',
           }}
         />
@@ -587,7 +587,7 @@ export function HeadlineSequencer() {
               <span className="word inline-block">
                 <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
                   <span
-                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
+                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#16A34A] -skew-x-6"
                     style={{ clipPath: 'inset(0 100% 0 0)' }}
                   >
                     <span
@@ -630,7 +630,7 @@ export function HeadlineSequencer() {
               <span className="word inline-block">
                 <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
                   <span
-                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
+                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#16A34A] -skew-x-6"
                     style={{ clipPath: 'inset(0 100% 0 0)' }}
                   >
                     <span
@@ -682,7 +682,7 @@ export function HeadlineSequencer() {
               <span className="word inline-block">
                 <span className="relative inline-flex items-center px-2.5 sm:px-3 py-0.5 rounded-md overflow-hidden shrink-0 shadow-[0_0_20px_rgba(34,197,94,0.25)]">
                   <span
-                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#B6F23D] -skew-x-6"
+                    className="slide-marker-bar absolute inset-0 rounded-md bg-gradient-to-r from-[#22C55E] to-[#16A34A] -skew-x-6"
                     style={{ clipPath: 'inset(0 100% 0 0)' }}
                   >
                     <span
@@ -729,7 +729,7 @@ export function HeadlineSequencer() {
                   ref={(el) => {
                     progressBarsRef.current[idx] = el;
                   }}
-                  className="absolute inset-0 bg-gradient-to-r from-[#22C55E] to-[#B6F23D] origin-left"
+                  className="absolute inset-0 bg-gradient-to-r from-[#22C55E] to-[#16A34A] origin-left"
                   style={{
                     transform: isActive ? undefined : 'scaleX(0)',
                   }}

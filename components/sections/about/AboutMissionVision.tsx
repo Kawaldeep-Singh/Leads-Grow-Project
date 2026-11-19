@@ -123,7 +123,7 @@ const VisionArt: React.FC = () => (
       <path d="M76 150a54 54 0 0 1 108 0" />
     </g>
     <g className="about-orbit" style={{ transformOrigin: '130px 150px' }}>
-      <circle cx="20" cy="150" r="4" fill="#B6F23D" />
+      <circle cx="20" cy="150" r="4" fill="#16A34A" />
       <circle cx="240" cy="150" r="3" fill="#22C55E" />
     </g>
     <style>{'@keyframes about-orbit{to{transform:rotate(360deg)}} .about-orbit{animation:about-orbit 24s linear infinite} @media(prefers-reduced-motion:reduce){.about-orbit{animation:none!important}}'}</style>

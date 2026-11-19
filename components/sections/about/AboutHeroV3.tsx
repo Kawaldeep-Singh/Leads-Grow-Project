@@ -71,7 +71,7 @@ export function AboutHeroV3() {
       const splitThree = new SplitText(lineThree, { type: 'words', mask: 'words' });
       const gradientWords = splitThree.words.map((word) => word.firstElementChild).filter((word): word is HTMLElement => word instanceof HTMLElement);
       gradientWords.forEach((word) => {
-        word.style.backgroundImage = 'linear-gradient(90deg, #22C55E 0%, #B6F23D 100%)';
+        word.style.backgroundImage = 'linear-gradient(90deg, #22C55E 0%, #16A34A 100%)';
         word.style.backgroundSize = '200% 100%';
         word.style.backgroundPosition = '100% 0%';
         word.style.backgroundClip = 'text';
@@ -122,9 +122,9 @@ export function AboutHeroV3() {
           <span ref={lineTwoRef} className="block text-transparent lg:whitespace-nowrap" style={{ WebkitTextStroke: '1.5px rgba(255,255,255,.92)', WebkitTextFillColor: 'transparent' }}>{lines[1]}</span>
           <span className="block pb-[0.12em] lg:whitespace-nowrap">
             <span className="relative inline-block">
-              <span ref={lineThreeRef} className={`inline-block ${reducedMotion ? 'bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-[length:200%_100%] bg-clip-text text-transparent' : 'text-[#22C55E]'}`} style={{ backgroundPosition: '0% 0%' }}>{lines[2]}</span>
+              <span ref={lineThreeRef} className={`inline-block ${reducedMotion ? 'bg-gradient-to-r from-[#22C55E] to-[#16A34A] bg-[length:200%_100%] bg-clip-text text-transparent' : 'text-[#22C55E]'}`} style={{ backgroundPosition: '0% 0%' }}>{lines[2]}</span>
               <svg className="pointer-events-none absolute -bottom-[0.06em] left-0 h-[0.14em] w-full overflow-visible" viewBox="0 0 500 18" preserveAspectRatio="none" aria-hidden="true">
-                <path ref={underlineRef} d="M2 11 C 72 4, 125 15, 194 8 S 330 13, 498 5" fill="none" stroke="#B6F23D" strokeWidth="4" strokeLinecap="round" strokeDasharray="500" strokeDashoffset={reducedMotion ? 0 : 500} />
+                <path ref={underlineRef} d="M2 11 C 72 4, 125 15, 194 8 S 330 13, 498 5" fill="none" stroke="#16A34A" strokeWidth="4" strokeLinecap="round" strokeDasharray="500" strokeDashoffset={reducedMotion ? 0 : 500} />
               </svg>
             </span>
           </span>

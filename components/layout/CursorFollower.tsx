@@ -82,7 +82,7 @@ export const CursorFollower: React.FC = () => {
         className="rounded-full border border-dashed flex items-center justify-center backdrop-blur-[1px]"
       >
         {cursorText && (
-          <span className="text-[10px] font-bold tracking-wider uppercase text-[#B6F23D]">
+          <span className="text-[10px] font-bold tracking-wider uppercase text-[#16A34A]">
             {cursorText}
           </span>
         )}

@@ -31,7 +31,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
     >
       {/* Intense Glowing Radial Backgrounds */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-to-tr from-[#16A34A]/25 via-[#22C55E]/15 to-transparent rounded-full blur-[170px] pointer-events-none" />
-      <div className="absolute bottom-0 right-10 w-96 h-96 bg-[#B6F23D]/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 right-10 w-96 h-96 bg-[#16A34A]/10 rounded-full blur-[140px] pointer-events-none" />
 
       {/* Floating Animated Geometric Shapes & Arrows */}
       <motion.div
@@ -46,9 +46,9 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
       <motion.div
         animate={{ y: [15, -15, 15], rotate: [0, -8, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-16 right-16 hidden lg:flex items-center gap-2 p-3 rounded-2xl bg-[#111815]/70 border border-[#1A2420] text-[#B6F23D] backdrop-blur-md"
+        className="absolute bottom-16 right-16 hidden lg:flex items-center gap-2 p-3 rounded-2xl bg-[#111815]/70 border border-[#1A2420] text-[#16A34A] backdrop-blur-md"
       >
-        <HiSparkles className="h-6 w-6 text-[#B6F23D]" />
+        <HiSparkles className="h-6 w-6 text-[#16A34A]" />
         <span className="text-xs font-bold font-mono text-white">Full-Funnel Automation</span>
       </motion.div>
 
@@ -60,7 +60,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
           viewport={{ once: true }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#16A34A]/20 border border-[#22C55E]/40 text-[#22C55E] text-xs font-bold uppercase tracking-wider mb-6"
         >
-          <span className="w-2 h-2 rounded-full bg-[#B6F23D] animate-ping" />
+          <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-ping" />
           <span>Transform Your Sales Pipeline</span>
         </motion.div>
 
@@ -110,7 +110,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenModal }) => {
             >
               <span className="flex items-center gap-3">
                 Let&apos;s Talk LeadsGrow!
-                <HiSparkles className="h-5 w-5 text-[#B6F23D]" />
+                <HiSparkles className="h-5 w-5 text-[#16A34A]" />
               </span>
             </Button>
           </MagneticButton>

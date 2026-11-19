@@ -112,7 +112,7 @@ export const Modal: React.FC<ModalProps> = ({
         particleCount: 100,
         spread: 80,
         origin: { y: 0.6 },
-        colors: ['#16A34A', '#22C55E', '#B6F23D', '#FFFFFF'],
+        colors: ['#16A34A', '#22C55E', '#16A34A', '#FFFFFF'],
       });
     } catch (err: any) {
       setErrorMessage(err.message || 'Something went wrong. Please try again.');

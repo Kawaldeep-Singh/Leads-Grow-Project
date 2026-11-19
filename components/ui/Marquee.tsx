@@ -87,7 +87,7 @@ export const Marquee: React.FC<MarqueeProps> = ({
         {repeatedItems.map((item, index) => (
           <div key={index} className="flex items-center gap-6">
             <span className={itemClassName}>{item}</span>
-            <span className="text-[#B6F23D] opacity-80 text-sm select-none">{separator}</span>
+            <span className="text-[#16A34A] opacity-80 text-sm select-none">{separator}</span>
           </div>
         ))}
       </motion.div>

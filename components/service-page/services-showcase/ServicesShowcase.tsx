@@ -107,7 +107,7 @@ export function ServicesShowcase({ content }: { content: WebsiteDevelopmentConte
       <style jsx>{`
         .services-showcase { padding-block:clamp(96px,12vw,180px); }
         .services-showcase-container { width:100%; }
-        .showcase-eyebrow { display:inline-flex; align-items:center; gap:.7em; min-height:42px; padding:.6em 1.3em; border-radius:999px; background:#0B0F0D; color:#B6F23D; white-space:nowrap; font:700 clamp(1rem,.9rem + .6vw,1.2rem)/1 var(--font-display); }
+        .showcase-eyebrow { display:inline-flex; align-items:center; gap:.7em; min-height:42px; padding:.6em 1.3em; border-radius:999px; background:#0B0F0D; color:#16A34A; white-space:nowrap; font:700 clamp(1rem,.9rem + .6vw,1.2rem)/1 var(--font-display); }
         .showcase-eyebrow-dot { width:.5em; height:.5em; flex:none; border-radius:999px; background:#22C55E; }
         .showcase-heading { margin-top:26px; max-width:12ch; font-size:clamp(2.1rem,4.2vw,3.8rem); font-weight:800; line-height:1.05; letter-spacing:-.03em; }
         .showcase-heading-line { display:block; }

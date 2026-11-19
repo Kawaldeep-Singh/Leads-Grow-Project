@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import type { WebsiteDevelopmentContent } from '@/data/servicePages';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { gsap, registerGsapPlugins, ScrollTrigger } from '@/lib/gsap-register';
-import { BrowserFrame, CodePanel, LaptopFrame, PhoneFrame, ShieldBadge, SpeedGauge, UiSkeleton } from './mockups';
+import { BrowserFrame, CodePanel, LaptopFrame, PhoneFrame, ShieldBadge, UiSkeleton } from './mockups';
 
 function WebsiteBuildScene({ reducedMotion }: { reducedMotion: boolean }) {
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -16,7 +16,6 @@ function WebsiteBuildScene({ reducedMotion }: { reducedMotion: boolean }) {
   const codeRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const shieldRef = useRef<HTMLDivElement>(null);
-  const gaugeRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     registerGsapPlugins();
@@ -27,13 +26,12 @@ function WebsiteBuildScene({ reducedMotion }: { reducedMotion: boolean }) {
     const code = codeRef.current;
     const phone = phoneRef.current;
     const shield = shieldRef.current;
-    const gauge = gaugeRef.current;
-    if (!scene || !laptop || !wireframe || !live || !code || !phone || !shield || !gauge) return;
+    if (!scene || !laptop || !wireframe || !live || !code || !phone || !shield) return;
 
     if (reducedMotion) {
       gsap.set([wireframe, code], { opacity: 0 });
       gsap.set([live, phone], { opacity: 1 });
-      gsap.set([shield, gauge], { opacity: 1, scale: 1 });
+      gsap.set(shield, { opacity: 1, scale: 1 });
       return;
     }
 
@@ -48,15 +46,13 @@ function WebsiteBuildScene({ reducedMotion }: { reducedMotion: boolean }) {
     timeline
       .set(phone, { opacity: 0, y: 18, scale: 0.96 })
       .set(shield, { opacity: 0, scale: 0.7, transformOrigin: '50% 50%' })
-      .set(gauge, { opacity: 0, rotate: -40, transformOrigin: '50% 85%' })
       .fromTo(code, { opacity: 0, x: 22 }, { opacity: 0.95, x: 0, duration: 0.45, ease: 'expo.out' })
       .fromTo(laptop, { opacity: 0, y: 24, rotateY: -5 }, { opacity: 1, y: 0, rotateY: 0, duration: 0.65, ease: 'expo.out' }, '<')
       .to(wireframe, { opacity: 1, duration: 0.15 }, 0.45)
       .to(wireframe, { opacity: 0, duration: 0.45, ease: 'power2.inOut' }, 1.15)
       .to(live, { opacity: 1, duration: 0.55, ease: 'power2.inOut' }, 1.15)
       .fromTo(phone, { opacity: 0, y: 18, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'expo.out' }, 1.45)
-      .fromTo(shield, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2.4)' }, 2.15)
-      .fromTo(gauge, { opacity: 0, rotate: -40 }, { opacity: 1, rotate: 0, duration: 0.45, ease: 'power2.inOut' }, 2.45);
+      .fromTo(shield, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2.4)' }, 2.15);
 
     const observer = new IntersectionObserver(([entry]) => {
       observerVisible = entry.isIntersecting;
@@ -114,7 +110,6 @@ function WebsiteBuildScene({ reducedMotion }: { reducedMotion: boolean }) {
         <PhoneFrame className="h-full w-full"><CodePanel cursorBlink={!reducedMotion} className="h-full w-full border-0 p-1.5 sm:p-2" /></PhoneFrame>
       </div>
       <div ref={shieldRef} className="absolute right-[4%] top-[12%] z-30 h-11 w-10 drop-shadow-[0_8px_16px_rgba(34,197,94,.3)] opacity-0 sm:right-[10%] sm:top-[9%] sm:h-14 sm:w-12"><ShieldBadge className="h-full w-full" /></div>
-      <div ref={gaugeRef} className="absolute bottom-[2%] left-[6%] z-20 h-9 w-14 opacity-0 sm:bottom-[4%] sm:left-[4%] sm:h-12 sm:w-20"><SpeedGauge className="h-full w-full" /></div>
     </div>
   );
 }
@@ -143,7 +138,7 @@ export function WebsiteHero({ content }: { content: WebsiteDevelopmentContent })
       if (eyebrow) timeline.to(eyebrow, { opacity: 1, y: 0, duration: 0.35, ease: 'expo.out' });
       timeline
         .to(lines, { opacity: 1, y: 0, rotateX: 0, duration: 0.7, stagger: 0.12, ease: 'expo.out' }, eyebrow ? '-=0.08' : 0)
-        .to(lines[1], { color: '#F6FAF7', WebkitTextStrokeColor: '#B6F23D', duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.inOut' }, '-=0.12');
+        .to(lines[1], { color: '#F6FAF7', WebkitTextStrokeColor: '#16A34A', duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.inOut' }, '-=0.12');
       if (paragraph) timeline.to(paragraph, { opacity: 1, y: 0, duration: 0.55, ease: 'expo.out' }, '-=0.05');
       if (trust) timeline.to(trust, { opacity: 1, y: 0, duration: 0.45, ease: 'expo.out' }, '-=0.25');
     }, section);
@@ -161,7 +156,7 @@ export function WebsiteHero({ content }: { content: WebsiteDevelopmentContent })
         <h1 id="website-hero-title" className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1 lg:row-start-2">
           <span ref={(node) => { if (node) lineRefs.current[0] = node; }} className="block">We Turn Your Ideas</span>{' '}
           <span ref={(node) => { if (node) lineRefs.current[1] = node; }} data-outline-line className="block text-transparent" style={{ WebkitTextStroke: '1.5px rgba(255,255,255,.9)', WebkitTextFillColor: 'transparent' }}>into Powerful</span>{' '}
-          <span ref={(node) => { if (node) lineRefs.current[2] = node; }} className="block bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-clip-text text-transparent">Websites.</span>
+          <span ref={(node) => { if (node) lineRefs.current[2] = node; }} className="block bg-gradient-to-r from-[#22C55E] to-[#16A34A] bg-clip-text text-transparent">Websites.</span>
         </h1>
         <div className="order-3 mx-auto w-full lg:col-span-5 lg:col-start-8 lg:row-span-4 lg:row-start-1 lg:row-end-5 lg:self-center">
           <WebsiteBuildScene reducedMotion={reducedMotion} />

@@ -55,8 +55,8 @@ export function UiSkeleton({ live = false, compact = false, className = '' }: Mo
           <i className={`h-2 w-[54%] rounded-full ${live ? 'bg-[#0B0F0D]/30' : 'bg-[#0B0F0D]/10'}`} />
           <i className={`mt-1 h-4 w-[36%] rounded-full ${live ? 'bg-[#22C55E]' : 'bg-[#0B0F0D]/12'}`} />
         </div>
-        <div className={`relative overflow-hidden rounded-md ${live ? 'bg-gradient-to-br from-[#16A34A]/35 via-[#22C55E]/25 to-[#B6F23D]/45' : 'border border-dashed border-[#0B0F0D]/15 bg-[#0B0F0D]/[0.025]'}`}>
-          {live && <svg viewBox="0 0 100 60" className="absolute inset-0 h-full w-full" fill="none"><circle cx="75" cy="18" r="8" fill="#B6F23D" /><path d="M0 46Q25 28 48 42T100 30V60H0Z" fill="#16A34A" opacity=".75" /><path d="M0 51Q28 38 53 49T100 39V60H0Z" fill="#0B0F0D" opacity=".3" /></svg>}
+        <div className={`relative overflow-hidden rounded-md ${live ? 'bg-gradient-to-br from-[#16A34A]/35 via-[#22C55E]/25 to-[#16A34A]/45' : 'border border-dashed border-[#0B0F0D]/15 bg-[#0B0F0D]/[0.025]'}`}>
+          {live && <svg viewBox="0 0 100 60" className="absolute inset-0 h-full w-full" fill="none"><circle cx="75" cy="18" r="8" fill="#16A34A" /><path d="M0 46Q25 28 48 42T100 30V60H0Z" fill="#16A34A" opacity=".75" /><path d="M0 51Q28 38 53 49T100 39V60H0Z" fill="#0B0F0D" opacity=".3" /></svg>}
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2">
@@ -68,16 +68,16 @@ export function UiSkeleton({ live = false, compact = false, className = '' }: Mo
 
 export function CodePanel({ className = '', cursorBlink = false }: MockupProps & { cursorBlink?: boolean }) {
   const lines = [
-    ['w-[78%]', 'bg-[#22C55E]/80'], ['w-[58%]', 'bg-[#B6F23D]/75'], ['w-[88%]', 'bg-white/35'],
-    ['w-[46%]', 'bg-[#22C55E]/55'], ['w-[70%]', 'bg-[#B6F23D]/60'], ['w-[53%]', 'bg-white/25'],
-    ['w-[82%]', 'bg-[#22C55E]/65'], ['w-[38%]', 'bg-[#B6F23D]/70'],
+    ['w-[78%]', 'bg-[#22C55E]/80'], ['w-[58%]', 'bg-[#16A34A]/75'], ['w-[88%]', 'bg-white/35'],
+    ['w-[46%]', 'bg-[#22C55E]/55'], ['w-[70%]', 'bg-[#16A34A]/60'], ['w-[53%]', 'bg-white/25'],
+    ['w-[82%]', 'bg-[#22C55E]/65'], ['w-[38%]', 'bg-[#16A34A]/70'],
   ];
   return (
     <div aria-hidden="true" className={`rounded-xl border border-white/10 bg-[#101713] p-3 shadow-xl ${className}`}>
       <div className="mb-3 flex items-center gap-1.5"><i className="size-1.5 rounded-full bg-[#22C55E]/70" /><i className="size-1.5 rounded-full bg-white/20" /><i className="size-1.5 rounded-full bg-white/15" /><i className="ml-auto h-1.5 w-6 rounded-full bg-white/10" /></div>
       <div className="space-y-2">
         {lines.map(([width, color], index) => <div key={index} className={`h-1.5 rounded-full ${width} ${color}`} style={{ marginLeft: `${(index % 3) * 8}%` }} />)}
-        <i className={`ml-[8%] block h-2 w-1 rounded-full bg-[#B6F23D] ${cursorBlink ? 'animate-pulse' : ''}`} />
+        <i className={`ml-[8%] block h-2 w-1 rounded-full bg-[#16A34A] ${cursorBlink ? 'animate-pulse' : ''}`} />
       </div>
     </div>
   );
@@ -97,8 +97,8 @@ export function SpeedGauge({ className = '' }: MockupProps) {
     <svg aria-hidden="true" viewBox="0 0 100 64" className={className} fill="none">
       <path d="M12 52a38 38 0 1 1 76 0" stroke="#526058" strokeWidth="8" strokeLinecap="round" />
       <path d="M50 14a38 38 0 0 1 36 26" stroke="#22C55E" strokeWidth="8" strokeLinecap="round" />
-      <path d="m50 48 22-22" stroke="#B6F23D" strokeWidth="4" strokeLinecap="round" />
-      <circle cx="50" cy="48" r="6" fill="#0B0F0D" stroke="#B6F23D" strokeWidth="2" />
+      <path d="m50 48 22-22" stroke="#16A34A" strokeWidth="4" strokeLinecap="round" />
+      <circle cx="50" cy="48" r="6" fill="#0B0F0D" stroke="#16A34A" strokeWidth="2" />
     </svg>
   );
 }

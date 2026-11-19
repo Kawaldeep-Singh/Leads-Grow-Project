@@ -43,9 +43,9 @@ export function ShowcasePreview({ index, names, compact = false }: ShowcasePrevi
       <style jsx>{`
         .showcase-image { opacity: 0; clip-path: inset(100% 0 0 0); transform: scale(1.06); transition: opacity .7s ease, clip-path .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
         .showcase-image-active { opacity: 1; clip-path: inset(0); transform: scale(1); }
-        .showcase-ghost-number { position:absolute; inset:0; display:grid; place-items:center; font:800 clamp(8rem,24vw,20rem)/1 var(--font-display); color:rgba(182,242,61,.12); opacity:0; transition:opacity .5s ease; }
+        .showcase-ghost-number { position:absolute; inset:0; display:grid; place-items:center; font:800 clamp(8rem,24vw,20rem)/1 var(--font-display); color:rgba(22, 163, 74, .12); opacity:0; transition:opacity .5s ease; }
         .showcase-ghost-active { opacity:1; }
-        .showcase-ghost-number::before { content:attr(data-preview-number); -webkit-text-stroke:1px rgba(182,242,61,.18); color:transparent; }
+        .showcase-ghost-number::before { content:attr(data-preview-number); -webkit-text-stroke:1px rgba(22, 163, 74, .18); color:transparent; }
         .showcase-number-chip::before { content:attr(data-active-number); display:grid; min-width:3rem; height:2.25rem; place-items:center; border-radius:999px; background:#fff; color:#0B0F0D; font:700 .85rem/1 ui-monospace,monospace; }
         @media (prefers-reduced-motion: reduce) { .showcase-image { transition:opacity .01ms; clip-path:inset(0); transform:none; } }
       `}</style>

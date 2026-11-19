@@ -115,7 +115,7 @@ export const AboutBackground: React.FC<AboutBackgroundProps> = ({
               <stop offset="0%" stopColor="#16A34A" stopOpacity="0" />
               <stop offset="30%" stopColor="#22C55E" stopOpacity="0.8" />
               <stop offset="70%" stopColor="#22C55E" stopOpacity="1" />
-              <stop offset="100%" stopColor="#B6F23D" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#16A34A" stopOpacity="0.9" />
             </linearGradient>
             <marker
               id="growthArrow"
@@ -126,7 +126,7 @@ export const AboutBackground: React.FC<AboutBackgroundProps> = ({
               markerHeight="6"
               orient="auto-start-reverse"
             >
-              <path d="M 0 1 L 8 5 L 0 9 z" fill="#B6F23D" />
+              <path d="M 0 1 L 8 5 L 0 9 z" fill="#16A34A" />
             </marker>
           </defs>
           <path

@@ -10,14 +10,14 @@ interface FooterBackgroundProps {
 const PARTICLES = [
   { id: 1, left: '6%', size: 3, duration: 11, delay: 0, color: '#22C55E' },
   { id: 2, left: '16%', size: 2, duration: 14, delay: 3, color: '#16A34A' },
-  { id: 3, left: '28%', size: 4, duration: 9, delay: 1.5, color: '#B6F23D' },
+  { id: 3, left: '28%', size: 4, duration: 9, delay: 1.5, color: '#16A34A' },
   { id: 4, left: '38%', size: 2.5, duration: 13, delay: 5, color: '#22C55E' },
   { id: 5, left: '50%', size: 3, duration: 10, delay: 2, color: '#16A34A' },
-  { id: 6, left: '62%', size: 3.5, duration: 12, delay: 4.5, color: '#B6F23D' },
+  { id: 6, left: '62%', size: 3.5, duration: 12, delay: 4.5, color: '#16A34A' },
   { id: 7, left: '74%', size: 2, duration: 15, delay: 1, color: '#22C55E' },
   { id: 8, left: '83%', size: 4, duration: 9.5, delay: 3.5, color: '#16A34A' },
   { id: 9, left: '92%', size: 2.5, duration: 13.5, delay: 6, color: '#22C55E' },
-  { id: 10, left: '46%', size: 3, duration: 11.5, delay: 7, color: '#B6F23D' },
+  { id: 10, left: '46%', size: 3, duration: 11.5, delay: 7, color: '#16A34A' },
 ];
 
 export const FooterBackground: React.FC<FooterBackgroundProps> = ({ spotlightRef }) => {
@@ -76,8 +76,8 @@ export const FooterBackground: React.FC<FooterBackgroundProps> = ({ spotlightRef
       {/* Orb 2: Mint Center-Right */}
       <div className="footer-orb-2 absolute bottom-1/4 -right-24 w-[540px] h-[540px] bg-[#22C55E]/10 rounded-full blur-[150px]" />
 
-      {/* Orb 3: Lime Horizon Glow behind Wordmark at Bottom */}
-      <div className="footer-orb-3 absolute -bottom-16 left-1/2 -translate-x-1/2 w-[720px] h-[260px] bg-gradient-to-t from-[#B6F23D]/12 via-[#16A34A]/14 to-transparent rounded-full blur-[120px]" />
+      {/* Orb 3: Green Horizon Glow behind Wordmark at Bottom */}
+      <div className="footer-orb-3 absolute -bottom-16 left-1/2 -translate-x-1/2 w-[720px] h-[260px] bg-gradient-to-t from-[#16A34A]/12 via-[#16A34A]/14 to-transparent rounded-full blur-[120px]" />
 
       {/* ── Faint Dotted Radial Grid with Gentle Pulse ── */}
       <div

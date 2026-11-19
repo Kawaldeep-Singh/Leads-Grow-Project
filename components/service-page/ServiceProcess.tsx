@@ -112,7 +112,7 @@ export function ServiceProcess({ content }: { content: DigitalMarketingContent }
   }, { scope: sectionRef, dependencies: [reducedMotion, content.process.steps.length], revertOnUpdate: true });
 
   return (
-    <section ref={sectionRef} aria-labelledby="service-process-title" className="relative bg-[#0B0F0D] text-white">
+    <section ref={sectionRef} aria-labelledby="service-process-title" className="relative bg-[#0B0F0D] py-[15px] text-white">
       <div ref={trackRef} className={`relative ${reducedMotion ? '' : 'lg:h-[260svh]'}`}>
         <div ref={stageRef} className={`relative ${reducedMotion ? '' : 'lg:sticky lg:top-[76px] lg:h-[calc(100svh-76px)]'}`}>
           <div className="mx-auto flex w-[85%] flex-col py-16 sm:py-20 lg:h-full lg:py-8">
@@ -129,7 +129,7 @@ export function ServiceProcess({ content }: { content: DigitalMarketingContent }
                 {content.process.steps.map((step, index) => {
                   const point = stepPoints[index];
                   return <li key={step.title} ref={(element) => { if (element) stepRefs.current[index] = element; }} className="relative flex gap-5 pl-1 lg:absolute lg:left-[var(--step-left)] lg:top-[var(--step-top)] lg:w-[18%] lg:pl-0" style={point ? { '--step-left': point.left, '--step-top': point.top } as CSSProperties : undefined}>
-                    <span aria-hidden="true" className="relative z-10 mt-1 flex size-7 shrink-0 items-center justify-center rounded-full border border-[#22C55E] bg-[#0B0F0D] text-[10px] text-[#B6F23D] lg:hidden">{String(index + 1).padStart(2, '0')}</span>
+                    <span aria-hidden="true" className="relative z-10 mt-1 flex size-7 shrink-0 items-center justify-center rounded-full border border-[#22C55E] bg-[#0B0F0D] text-[10px] text-[#16A34A] lg:hidden">{String(index + 1).padStart(2, '0')}</span>
                     <div className="lg:min-h-[92px]">
                       <span aria-hidden="true" className="hidden font-mono text-xs text-[#22C55E] lg:block">{String(index + 1).padStart(2, '0')}</span>
                       <h3 className="font-display text-[16px] font-bold leading-tight text-white sm:text-[18px]">{step.title}</h3>
@@ -140,11 +140,11 @@ export function ServiceProcess({ content }: { content: DigitalMarketingContent }
               </ol>
 
               <svg aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 top-0 z-0 hidden h-full w-full overflow-visible lg:block" viewBox="0 0 1200 540" preserveAspectRatio="none" fill="none">
-                <defs><linearGradient id="service-process-path" x1="0" y1="540" x2="1200" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#16A34A" /><stop offset="1" stopColor="#B6F23D" /></linearGradient></defs>
+                <defs><linearGradient id="service-process-path" x1="0" y1="540" x2="1200" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#16A34A" /><stop offset="1" stopColor="#16A34A" /></linearGradient></defs>
                 <path ref={pathRef} d="M90 486 C250 474 262 381 430 378S642 321 728 269 923 193 1116 54" stroke="white" strokeOpacity=".16" strokeWidth="3" />
                 <path ref={progressPathRef} d="M90 486 C250 474 262 381 430 378S642 321 728 269 923 193 1116 54" pathLength="1" stroke="url(#service-process-path)" strokeWidth="3" strokeLinecap="round" strokeDasharray="1" strokeDashoffset={reducedMotion ? 0 : 1} />
                 {stepPoints.map((point, index) => <circle key={index} ref={(element) => { if (element) nodeRefs.current[index] = element; }} cx={point.x * 12} cy={point.y * 5.4} r="8" fill="#0B0F0D" stroke="#22C55E" strokeWidth="2" opacity={reducedMotion ? 1 : 0.45} />)}
-                <g ref={travelerRef} transform={reducedMotion ? 'translate(1116 54)' : 'translate(90 486)'}><circle r="12" fill="#22C55E" fillOpacity=".3" /><circle r="6" fill="#0B0F0D" stroke="#B6F23D" strokeWidth="2" /></g>
+                <g ref={travelerRef} transform={reducedMotion ? 'translate(1116 54)' : 'translate(90 486)'}><circle r="12" fill="#22C55E" fillOpacity=".3" /><circle r="6" fill="#0B0F0D" stroke="#16A34A" strokeWidth="2" /></g>
               </svg>
             </div>
           </div>

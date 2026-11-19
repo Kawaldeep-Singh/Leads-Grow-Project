@@ -75,7 +75,7 @@ function HubScene({ reducedMotion }: { reducedMotion: boolean }) {
       })}
       </g>
       <circle cx="200" cy="180" r="28" fill="#0B0F0D" />
-      <circle cx="200" cy="180" r="8" fill="#B6F23D" />
+      <circle cx="200" cy="180" r="8" fill="#16A34A" />
     </svg>
   );
 }
@@ -199,7 +199,7 @@ export function ServiceCatalog({ content }: { content: DigitalMarketingContent }
 
                 {/* Center: Micro-tag + Service Name */}
                 <div className="relative z-10 flex-1 min-w-0 pr-1">
-                  <span className="block font-mono text-[10px] sm:text-[11px] font-semibold text-[#22C55E]/80 uppercase tracking-wider transition-colors duration-200 group-hover:text-[#B6F23D]">
+                  <span className="block font-mono text-[10px] sm:text-[11px] font-semibold text-[#22C55E]/80 uppercase tracking-wider transition-colors duration-200 group-hover:text-[#16A34A]">
                     {meta.code} • {meta.tag}
                   </span>
                   <h3 className="mt-0.5 text-[14px] sm:text-[15px] font-bold leading-snug text-white transition-colors duration-200 group-hover:text-[#22C55E] line-clamp-2">
@@ -480,7 +480,7 @@ export function ServiceCTA({ content }: { content: DigitalMarketingContent }) {
           event.currentTarget.style.setProperty('--magnet-y', `${Math.max(-6, Math.min(6, (event.clientY - rect.top - rect.height / 2) * 0.08))}px`);
           event.currentTarget.style.transform = 'translate(var(--magnet-x), var(--magnet-y))';
         }} onPointerLeave={(event) => { event.currentTarget.style.transform = ''; }}>
-          {content.cta.button}<span aria-hidden="true" className="flex size-8 items-center justify-center rounded-full bg-[#B6F23D] text-[#0B0F0D]"><ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></span>
+          {content.cta.button}<span aria-hidden="true" className="flex size-8 items-center justify-center rounded-full bg-[#16A34A] text-[#0B0F0D]"><ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></span>
         </a>
       </div>
     </section>

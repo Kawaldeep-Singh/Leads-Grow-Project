@@ -118,7 +118,7 @@ export const GrowthBars: React.FC = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <circle cx="399" cy="33" r="5" fill="#B6F23D" />
+        <circle cx="399" cy="33" r="5" fill="#16A34A" />
       </svg>
     </div>
   );

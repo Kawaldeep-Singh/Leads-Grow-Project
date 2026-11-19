@@ -148,7 +148,7 @@ export function Hero({
                   <span className="truncate">{cat.label}</span>
                   <span
                     className={`shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md transition-colors ${isActive
-                        ? 'bg-black/25 text-[#B6F23D]'
+                        ? 'bg-black/25 text-[#16A34A]'
                         : 'bg-[#1A2420] text-[#5B6B63] group-hover:text-[#9FB0A7]'
                       }`}
                   >

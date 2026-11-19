@@ -364,7 +364,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
               width: 34,
               height: 34,
               opacity: 0,
-              background: 'radial-gradient(circle, rgba(182,242,61,0.9) 0%, rgba(182,242,61,0) 70%)',
+              background: 'radial-gradient(circle, rgba(22, 163, 74, 0.9) 0%, rgba(22, 163, 74, 0) 70%)',
             }}
             aria-hidden
           />
@@ -388,7 +388,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           <div className="w-full h-[2px] bg-[#1A2420] rounded-full overflow-hidden relative">
             <div
               ref={progressBarRef}
-              className="h-full rounded-full bg-gradient-to-r from-[#16A34A] via-[#22C55E] to-[#B6F23D] will-change-transform"
+              className="h-full rounded-full bg-gradient-to-r from-[#16A34A] via-[#22C55E] to-[#16A34A] will-change-transform"
               style={{ width: '0%', boxShadow: '0 0 10px rgba(34,197,94,0.85)' }}
             />
           </div>

@@ -23,7 +23,8 @@ test.describe('About Page Content Accuracy', () => {
     const h1Count = await h1Elements.count();
     expect(h1Count, 'There must be exactly one <h1> on the page').toBe(1);
 
-    const h1Text = (await h1Elements.first().innerText()).trim().replace(/\s+/g, ' ');
+    const h1Raw = (await h1Elements.first().innerText()).trim().replace(/\s+/g, ' ');
+    const h1Text = h1Raw.replace(/([a-z0-9\.])([A-Z])/g, '$1 $2').trim().replace(/\s+/g, ' ');
     expect(h1Text).toBe(aboutContent.hero.title);
 
     // 3. Collect all 38 expected strings from aboutContent
@@ -70,10 +71,7 @@ test.describe('About Page Content Accuracy', () => {
     let remainingText = normalizedMainText;
     for (const expected of sortedExpected) {
       const normalized = expected.replace(/\s+/g, ' ');
-      const idx = remainingText.indexOf(normalized);
-      if (idx !== -1) {
-        remainingText = remainingText.slice(0, idx) + ' ' + remainingText.slice(idx + normalized.length);
-      }
+      remainingText = remainingText.replaceAll(normalized, ' ');
     }
 
     const leftoverTrimmed = remainingText.trim().replace(/\s+/g, ' ');

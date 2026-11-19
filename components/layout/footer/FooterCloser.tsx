@@ -116,7 +116,7 @@ export const FooterCloser: React.FC<FooterCloserProps> = ({ onAnchorClick }) => 
 
           {/* Card Label */}
           <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#22C55E] mb-2">
-            <HiSparkles className="h-4 w-4 text-[#B6F23D]" />
+            <HiSparkles className="h-4 w-4 text-[#16A34A]" />
             <span>Weekly Marketing Playbook</span>
           </div>
 

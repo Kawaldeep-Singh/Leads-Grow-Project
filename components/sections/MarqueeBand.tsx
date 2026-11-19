@@ -26,7 +26,7 @@ export const MarqueeBand: React.FC = () => {
             baseVelocity={1.0}
             direction="right"
             separator="⚡"
-            itemClassName="text-sm sm:text-base font-extrabold tracking-wider uppercase text-[#9FB0A7] hover:text-[#B6F23D] transition-colors"
+            itemClassName="text-sm sm:text-base font-extrabold tracking-wider uppercase text-[#9FB0A7] hover:text-[#16A34A] transition-colors"
           />
         </div>
       </div>

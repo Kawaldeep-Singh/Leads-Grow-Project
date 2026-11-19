@@ -41,7 +41,7 @@ export const FloatingWidgets: React.FC<FloatingWidgetsProps> = ({ onOpenConsulta
               onClick={onOpenConsultation}
               className="relative flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-[#16A34A] to-[#15803D] border border-[#22C55E]/60 text-white font-bold text-xs sm:text-sm shadow-xl shadow-[#16A34A]/40 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,197,94,0.7)] transition-all duration-300 cursor-pointer"
             >
-              {/* <HiSparkles className="h-4 w-4 text-[#B6F23D] animate-spin" style={{ animationDuration: '4s' }} /> */}
+              {/* <HiSparkles className="h-4 w-4 text-[#16A34A] animate-spin" style={{ animationDuration: '4s' }} /> */}
               <span>Get Free Consultation</span>
             </button>
           </motion.div>

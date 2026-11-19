@@ -118,7 +118,7 @@ export const AboutCTA: React.FC = () => {
           prefetch={false}
           className="group relative mt-9 inline-flex min-h-14 w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-[#0B0F0D] px-8 py-4 text-center text-sm font-bold text-white transition-transform duration-200 hover:text-[#0B0F0D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0B0F0D] sm:mt-10 sm:w-auto sm:px-10 sm:text-base"
         >
-          <span data-cursor-fill aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#B6F23D] transition-transform duration-500 ease-out group-hover:scale-100" />
+          <span data-cursor-fill aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#16A34A] transition-transform duration-500 ease-out group-hover:scale-100" />
           <span className="relative z-10">{aboutContent.cta.button}</span>
           <svg aria-hidden="true" viewBox="0 0 20 20" className="relative z-10 h-4 w-4 fill-current transition-transform duration-300 group-hover:translate-x-1">
             <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />

@@ -106,7 +106,7 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
                     <Icon className="h-5 w-5" />
                   </div>
 
-                  {/* <span className="text-[10px] sm:text-[11px] font-bold tracking-wide uppercase text-[#16A34A] bg-[#16A34A]/10 group-hover:bg-[#22C55E]/20 group-hover:text-[#B6F23D] px-3 py-1.5 rounded-full transition-colors border border-[#16A34A]/20 whitespace-nowrap shrink-0 text-center">
+                  {/* <span className="text-[10px] sm:text-[11px] font-bold tracking-wide uppercase text-[#16A34A] bg-[#16A34A]/10 group-hover:bg-[#22C55E]/20 group-hover:text-[#16A34A] px-3 py-1.5 rounded-full transition-colors border border-[#16A34A]/20 whitespace-nowrap shrink-0 text-center">
                     {industry.statBadge}
                   </span> */}
                 </div>

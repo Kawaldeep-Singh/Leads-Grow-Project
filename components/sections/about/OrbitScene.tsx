@@ -145,7 +145,7 @@ export function OrbitScene({ introReady, reducedMotion }: { introReady: boolean;
       <div ref={tiltRef} className="relative h-full w-full [transform-style:preserve-3d]">
         <svg viewBox="0 0 600 600" className="absolute inset-0 h-full w-full overflow-visible">
           <defs>
-            <linearGradient id="orbit-arrow-gradient" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor="#15803D" /><stop offset="58%" stopColor="#22C55E" /><stop offset="100%" stopColor="#B6F23D" /></linearGradient>
+            <linearGradient id="orbit-arrow-gradient" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor="#15803D" /><stop offset="58%" stopColor="#22C55E" /><stop offset="100%" stopColor="#16A34A" /></linearGradient>
             <filter id="orbit-arrow-glow" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="5" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
             <mask id="orbit-arrow-mask" maskUnits="userSpaceOnUse" x="0" y="-30" width="340" height="60"><rect ref={arrowMaskRef} x="0" y="-30" width={reducedMotion ? 106 : 0} height="60" fill="white" /></mask>
           </defs>
@@ -170,7 +170,7 @@ export function OrbitScene({ introReady, reducedMotion }: { introReady: boolean;
             <div
               key={node.icon}
               ref={(element) => { if (element) nodeRefs.current[index] = element; }}
-              className="absolute flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#22C55E]/40 bg-[#111815]/95 text-[#B6F23D] shadow-[0_0_24px_rgba(34,197,94,0.12)] sm:size-12 lg:size-14"
+              className="absolute flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#22C55E]/40 bg-[#111815]/95 text-[#16A34A] shadow-[0_0_24px_rgba(34,197,94,0.12)] sm:size-12 lg:size-14"
               style={{ left: `${node.left}%`, top: `${node.top}%`, opacity: reducedMotion ? 1 : 0 }}
             >
               <span className="flex items-center justify-center">

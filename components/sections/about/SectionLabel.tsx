@@ -15,21 +15,21 @@ const toneStyles: Record<SectionLabelTone, { pill: string; dot: string; line: st
     ghostStroke: 'rgba(255,255,255,0.08)',
   },
   light: {
-    pill: 'bg-[#0B0F0D] text-[#B6F23D]',
+    pill: 'bg-[#0B0F0D] text-[#16A34A]',
     dot: 'bg-[#22C55E]',
     line: 'bg-[#0B0F0D]/25',
     ghostStroke: 'rgba(11,15,13,0.08)',
   },
   green: {
     pill: 'bg-[#0B0F0D] text-white',
-    dot: 'bg-[#B6F23D]',
+    dot: 'bg-[#16A34A]',
     line: 'bg-[#0B0F0D]/40',
     ghostStroke: 'rgba(11,15,13,0.08)',
   },
   ink: {
-    pill: 'bg-[#B6F23D] text-[#0B0F0D] shadow-[0_0_24px_rgba(182,242,61,0.3)]',
+    pill: 'bg-[#16A34A] text-[#0B0F0D] shadow-[0_0_24px_rgba(22, 163, 74, 0.3)]',
     dot: 'bg-[#0B0F0D]',
-    line: 'bg-[#B6F23D]/35',
+    line: 'bg-[#16A34A]/35',
     ghostStroke: 'rgba(255,255,255,0.08)',
   },
 };

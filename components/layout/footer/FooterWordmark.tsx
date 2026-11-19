@@ -234,11 +234,11 @@ export const FooterWordmark: React.FC<FooterWordmarkProps> = ({
                   }}
                 >
                   <defs>
-                    {/* Body colour: deep green at the tail -> bright lime at the tip */}
+                    {/* Body colour: deep green at the tail -> bright green at the tip */}
                     <linearGradient id={gradId} gradientUnits="userSpaceOnUse" x1="0" y1="0" x2={LEN} y2="0">
                       <stop offset="0" stopColor="#15803D" />
                       <stop offset="0.55" stopColor="#22C55E" />
-                      <stop offset="1" stopColor="#B6F23D" />
+                      <stop offset="1" stopColor="#16A34A" />
                     </linearGradient>
 
                     {/* Rising reveal: a soft edge that sweeps from the tail (bottom) to the tip (top) */}
@@ -274,8 +274,8 @@ export const FooterWordmark: React.FC<FooterWordmarkProps> = ({
 
                     {/* Halo behind the spark at the tip */}
                     <radialGradient id={flareId}>
-                      <stop offset="0" stopColor="#B6F23D" stopOpacity="0.9" />
-                      <stop offset="1" stopColor="#B6F23D" stopOpacity="0" />
+                      <stop offset="0" stopColor="#16A34A" stopOpacity="0.9" />
+                      <stop offset="1" stopColor="#16A34A" stopOpacity="0" />
                     </radialGradient>
                   </defs>
 

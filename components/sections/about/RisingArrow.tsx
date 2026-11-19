@@ -70,13 +70,13 @@ export function RisingArrow({ reducedMotion }: { reducedMotion: boolean }) {
       <svg className="h-[38%] w-[150%] max-w-none origin-center rotate-[-50deg] sm:h-[34%] lg:h-[30%]" viewBox="0 -12 100 24" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="rising-arrow-fill" ref={fillRef} x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#15803D" /><stop offset="55%" stopColor="#22C55E" /><stop offset="100%" stopColor="#B6F23D" />
+            <stop offset="0%" stopColor="#15803D" /><stop offset="55%" stopColor="#22C55E" /><stop offset="100%" stopColor="#16A34A" />
           </linearGradient>
           <linearGradient id="rising-arrow-reveal-gradient" ref={revealRef} x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="white" /><stop offset="7%" stopColor="white" /><stop offset="13%" stopColor="black" /><stop offset="100%" stopColor="black" />
           </linearGradient>
           <filter id="rising-arrow-glow" x="-20%" y="-80%" width="140%" height="260%"><feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#22C55E" floodOpacity="0.30" /></filter>
-          <filter id="rising-arrow-spark-glow" x="-100%" y="-100%" width="300%" height="300%"><feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#B6F23D" floodOpacity="0.55" /></filter>
+          <filter id="rising-arrow-spark-glow" x="-100%" y="-100%" width="300%" height="300%"><feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#16A34A" floodOpacity="0.55" /></filter>
           <mask id="arrow-reveal"><rect x="0" y="-12" width="100" height="24" fill="url(#rising-arrow-reveal-gradient)" /></mask>
           <mask id="arrow-reveal-done"><rect x="0" y="-12" width="100" height="24" fill="white" /></mask>
         </defs>

@@ -219,7 +219,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
                       className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
                         isLight
                           ? 'text-[#15803D] bg-[#16A34A]/15 border-[#16A34A]/30'
-                          : 'text-[#B6F23D] bg-[#B6F23D]/10 border-[#B6F23D]/25'
+                          : 'text-[#16A34A] bg-[#16A34A]/10 border-[#16A34A]/25'
                       }`}
                     >
                       {service.badge}
@@ -300,7 +300,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
                   className={`inline-flex items-center gap-2 text-xs font-bold transition-colors cursor-pointer ${
                     isLight
                       ? 'text-[#16A34A] group-hover:text-[#15803D]'
-                      : 'text-[#22C55E] group-hover:text-[#B6F23D]'
+                      : 'text-[#22C55E] group-hover:text-[#16A34A]'
                   }`}
                 >
                   <span>Explore Service</span>
