@@ -10,7 +10,8 @@ import { ServiceHero } from './ServiceHero';
 import { ServiceCTA, ServiceCatalog, ServiceOverview, ServiceProof } from './ServiceSections';
 import { ServiceProcess } from './ServiceProcess';
 import { WebsiteHero } from './WebsiteHero';
-import { WebsiteWhySection, WebsiteServices } from './WebsiteSections';
+import { WebsiteWhySection } from './WebsiteSections';
+import { ServicesShowcase } from './services-showcase/ServicesShowcase';
 import { WebsiteDevelopmentProcess } from './WebsiteProcess';
 import { TechStack } from '@/components/sections/TechStack';
 import { Industries } from '@/components/sections/Industries';
@@ -44,7 +45,7 @@ export function ServiceLandingPage({ content }: { content: ServicePageContent })
       switch (section) {
         case 'hero': return <WebsiteHero key={section} content={content} />;
         case 'why': return <WebsiteWhySection key={section} content={content} />;
-        case 'services': return <WebsiteServices key={section} content={content} />;
+        case 'services': return <ServicesShowcase key={section} content={content} />;
         case 'process': return <WebsiteDevelopmentProcess key={section} content={content} />;
         case 'techStack': return <TechStack key={section} />;
         case 'whyLeadsGrow': return <AboutStory key={section} />;

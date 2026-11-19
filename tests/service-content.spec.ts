@@ -129,6 +129,7 @@ test.describe('Website Development service page', () => {
       ...websiteDevelopment.why.benefits,
       websiteDevelopment.services.eyebrow, websiteDevelopment.services.title, websiteDevelopment.services.text,
       ...websiteDevelopment.services.items,
+      ...websiteDevelopment.services.items.map((_, index) => String(index + 1).padStart(2, '0')),
       websiteDevelopment.process.eyebrow, websiteDevelopment.process.title, websiteDevelopment.process.text,
       ...websiteDevelopment.process.steps.flatMap(({ title, text: stepText }) => [title, stepText]),
     ];
