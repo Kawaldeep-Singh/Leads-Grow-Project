@@ -120,14 +120,16 @@ export function AboutHeroV3() {
         <h1 id="about-hero-v3-title" ref={titleRef} className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1 lg:row-start-2">
           <span ref={lineOneRef} className="block lg:whitespace-nowrap">{lines[0]}</span>
           <span ref={lineTwoRef} className="block text-transparent lg:whitespace-nowrap" style={{ WebkitTextStroke: '1.5px rgba(255,255,255,.92)', WebkitTextFillColor: 'transparent' }}>{lines[1]}</span>
-          <span className="relative block pb-[0.12em] lg:whitespace-nowrap">
-            <span ref={lineThreeRef} className={`inline-block ${reducedMotion ? 'bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-[length:200%_100%] bg-clip-text text-transparent' : 'text-[#22C55E]'}`} style={{ backgroundPosition: '0% 0%' }}>{lines[2]}</span>
-            <svg className="pointer-events-none absolute -bottom-[0.02em] left-[1.15em] h-[0.13em] w-[calc(100%-1.15em)] overflow-visible" viewBox="0 0 500 18" preserveAspectRatio="none" aria-hidden="true">
-              <path ref={underlineRef} d="M2 11 C 72 4, 125 15, 194 8 S 330 13, 498 5" fill="none" stroke="#B6F23D" strokeWidth="4" strokeLinecap="round" strokeDasharray="500" strokeDashoffset={reducedMotion ? 0 : 500} />
-            </svg>
+          <span className="block pb-[0.12em] lg:whitespace-nowrap">
+            <span className="relative inline-block">
+              <span ref={lineThreeRef} className={`inline-block ${reducedMotion ? 'bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-[length:200%_100%] bg-clip-text text-transparent' : 'text-[#22C55E]'}`} style={{ backgroundPosition: '0% 0%' }}>{lines[2]}</span>
+              <svg className="pointer-events-none absolute -bottom-[0.06em] left-0 h-[0.14em] w-full overflow-visible" viewBox="0 0 500 18" preserveAspectRatio="none" aria-hidden="true">
+                <path ref={underlineRef} d="M2 11 C 72 4, 125 15, 194 8 S 330 13, 498 5" fill="none" stroke="#B6F23D" strokeWidth="4" strokeLinecap="round" strokeDasharray="500" strokeDashoffset={reducedMotion ? 0 : 500} />
+              </svg>
+            </span>
           </span>
         </h1>
-        <div ref={sceneRef} className="order-3 mx-auto w-[min(280px,82vw)] lg:col-span-5 lg:col-start-8 lg:row-span-3 lg:row-start-1 lg:w-[min(600px,42vw)] lg:max-w-none">
+        <div ref={sceneRef} className="order-3 mx-auto w-[min(210px,62vw)] lg:col-span-5 lg:col-start-8 lg:row-span-3 lg:row-start-1 lg:w-[min(450px,31.5vw)] lg:max-w-none">
           <OrbitScene introReady={introReady} reducedMotion={reducedMotion} />
         </div>
         <p ref={paragraphRef} className="order-4 mt-1 max-w-[36em] text-[18px] leading-[1.65] text-white/[0.72] sm:text-[20px] lg:col-span-7 lg:col-start-1 lg:row-start-3 lg:mt-7 lg:text-[21px]">

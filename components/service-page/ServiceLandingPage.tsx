@@ -7,12 +7,13 @@ import { Modal } from '@/components/ui/Modal';
 import type { ServicePageContent } from '@/data/servicePages';
 import { registerGsapPlugins, ScrollTrigger } from '@/lib/gsap-register';
 import { ServiceHero } from './ServiceHero';
-import { ServiceCTA, ServiceCatalog, ServiceIndustries, ServiceOverview, ServiceProof } from './ServiceSections';
+import { ServiceCTA, ServiceCatalog, ServiceOverview, ServiceProof } from './ServiceSections';
 import { ServiceProcess } from './ServiceProcess';
 import { WebsiteHero } from './WebsiteHero';
 import { WebsiteWhySection, WebsiteServices } from './WebsiteSections';
 import { WebsiteDevelopmentProcess } from './WebsiteProcess';
 import { TechStack } from '@/components/sections/TechStack';
+import { Industries } from '@/components/sections/Industries';
 import { AboutStory } from '@/components/sections/about/AboutStory';
 import { Stats } from '@/components/sections/Stats';
 
@@ -35,7 +36,7 @@ export function ServiceLandingPage({ content }: { content: ServicePageContent })
         case 'services': return <ServiceCatalog key={section} content={content} />;
         case 'why': return <ServiceProof key={section} content={content} />;
         case 'process': return <ServiceProcess key={section} content={content} />;
-        case 'industries': return <ServiceIndustries key={section} content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />;
+        case 'industries': return <Industries key={section} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />;
         case 'cta': return <ServiceCTA key={section} content={content} />;
       }
     })

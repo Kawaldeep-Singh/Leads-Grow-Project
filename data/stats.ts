@@ -10,7 +10,7 @@ export interface StatItem {
 export const statsData: StatItem[] = [
   {
     id: 'exp',
-    value: 7,
+    value: 15,
     suffix: '+',
     label: 'Years Experience',
     description: 'Proven track record of building and scaling brands',

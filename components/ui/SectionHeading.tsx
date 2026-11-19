@@ -37,11 +37,11 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
 
   return (
     <div className={clsx('flex flex-col mb-12 md:mb-16', alignStyles[align], className)}>
-      {badge && (
+      {/* {badge && (
         <div className="mb-4">
           <Badge variant={isLight ? 'green' : 'green'}>{badge}</Badge>
         </div>
-      )}
+      )} */}
 
       <HeadingTag
         className={clsx(

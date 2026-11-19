@@ -62,7 +62,7 @@ export const AboutMissionVision: React.FC = () => {
           onFocus={() => { if (canExpand()) setActivePanel('mission'); }}
           onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setActivePanel(null); }}
           style={{ flexGrow: panelGrow('mission') }}
-          className="about-split-panel relative isolate flex min-h-[27rem] flex-col justify-center overflow-hidden bg-[#16A34A] px-[7%] py-16 text-[#0B0F0D] outline-none transition-[flex-grow] duration-500 ease-out focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#0B0F0D] lg:min-h-[34rem] lg:basis-0 lg:flex-1"
+          className="about-split-panel relative isolate flex min-h-[27rem] flex-col justify-center overflow-hidden bg-[#16A34A] px-[5%] py-16 text-[#0B0F0D] outline-none transition-[flex-grow] duration-500 ease-out focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#0B0F0D] sm:px-[7%] lg:min-h-[34rem] lg:basis-0 lg:flex-1"
         >
           <MissionArt barsRef={missionBarsRef} />
           <div className="relative z-10 mx-auto w-full max-w-2xl">
@@ -86,7 +86,7 @@ export const AboutMissionVision: React.FC = () => {
           onFocus={() => { if (canExpand()) setActivePanel('vision'); }}
           onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setActivePanel(null); }}
           style={{ flexGrow: panelGrow('vision') }}
-          className="about-split-panel relative isolate flex min-h-[27rem] flex-col justify-center overflow-hidden bg-[#0B0F0D] px-[7%] py-16 text-white outline-none transition-[flex-grow] duration-500 ease-out focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#22C55E] lg:min-h-[34rem] lg:basis-0 lg:flex-1"
+          className="about-split-panel relative isolate flex min-h-[27rem] flex-col justify-center overflow-hidden bg-[#0B0F0D] px-[5%] py-16 text-white outline-none transition-[flex-grow] duration-500 ease-out focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#22C55E] sm:px-[7%] lg:min-h-[34rem] lg:basis-0 lg:flex-1"
         >
           <VisionArt />
           <div className="relative z-10 mx-auto w-full max-w-2xl">

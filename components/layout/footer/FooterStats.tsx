@@ -10,7 +10,7 @@ interface StatItem {
 }
 
 const PROOF_STATS: StatItem[] = [
-  { value: 7, suffix: '+', label: 'Years Experience' },
+  { value: 15, suffix: '+', label: 'Years Experience' },
   { value: 50, suffix: 'L+', label: 'Quality Leads' },
   { value: 5, suffix: 'K+', label: 'Campaigns Managed' },
   { value: 10, suffix: '+', label: 'Industries Served' },

@@ -16,40 +16,66 @@ import { Eyebrow } from './ServiceUI';
 const serviceIcons = [Search, Share2, Target, InfinityIcon, Network, FileText, MessageCircle, Mail, MessagesSquare];
 const hubIcons = [Search, Heart, Network, Mail, Megaphone];
 const hubPoints = [
-  { x: 180, y: 55 }, { x: 315, y: 138 }, { x: 270, y: 300 }, { x: 95, y: 265 }, { x: 70, y: 110 },
+  { x: 200, y: 50 }, { x: 324, y: 140 }, { x: 276, y: 285 }, { x: 124, y: 285 }, { x: 76, y: 140 },
 ];
 
 function HubScene({ reducedMotion }: { reducedMotion: boolean }) {
   const ref = useRef<SVGSVGElement>(null);
+  const orbitRef = useRef<SVGGElement>(null);
   useGSAP(() => {
     registerGsapPlugins();
-    if (!ref.current || reducedMotion) return;
-    const lines = ref.current.querySelectorAll<SVGLineElement>('[data-hub-line]');
+    const svg = ref.current;
+    const orbit = orbitRef.current;
+    if (!svg || !orbit || reducedMotion) return;
+    const lines = svg.querySelectorAll<SVGLineElement>('[data-hub-line]');
     const context = gsap.context(() => {
       gsap.fromTo(lines, { strokeDashoffset: 1 }, {
         strokeDashoffset: 0,
         duration: 0.8,
         stagger: 0.1,
         ease: 'power2.inOut',
-        scrollTrigger: { trigger: ref.current, start: 'top 80%', once: true },
+        scrollTrigger: { trigger: svg, start: 'top 80%', once: true },
       });
-    }, ref);
-    return () => context.revert();
+    }, svg);
+    const orbitTween = gsap.to(orbit, {
+      rotation: 360,
+      duration: 48,
+      ease: 'none',
+      repeat: -1,
+      paused: true,
+      svgOrigin: '200 180',
+    });
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) orbitTween.play();
+      else orbitTween.pause();
+    }, { threshold: 0.08 });
+    observer.observe(svg);
+    return () => {
+      observer.disconnect();
+      orbitTween.kill();
+      context.revert();
+    };
   }, { scope: ref, dependencies: [reducedMotion], revertOnUpdate: true });
 
   return (
     <svg ref={ref} viewBox="0 0 400 360" className="mx-auto block h-[280px] w-full max-w-[400px] sm:h-[340px]" aria-hidden="true">
       <defs><radialGradient id="service-hub-glow"><stop stopColor="#22C55E" stopOpacity=".22" /><stop offset="1" stopColor="#22C55E" stopOpacity="0" /></radialGradient></defs>
       <circle cx="200" cy="180" r="120" fill="url(#service-hub-glow)" />
+      <g aria-hidden="true" fill="none" stroke="#16A34A" strokeOpacity=".12">
+        <circle cx="200" cy="180" r="72" />
+        <circle cx="200" cy="180" r="104" strokeDasharray="3 7" />
+      </g>
+      <g ref={orbitRef}>
       <g stroke="#16A34A" strokeOpacity=".65" strokeWidth="1.5" strokeDasharray="1" strokeDashoffset={reducedMotion ? 0 : 1}>
         {hubPoints.map((point, index) => <line key={index} data-hub-line x1="200" y1="180" x2={point.x} y2={point.y} pathLength="1" />)}
       </g>
-      <circle cx="200" cy="180" r="28" fill="#0B0F0D" />
-      <circle cx="200" cy="180" r="8" fill="#B6F23D" />
       {hubPoints.map((point, index) => {
         const Icon = hubIcons[index];
         return <g key={index}><circle cx={point.x} cy={point.y} r="25" fill="#F6FAF7" stroke="#16A34A" strokeWidth="1.5" /><foreignObject x={point.x - 12} y={point.y - 12} width="24" height="24"><Icon className="h-6 w-6 text-[#16A34A]" aria-hidden="true" /></foreignObject></g>;
       })}
+      </g>
+      <circle cx="200" cy="180" r="28" fill="#0B0F0D" />
+      <circle cx="200" cy="180" r="8" fill="#B6F23D" />
     </svg>
   );
 }
@@ -80,18 +106,33 @@ export function ServiceOverview({ content }: { content: DigitalMarketingContent 
   const reducedMotion = useReducedMotion();
   return (
     <section aria-labelledby="service-what-title" className="relative overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-28">
-      <div className="mx-auto grid w-[85%] grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-x-12">
-        <div className="lg:col-span-5">
-          <h2 id="service-what-title" className="max-w-[18em] font-display text-[clamp(1.65rem,3.5vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">{content.what.title}</h2>
-          <HubScene reducedMotion={reducedMotion} />
-        </div>
-        <div className="flex flex-col justify-center gap-7 lg:col-span-6 lg:col-start-7">
-          {content.what.paragraphs.map((paragraph) => <RevealWords key={paragraph} text={paragraph} className="text-base leading-[1.65] text-[#0B0F0D] sm:text-[17px] lg:text-[18px]" />)}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.24] [background-image:radial-gradient(rgba(22,163,74,0.2)_0.75px,transparent_0.75px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_82%,transparent)]" />
+      <div className="mx-auto w-[90%] lg:w-[85%]">
+        <h2 id="service-what-title" className="max-w-none font-display text-[clamp(1.5rem,2.3vw,2.4rem)] font-extrabold leading-[1.12] tracking-[-0.03em] lg:whitespace-nowrap">{content.what.title}</h2>
+        <div className="mt-7 grid grid-cols-1 gap-8 lg:mt-9 lg:grid-cols-12 lg:gap-x-12">
+          <div className="lg:col-span-5">
+            <HubScene reducedMotion={reducedMotion} />
+          </div>
+          <div className="flex flex-col justify-center gap-7 lg:col-span-6 lg:col-start-7">
+            {content.what.paragraphs.map((paragraph) => <RevealWords key={paragraph} text={paragraph} className="text-base leading-[1.65] text-[#0B0F0D] sm:text-[17px] lg:text-[18px]" />)}
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+const serviceMeta = [
+  { tag: 'Organic Search', code: '01' },
+  { tag: 'Brand & Social', code: '02' },
+  { tag: 'High-Intent ROI', code: '03' },
+  { tag: 'Targeted Funnels', code: '04' },
+  { tag: 'B2B Pipeline', code: '05' },
+  { tag: 'Inbound Authority', code: '06' },
+  { tag: 'Instant Outreach', code: '07' },
+  { tag: 'Drip & Retention', code: '08' },
+  { tag: 'Direct Chat Ops', code: '09' },
+];
 
 export function ServiceCatalog({ content }: { content: DigitalMarketingContent }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -102,12 +143,12 @@ export function ServiceCatalog({ content }: { content: DigitalMarketingContent }
     if (reducedMotion) return;
     const cards = cardRefs.current.filter(Boolean);
     const context = gsap.context(() => {
-      gsap.fromTo(cards, { y: 24, opacity: 0, clipPath: 'inset(0 0 14% 0)' }, {
+      gsap.fromTo(cards, { y: 20, opacity: 0, clipPath: 'inset(0 0 14% 0)' }, {
         y: 0,
         opacity: 1,
         clipPath: 'inset(0 0 0% 0)',
-        duration: 0.65,
-        stagger: 0.06,
+        duration: 0.6,
+        stagger: 0.05,
         ease: 'expo.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 85%', once: true },
       });
@@ -116,27 +157,60 @@ export function ServiceCatalog({ content }: { content: DigitalMarketingContent }
   }, { scope: sectionRef, dependencies: [reducedMotion], revertOnUpdate: true });
 
   return (
-    <section ref={sectionRef} aria-labelledby="service-catalog-title" className="relative overflow-hidden bg-[#0B0F0D] py-20 text-white sm:py-28">
-      <div className="mx-auto w-[85%]">
-        <Eyebrow>{content.services.eyebrow}</Eyebrow>
-        <h2 id="service-catalog-title" className="mt-5 max-w-[18em] font-display text-[clamp(1.65rem,3.5vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">{content.services.title}</h2>
-        <ul className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
+    <section ref={sectionRef} aria-labelledby="service-catalog-title" className="relative overflow-hidden bg-[#0B0F0D] py-14 sm:py-20 text-white">
+      {/* Ambient background glows */}
+      <div className="pointer-events-none absolute left-1/2 -top-24 -translate-x-1/2 h-64 w-[600px] rounded-full bg-[#22C55E]/[0.05] blur-[120px]" />
+      <div className="pointer-events-none absolute right-0 bottom-0 h-64 w-80 rounded-full bg-[#16A34A]/[0.04] blur-[100px]" />
+
+      <div className="relative z-10 mx-auto w-[85%] max-w-7xl">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
+          <div>
+            <Eyebrow>{content.services.eyebrow}</Eyebrow>
+            <h2 id="service-catalog-title" className="mt-3.5 max-w-[20em] font-display text-[clamp(1.65rem,3.2vw,2.75rem)] font-extrabold leading-[1.12] tracking-[-0.03em] text-white">
+              {content.services.title}
+            </h2>
+          </div>
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3.5 py-1.5 backdrop-blur-sm self-start md:self-end shrink-0">
+            <span className="size-2 rounded-full bg-[#22C55E] animate-pulse" />
+            <span className="text-xs font-mono font-medium text-white/70">9 Core Growth Channels</span>
+          </div>
+        </div>
+
+        <ul className="mt-8 sm:mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 sm:gap-3.5 lg:gap-4">
           {content.services.items.map((service, index) => {
-            const Icon = serviceIcons[index];
+            const Icon = serviceIcons[index % serviceIcons.length];
+            const meta = serviceMeta[index] || { tag: 'Growth Channel', code: String(index + 1).padStart(2, '0') };
             return (
-              <li key={service} ref={(element) => { if (element) cardRefs.current[index] = element; }} onPointerMove={(event) => {
-                if (event.pointerType === 'touch') return;
-                const rect = event.currentTarget.getBoundingClientRect();
-                event.currentTarget.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
-                event.currentTarget.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
-              }} className="group relative isolate grid min-h-[96px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3 overflow-hidden rounded-2xl border border-white/[0.09] bg-gradient-to-br from-[#142019] via-[#111815] to-[#0E1411] p-4 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-[#22C55E]/45 hover:shadow-[0_16px_38px_rgba(0,0,0,.28)] before:pointer-events-none before:absolute before:inset-0 before:opacity-0 before:transition-opacity before:duration-300 before:content-[''] before:[background:radial-gradient(260px_circle_at_var(--spot-x,50%)_var(--spot-y,50%),rgba(34,197,94,.14),transparent_70%)] group-hover:before:opacity-100 after:pointer-events-none after:absolute after:inset-x-5 after:top-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-[#22C55E]/30 after:to-transparent sm:min-h-[176px] sm:grid-cols-[minmax(0,1fr)_auto] sm:grid-rows-[auto_1fr] sm:gap-4 sm:rounded-3xl sm:p-5 lg:p-6">
-                <span className="relative z-10 col-start-1 row-start-1 flex size-11 items-center justify-center rounded-xl border border-[#22C55E]/20 bg-[#22C55E]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,.05)] transition-[transform,background-color,border-color] duration-300 group-hover:scale-105 group-hover:border-[#22C55E]/45 group-hover:bg-[#22C55E]/[0.15] sm:size-14 sm:rounded-2xl">
-                  <Icon aria-hidden="true" className="size-5 text-[#22C55E] transition-transform duration-300 group-hover:scale-110 sm:size-6" strokeWidth={1.7} />
-                </span>
-                <span aria-hidden="true" className="relative z-10 col-start-3 row-start-1 flex size-7 items-center justify-center rounded-full border border-white/[0.08] text-[#22C55E]/70 transition-all duration-300 group-hover:border-[#22C55E]/35 group-hover:bg-[#22C55E]/10 group-hover:text-[#B6F23D] sm:col-start-2 sm:size-8">
-                  <span className="size-1.5 rounded-full bg-current transition-transform duration-300 group-hover:scale-125" />
-                </span>
-                <span className="relative z-10 col-start-2 row-start-1 text-[14px] font-semibold leading-snug text-white sm:col-span-2 sm:col-start-1 sm:row-start-2 sm:self-end sm:text-[16px] lg:text-[17px]">{service}</span>
+              <li
+                key={service}
+                ref={(element) => { if (element) cardRefs.current[index] = element; }}
+                onPointerMove={(event) => {
+                  if (event.pointerType === 'touch') return;
+                  const rect = event.currentTarget.getBoundingClientRect();
+                  event.currentTarget.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
+                  event.currentTarget.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
+                }}
+                className="group relative isolate flex items-center gap-3.5 overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-[#131D18] via-[#101714] to-[#0D1210] p-3.5 sm:p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#22C55E]/45 hover:shadow-[0_14px_30px_rgba(0,0,0,0.4),0_0_20px_rgba(34,197,94,0.1)] before:pointer-events-none before:absolute before:inset-0 before:opacity-0 before:transition-opacity before:duration-300 before:content-[''] before:[background:radial-gradient(220px_circle_at_var(--spot-x,50%)_var(--spot-y,50%),rgba(34,197,94,0.16),transparent_70%)] group-hover:before:opacity-100 after:pointer-events-none after:absolute after:inset-x-4 after:top-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-[#22C55E]/30 after:to-transparent"
+              >
+                {/* Left: Icon container */}
+                <div className="relative z-10 flex size-11 sm:size-12 shrink-0 items-center justify-center rounded-xl border border-[#22C55E]/20 bg-gradient-to-br from-[#22C55E]/15 to-[#16A34A]/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-300 group-hover:border-[#22C55E]/50 group-hover:bg-[#22C55E]/25 group-hover:scale-105">
+                  <Icon aria-hidden="true" className="size-5 sm:size-5.5 text-[#22C55E] transition-all duration-300 group-hover:scale-110 group-hover:text-white" strokeWidth={1.8} />
+                </div>
+
+                {/* Center: Micro-tag + Service Name */}
+                <div className="relative z-10 flex-1 min-w-0 pr-1">
+                  <span className="block font-mono text-[10px] sm:text-[11px] font-semibold text-[#22C55E]/80 uppercase tracking-wider transition-colors duration-200 group-hover:text-[#B6F23D]">
+                    {meta.code} • {meta.tag}
+                  </span>
+                  <h3 className="mt-0.5 text-[14px] sm:text-[15px] font-bold leading-snug text-white transition-colors duration-200 group-hover:text-[#22C55E] line-clamp-2">
+                    {service}
+                  </h3>
+                </div>
+
+                {/* Right: Sleek Action Arrow */}
+                <div className="relative z-10 flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-white/40 transition-all duration-300 group-hover:border-[#22C55E]/40 group-hover:bg-[#22C55E]/10 group-hover:text-[#22C55E] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <ArrowUpRight className="size-3.5 sm:size-4 transition-transform duration-300" strokeWidth={2} />
+                </div>
               </li>
             );
           })}
@@ -147,6 +221,13 @@ export function ServiceCatalog({ content }: { content: DigitalMarketingContent }
 }
 
 const proofIcons = [Compass, TrendingUp, TrendingDown, Users, Building2];
+const proofTags = [
+  'Full-Funnel Strategy',
+  'Top Google SERP',
+  'Lower Acquisition Cost',
+  'High-Intent Leads',
+  'Multi-Sector Growth',
+];
 
 export function ServiceProof({ content }: { content: DigitalMarketingContent }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -195,93 +276,143 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
   }, { scope: sectionRef, dependencies: [reducedMotion], revertOnUpdate: true });
 
   return (
-    <section ref={sectionRef} aria-labelledby="service-proof-title" className="relative isolate overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-28">
-      {/* Subtle ambient lighting */}
-      <div aria-hidden="true" className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-[#22C55E]/[0.08] blur-[120px]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[#16A34A]/[0.06] blur-[120px]" />
+    <section
+      ref={sectionRef}
+      aria-labelledby="service-proof-title"
+      className="relative isolate overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-28 border-y border-[#E2EBE5]"
+    >
+      {/* Ambient background glow & subtle dot pattern */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-24 right-1/4 w-[500px] h-[350px] bg-[#16A34A]/[0.06] rounded-full blur-[130px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-20 left-1/4 w-[450px] h-[300px] bg-[#22C55E]/[0.05] rounded-full blur-[130px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(#16A34A_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.12] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)]"
+      />
 
       <div className="relative z-10 mx-auto w-[85%]">
-        <Eyebrow tone="ink">{content.why.eyebrow}</Eyebrow>
-        <h2 id="service-proof-title" className="mt-5 max-w-[20em] font-display text-[clamp(1.75rem,3.5vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-[#0B0F0D]">
-          {content.why.title}
-        </h2>
+        <div className="max-w-3xl">
+          {/* Eyebrow Pill */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/25 text-[#15803D] text-xs font-mono uppercase tracking-wider mb-4 font-semibold shadow-xs">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#16A34A] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#16A34A]" />
+            </span>
+            <span>{content.why.eyebrow}</span>
+          </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-6 lg:gap-6">
+          {/* Title with Gradient Text */}
+          <h2
+            id="service-proof-title"
+            className="font-display text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#0B0F0D]"
+          >
+            More Than Marketing.{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#16A34A] to-[#22C55E]">
+              A Partner in Your Growth.
+            </span>
+          </h2>
+
+          <p className="mt-3.5 text-xs sm:text-sm md:text-base text-[#475569] max-w-2xl leading-relaxed">
+            Data-backed digital marketing designed to dominate search engines, capture high-intent buyers, and scale predictable revenue.
+          </p>
+        </div>
+
+        {/* 5 Distinct Boxes Responsive Grid */}
+        <ul className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5">
           {content.why.stats.map((stat: { value: string; label: string }, index: number) => {
             const Icon = proofIcons[index] ?? Compass;
+            const tag = proofTags[index] ?? 'Proven Results';
             const match = stat.value.match(/^(.*?)(\d[\d,]*)(.*)$/);
             const prefix = match ? match[1] : '';
             const num = match ? match[2] : stat.value;
             const suffix = match ? match[3] : '';
 
-            // Balanced Bento Layout:
-            // Mobile (1 col): full width
-            // Tablet (2 cols): 1st item spans 2 cols, rest span 1 col
-            // Desktop (6 cols): 1st & 2nd items span 3 cols (50% each), 3rd, 4th, 5th span 2 cols (33.3% each) -> 100% full, 0 empty holes!
-            const spanClass = index === 0
-              ? 'sm:col-span-2 lg:col-span-3'
-              : index === 1
-                ? 'sm:col-span-1 lg:col-span-3'
-                : 'sm:col-span-1 lg:col-span-2';
-
             return (
               <li
                 key={stat.label}
-                ref={(element) => { if (element) tileRefs.current[index] = element; }}
+                ref={(element) => {
+                  if (element) tileRefs.current[index] = element;
+                }}
                 data-stat-value={stat.value}
-                className={`group relative isolate flex flex-col justify-between overflow-hidden rounded-3xl border border-[#0B0F0D]/[0.08] bg-white p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#16A34A]/40 hover:shadow-[0_20px_40px_-15px_rgba(22,163,74,0.18)] sm:p-7 lg:p-8 ${spanClass}`}
+                className="group relative isolate flex flex-col justify-between overflow-hidden rounded-3xl border border-[#E2EBE5] bg-white p-5 sm:p-6 lg:p-5 xl:p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#16A34A]/50 hover:shadow-[0_20px_40px_rgba(22,163,74,0.14)] shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
               >
-                {/* Top card bar: Icon pill & growth spark indicator */}
-                <div className="flex items-center justify-between">
-                  <span
-                    aria-hidden="true"
-                    className="flex size-11 items-center justify-center rounded-2xl border border-[#16A34A]/20 bg-[#16A34A]/[0.08] text-[#16A34A] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] transition-all duration-300 group-hover:scale-110 group-hover:border-[#16A34A]/45 group-hover:bg-[#16A34A]/[0.15] sm:size-12"
-                  >
-                    <Icon className="size-5 sm:size-6" strokeWidth={1.8} />
-                  </span>
+                {/* Radial spotlight on hover */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -top-16 -right-16 size-36 rounded-full bg-[#16A34A]/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                />
 
-                  <span
-                    aria-hidden="true"
-                    className="flex size-7 items-center justify-center rounded-full bg-[#0B0F0D]/[0.04] text-[#16A34A] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#16A34A]/10 group-hover:text-[#16A34A]"
-                  >
-                    <ArrowUpRight className="size-4" strokeWidth={2.2} />
-                  </span>
+                {/* Top Bar: Icon badge + ArrowUpRight */}
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <span
+                      aria-hidden="true"
+                      className="flex size-11 items-center justify-center rounded-2xl border border-[#16A34A]/25 bg-[#F0FDF4] text-[#16A34A] shadow-xs transition-all duration-300 group-hover:scale-110 group-hover:bg-[#16A34A] group-hover:text-white group-hover:border-[#16A34A] sm:size-12"
+                    >
+                      <Icon className="size-5 sm:size-6" strokeWidth={1.8} />
+                    </span>
+
+                    <span
+                      aria-hidden="true"
+                      className="flex size-7 items-center justify-center rounded-full bg-[#F4F8F5] border border-[#E2EBE5] text-[#55675E] group-hover:text-[#16A34A] group-hover:border-[#16A34A]/40 group-hover:bg-[#EAF5EE] transition-all duration-300 group-hover:scale-110"
+                    >
+                      <ArrowUpRight className="size-4" strokeWidth={2} />
+                    </span>
+                  </div>
+
+                  {/* Prefix like "Up to" */}
+                  {prefix && (
+                    <span className="block text-[11px] font-mono uppercase tracking-wider text-[#16A34A] font-bold mb-1">
+                      {prefix.trim()}
+                    </span>
+                  )}
+
+                  {/* Middle metric number */}
+                  <div className="mb-2">
+                    {/* Default & Final Value Display */}
+                    <span
+                      data-final-value
+                      className="inline-flex items-baseline font-display text-[clamp(2.1rem,2.8vw,2.75rem)] font-extrabold leading-none tracking-tight text-[#0B0F0D] group-hover:text-[#15803D] transition-colors"
+                    >
+                      <span>{num}</span>
+                      <span className="text-[#16A34A] ml-0.5">{suffix}</span>
+                    </span>
+
+                    {/* Animated Counter Overlay */}
+                    <span
+                      aria-hidden="true"
+                      data-counter-overlay
+                      style={{ display: 'none' }}
+                      className="pointer-events-none inline-flex items-baseline font-display text-[clamp(2.1rem,2.8vw,2.75rem)] font-extrabold leading-none tracking-tight text-[#0B0F0D]"
+                    >
+                      <span data-counter-number>0</span>
+                      <span data-counter-suffix className="text-[#16A34A] ml-0.5">{suffix}</span>
+                    </span>
+                  </div>
+
+                  {/* Stat Label */}
+                  <h3 className="text-[14px] sm:text-[15px] font-bold text-[#1E2922] leading-snug group-hover:text-[#0B0F0D] transition-colors">
+                    {stat.label}
+                  </h3>
                 </div>
 
-                {/* Middle metric number */}
-                <div className="my-6">
-                  {/* Default & Final Value Display */}
-                  <span
-                    data-final-value
-                    className="inline-flex items-baseline font-display text-[clamp(2.35rem,4.2vw,3.75rem)] font-extrabold leading-none tracking-[-0.035em] text-[#0B0F0D]"
-                  >
-                    {prefix && <span className="mr-2.5 text-[clamp(1.1rem,1.8vw,1.5rem)] font-bold text-[#5B6B63]">{prefix.trim()}</span>}
-                    <span>{num}</span>
-                    <span className="text-[#16A34A]">{suffix}</span>
+                {/* Bottom Tag / Micro-feature */}
+                <div className="mt-5 pt-3.5 border-t border-[#EEF4F0] flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-[#6B7E74] group-hover:text-[#16A34A] transition-colors font-mono">
+                    {tag}
                   </span>
-
-                  {/* Animated Counter Overlay (Hidden by default & on complete) */}
-                  <span
-                    aria-hidden="true"
-                    data-counter-overlay
-                    style={{ display: 'none' }}
-                    className="pointer-events-none inline-flex items-baseline font-display text-[clamp(2.35rem,4.2vw,3.75rem)] font-extrabold leading-none tracking-[-0.035em] text-[#0B0F0D]"
-                  >
-                    {prefix && <span className="mr-2.5 text-[clamp(1.1rem,1.8vw,1.5rem)] font-bold text-[#5B6B63]">{prefix.trim()}</span>}
-                    <span data-counter-number>0</span>
-                    <span data-counter-suffix className="text-[#16A34A]">{suffix}</span>
-                  </span>
+                  <span className="size-1.5 rounded-full bg-[#16A34A]/30 group-hover:bg-[#16A34A] group-hover:scale-125 transition-all" />
                 </div>
 
-                {/* Bottom label */}
-                <span className="text-[15px] font-semibold text-[#45544C] sm:text-[16px] lg:text-[17px] leading-snug">
-                  {stat.label}
-                </span>
-
-                {/* Bottom subtle green accent on hover */}
+                {/* Bottom Glowing Accent Line on Hover */}
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#16A34A] to-[#22C55E] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#16A34A] to-[#22C55E] opacity-0 transition-opacity duration-300 group-hover:opacity-100 shadow-[0_0_8px_rgba(22,163,74,0.4)]"
                 />
               </li>
             );

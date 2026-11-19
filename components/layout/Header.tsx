@@ -203,6 +203,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
             <div className="hidden xl:flex items-center gap-8">
               {navLinks.map((item) => {
                 if (item.hasMegaMenu) {
+                  const isServicesActive = pathname.startsWith('/services');
+                  const isServicesSelected = isServicesActive || megaMenuOpen;
+
                   return (
                     <div
                       key={item.label}
@@ -210,22 +213,44 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                       onMouseLeave={() => setMegaMenuOpen(false)}
                       className="relative py-2"
                     >
-                      <button
-                        className={`group flex items-center gap-1.5 text-sm font-semibold transition-colors cursor-pointer ${isNavLight
-                            ? 'text-[#0B0F0D] hover:text-[#16A34A]'
-                            : 'text-white/90 hover:text-[#22C55E]'
-                          }`}
+                      <Link
+                        href="/#services"
+                        className={`group relative flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                          isServicesSelected
+                            ? isNavLight
+                              ? 'text-[#16A34A] font-bold'
+                              : 'text-[#22C55E] font-bold drop-shadow-[0_0_12px_rgba(34,197,94,0.35)]'
+                            : isNavLight
+                              ? 'text-[#0B0F0D] hover:text-[#16A34A]'
+                              : 'text-white/90 hover:text-white'
+                        }`}
                       >
-                        <span>{item.label}</span>
+                        <span className="flex items-center gap-1.5">
+                          {isServicesSelected && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
+                          )}
+                          <span>{item.label}</span>
+                        </span>
                         <HiChevronDown
-                          className={`h-4 w-4 transition-transform duration-200 ${megaMenuOpen
-                              ? 'rotate-180 text-[#16A34A]'
-                              : isNavLight
-                                ? 'text-gray-500 group-hover:text-[#16A34A]'
-                                : 'text-white/60'
-                            }`}
+                          className={`h-4 w-4 transition-transform duration-300 ${
+                            megaMenuOpen
+                              ? 'rotate-180 text-[#22C55E]'
+                              : isServicesActive
+                                ? 'text-[#22C55E]'
+                                : isNavLight
+                                  ? 'text-gray-500 group-hover:text-[#16A34A]'
+                                  : 'text-white/60 group-hover:text-white'
+                          }`}
                         />
-                      </button>
+                        {/* Active / Animated underline */}
+                        <span
+                          className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#16A34A] to-[#22C55E] transition-all duration-300 ${
+                            isServicesSelected
+                              ? 'w-full shadow-[0_0_8px_rgba(34,197,94,0.6)]'
+                              : 'w-0 group-hover:w-full'
+                          }`}
+                        />
+                      </Link>
 
                       {/* Mega Menu Dropdown */}
                       <AnimatePresence>
@@ -274,35 +299,102 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
 
                             {/* 8 Services Grid */}
                             <div className="grid grid-cols-4 gap-4">
-                              {servicesData.map((svc) => (
-                                <Link
-                                  key={svc.id}
-                                  href={`#services`}
-                                  onClick={() => setMegaMenuOpen(false)}
-                                  className={`group p-3 rounded-2xl border transition-all duration-200 ${isNavLight
-                                      ? 'bg-gray-50/80 border-gray-100 hover:border-[#16A34A]/40 hover:bg-[#16A34A]/10 shadow-xs'
-                                      : 'bg-[#111815]/60 border-transparent hover:border-[#22C55E]/40 hover:bg-[#16A34A]/10'
+                              {servicesData.map((svc) => {
+                                const serviceHref =
+                                  svc.slug === 'digital-marketing'
+                                    ? '/services/digital-marketing'
+                                    : svc.slug === 'website-development'
+                                      ? '/services/website-development'
+                                      : '/#services';
+                                const isCurrentService = pathname === serviceHref;
+
+                                return (
+                                  <Link
+                                    key={svc.id}
+                                    href={serviceHref}
+                                    onClick={() => setMegaMenuOpen(false)}
+                                    className={`group relative p-3.5 rounded-2xl border transition-all duration-300 flex flex-col justify-between ${
+                                      isCurrentService
+                                        ? isNavLight
+                                          ? 'bg-[#16A34A]/15 border-[#16A34A] shadow-[0_0_15px_rgba(22,163,74,0.2)]'
+                                          : 'bg-[#16A34A]/20 border-[#22C55E] shadow-[0_0_15px_rgba(34,197,94,0.3)]'
+                                        : isNavLight
+                                          ? 'bg-gray-50/80 border-gray-100 hover:border-[#16A34A]/60 hover:bg-[#16A34A]/10 hover:shadow-md'
+                                          : 'bg-[#111815]/60 border-transparent hover:border-[#22C55E]/60 hover:bg-[#16A34A]/15 hover:shadow-[0_0_15px_rgba(34,197,94,0.15)]'
                                     }`}
-                                >
-                                  <div className="text-xs font-bold text-[#16A34A] mb-1">
-                                    {svc.number}
-                                  </div>
-                                  <h5
-                                    className={`text-sm font-bold transition-colors leading-snug ${isNavLight
-                                        ? 'text-[#0B0F0D] group-hover:text-[#16A34A]'
-                                        : 'text-white group-hover:text-[#22C55E]'
-                                      }`}
                                   >
-                                    {svc.title}
-                                  </h5>
-                                  <p
-                                    className={`text-[11px] mt-1 line-clamp-2 ${isNavLight ? 'text-gray-500' : 'text-[#9FB0A7]'
-                                      }`}
-                                  >
-                                    {svc.shortDescription}
-                                  </p>
-                                </Link>
-                              ))}
+                                    <div>
+                                      <div className="flex items-center justify-between mb-1.5">
+                                        <span
+                                          className={`text-xs font-bold ${
+                                            isCurrentService ? 'text-[#22C55E]' : 'text-[#16A34A]'
+                                          }`}
+                                        >
+                                          {svc.number}
+                                        </span>
+                                        {isCurrentService ? (
+                                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#16A34A] text-white flex items-center gap-1 shadow-xs">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                                            Active
+                                          </span>
+                                        ) : (
+                                          svc.badge && (
+                                            <span
+                                              className={`text-[9.5px] font-semibold px-1.5 py-0.5 rounded-full ${
+                                                isNavLight
+                                                  ? 'bg-gray-200/80 text-gray-700'
+                                                  : 'bg-[#1C2621] text-[#9FB0A7]'
+                                              }`}
+                                            >
+                                              {svc.badge}
+                                            </span>
+                                          )
+                                        )}
+                                      </div>
+                                      <h5
+                                        className={`text-sm font-bold transition-colors leading-snug ${
+                                          isCurrentService
+                                            ? isNavLight ? 'text-[#16A34A]' : 'text-[#22C55E]'
+                                            : isNavLight
+                                              ? 'text-[#0B0F0D] group-hover:text-[#16A34A]'
+                                              : 'text-white group-hover:text-[#22C55E]'
+                                        }`}
+                                      >
+                                        {svc.title}
+                                      </h5>
+                                      <p
+                                        className={`text-[11px] mt-1 line-clamp-2 leading-relaxed ${
+                                          isNavLight ? 'text-gray-500' : 'text-[#9FB0A7]'
+                                        }`}
+                                      >
+                                        {svc.shortDescription}
+                                      </p>
+                                    </div>
+                                    <div className="mt-2.5 pt-2 border-t border-white/5 flex items-center justify-between text-[11px] font-semibold">
+                                      <span
+                                        className={`transition-colors ${
+                                          isCurrentService
+                                            ? 'text-[#22C55E]'
+                                            : isNavLight
+                                              ? 'text-gray-400 group-hover:text-[#16A34A]'
+                                              : 'text-[#9FB0A7] group-hover:text-[#22C55E]'
+                                        }`}
+                                      >
+                                        {isCurrentService ? 'Current Page' : 'Learn More'}
+                                      </span>
+                                      <HiArrowRight
+                                        className={`w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1 ${
+                                          isCurrentService
+                                            ? 'text-[#22C55E]'
+                                            : isNavLight
+                                              ? 'text-gray-400 group-hover:text-[#16A34A]'
+                                              : 'text-[#9FB0A7] group-hover:text-[#22C55E]'
+                                        }`}
+                                      />
+                                    </div>
+                                  </Link>
+                                );
+                              })}
                             </div>
 
                             {/* Mega Menu Footer CTA strip */}
@@ -442,6 +534,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
             <div className="py-6 flex flex-col gap-4">
               {navLinks.map((item) => {
                 if (item.hasMegaMenu) {
+                  const isServicesActive = pathname.startsWith('/services');
+
                   return (
                     <div
                       key={item.label}
@@ -450,17 +544,28 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                     >
                       <button
                         onClick={() => setMobileServicesAccordion(!mobileServicesAccordion)}
-                        className={`w-full flex items-center justify-between text-lg font-bold py-2 ${isNavLight ? 'text-[#0B0F0D]' : 'text-white'
-                          }`}
+                        className={`w-full flex items-center justify-between text-lg font-bold py-2 transition-colors ${
+                          isServicesActive
+                            ? isNavLight ? 'text-[#16A34A]' : 'text-[#22C55E]'
+                            : isNavLight ? 'text-[#0B0F0D]' : 'text-white'
+                        }`}
                       >
-                        <span>{item.label}</span>
+                        <span className="flex items-center gap-2">
+                          {isServicesActive && (
+                            <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
+                          )}
+                          <span>{item.label}</span>
+                        </span>
                         <HiChevronDown
-                          className={`h-5 w-5 transition-transform duration-200 ${mobileServicesAccordion
+                          className={`h-5 w-5 transition-transform duration-200 ${
+                            mobileServicesAccordion
                               ? 'rotate-180 text-[#16A34A]'
-                              : isNavLight
-                                ? 'text-gray-500'
-                                : 'text-[#9FB0A7]'
-                            }`}
+                              : isServicesActive
+                                ? 'text-[#22C55E]'
+                                : isNavLight
+                                  ? 'text-gray-500'
+                                  : 'text-[#9FB0A7]'
+                          }`}
                         />
                       </button>
 
@@ -473,22 +578,48 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                             exit={{ height: 0, opacity: 0 }}
                             className="overflow-hidden pl-3 flex flex-col gap-2 pt-2"
                           >
-                            {servicesData.map((s) => (
-                              <Link
-                                key={s.id}
-                                href="#services"
-                                onClick={() => setMobileMenuOpen(false)}
-                                className={`text-sm py-1.5 flex items-center justify-between transition-colors ${isNavLight
-                                    ? 'text-gray-600 hover:text-[#16A34A]'
-                                    : 'text-[#9FB0A7] hover:text-[#22C55E]'
+                            {servicesData.map((s) => {
+                              const serviceHref =
+                                s.slug === 'digital-marketing'
+                                  ? '/services/digital-marketing'
+                                  : s.slug === 'website-development'
+                                    ? '/services/website-development'
+                                    : '/#services';
+                              const isCurrentService = pathname === serviceHref;
+
+                              return (
+                                <Link
+                                  key={s.id}
+                                  href={serviceHref}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                  className={`text-sm py-2 px-3 rounded-xl flex items-center justify-between transition-colors ${
+                                    isCurrentService
+                                      ? 'bg-[#16A34A]/20 text-[#22C55E] font-bold border border-[#22C55E]/40'
+                                      : isNavLight
+                                        ? 'text-gray-600 hover:text-[#16A34A] hover:bg-gray-100'
+                                        : 'text-[#9FB0A7] hover:text-[#22C55E] hover:bg-[#111815]'
                                   }`}
-                              >
-                                <span>{s.title}</span>
-                                <span className={`text-xs ${isNavLight ? 'text-gray-400' : 'text-[#5B6B63]'}`}>
-                                  {s.number}
-                                </span>
-                              </Link>
-                            ))}
+                                >
+                                  <div className="flex items-center gap-2">
+                                    {isCurrentService && (
+                                      <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
+                                    )}
+                                    <span>{s.title}</span>
+                                  </div>
+                                  <span
+                                    className={`text-xs ${
+                                      isCurrentService
+                                        ? 'text-[#22C55E] font-bold'
+                                        : isNavLight
+                                          ? 'text-gray-400'
+                                          : 'text-[#5B6B63]'
+                                    }`}
+                                  >
+                                    {s.number}
+                                  </span>
+                                </Link>
+                              );
+                            })}
                           </motion.div>
                         )}
                       </AnimatePresence>

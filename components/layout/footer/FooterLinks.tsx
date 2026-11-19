@@ -140,9 +140,15 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
           </h3>
           <nav aria-label="Services navigation">
             <ul className="flex flex-col gap-1.5">
-              {servicesData.map((svc) =>
-                renderInteractiveLink(svc.title, '/#services', svc.id)
-              )}
+              {servicesData.map((svc) => {
+                const serviceHref =
+                  svc.slug === 'digital-marketing'
+                    ? '/services/digital-marketing'
+                    : svc.slug === 'website-development'
+                      ? '/services/website-development'
+                      : '/#services';
+                return renderInteractiveLink(svc.title, serviceHref, svc.id);
+              })}
             </ul>
           </nav>
         </div>
@@ -177,9 +183,15 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
                 className="overflow-hidden pl-6 pt-2 pb-3"
               >
                 <ul className="flex flex-col gap-2">
-                  {servicesData.map((svc) =>
-                    renderInteractiveLink(svc.title, '/#services', svc.id)
-                  )}
+                  {servicesData.map((svc) => {
+                    const serviceHref =
+                      svc.slug === 'digital-marketing'
+                        ? '/services/digital-marketing'
+                        : svc.slug === 'website-development'
+                          ? '/services/website-development'
+                          : '/#services';
+                    return renderInteractiveLink(svc.title, serviceHref, svc.id);
+                  })}
                 </ul>
               </motion.div>
             )}

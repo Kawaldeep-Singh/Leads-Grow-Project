@@ -8,7 +8,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ScrollWords } from './ScrollWords';
 import { SectionLabel } from './SectionLabel';
 
-const desktopHeights = [220, 255, 290, 325, 365];
+const desktopHeights = [220, 255, 290, 325, 355];
 
 export const AboutApproach: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -164,7 +164,10 @@ export const AboutApproach: React.FC = () => {
                   ref={(node) => { if (node) desktopCardsRef.current[index] = node; }}
                   aria-labelledby={`approach-desktop-${step.number}`}
                   className={`relative flex min-w-0 origin-bottom flex-col justify-end border-t-2 p-4 pb-5 xl:p-5 ${activeStep === index ? 'border-[#16A34A] bg-white shadow-[0_14px_42px_rgba(11,15,13,0.1)]' : 'border-[#0B0F0D]/15 bg-white/75'}`}
-                  style={{ height: `${desktopHeights[index]}px`, maxHeight: 'max(190px, calc(100svh - 344px))' }}
+                  style={{
+                    height: `${desktopHeights[index]}px`,
+                    maxHeight: `max(190px, calc(100svh - ${410 - index * 12}px))`,
+                  }}
                 >
                   <span data-step-copy className="mb-auto font-display text-5xl font-extrabold leading-none tracking-[-0.06em] text-[#16A34A]/35 xl:text-6xl">{step.number}</span>
                   <h3 id={`approach-desktop-${step.number}`} data-step-copy className="mb-2 font-display text-lg font-extrabold leading-tight tracking-tight text-[#0B0F0D] xl:text-xl">{step.title}</h3>

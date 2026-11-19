@@ -11,6 +11,13 @@ import {
   FaGraduationCap,
   FaStore,
   FaLaptopCode,
+  FaBriefcase,
+  FaCoins,
+  FaBalanceScale,
+  FaPlane,
+  FaUniversity,
+  FaDumbbell,
+  FaRocket,
 } from 'react-icons/fa';
 import { HiArrowUpRight } from 'react-icons/hi2';
 import { industriesData } from '@/data/industries';
@@ -26,6 +33,13 @@ const industryIcons: Record<string, React.ElementType> = {
   FaGraduationCap,
   FaStore,
   FaLaptopCode,
+  FaBriefcase,
+  FaCoins,
+  FaBalanceScale,
+  FaPlane,
+  FaUniversity,
+  FaDumbbell,
+  FaRocket,
 };
 
 interface IndustriesProps {
@@ -58,19 +72,19 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
         />
       </div>
 
-      <div className="w-[85%] mx-auto relative z-10">
+      <div className="relative z-10 mx-auto w-[90%] sm:w-[88%] lg:w-[85%]">
         {/* Section Heading */}
         <SectionHeading
-          badge="What We Serve"
-          plainText="Growing Businesses"
-          highlightText="Across Industries."
+          // badge="What We Serve"
+          plainText="Industries"
+          highlightText="We Serve."
           subtext="Domain-specific growth funnels optimized for high ticket and high volume conversion."
           align="center"
           theme="light"
         />
 
-        {/* 8 Industries Interactive Grid (4 Columns x 2 Rows) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Industry playbooks reflow from one phone column to four large-screen columns. */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {industriesData.map((industry, index) => {
             const Icon = industryIcons[industry.iconName] || FaStore;
 
@@ -92,9 +106,9 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
                     <Icon className="h-5 w-5" />
                   </div>
 
-                  <span className="text-[10px] sm:text-[11px] font-bold tracking-wide uppercase text-[#16A34A] bg-[#16A34A]/10 group-hover:bg-[#22C55E]/20 group-hover:text-[#B6F23D] px-3 py-1.5 rounded-full transition-colors border border-[#16A34A]/20 whitespace-nowrap shrink-0 text-center">
+                  {/* <span className="text-[10px] sm:text-[11px] font-bold tracking-wide uppercase text-[#16A34A] bg-[#16A34A]/10 group-hover:bg-[#22C55E]/20 group-hover:text-[#B6F23D] px-3 py-1.5 rounded-full transition-colors border border-[#16A34A]/20 whitespace-nowrap shrink-0 text-center">
                     {industry.statBadge}
-                  </span>
+                  </span> */}
                 </div>
 
                 {/* Middle: Industry Title & Benefit (Uniform Heights) */}
@@ -121,12 +135,6 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
           })}
         </div>
 
-        {/* Small label aligned beneath the final card. */}
-        <div className="mt-2 sm:mt-3 flex justify-end">
-          <span className="text-[11px] sm:text-xs font-semibold text-[#5B6B63]">
-            And more...
-          </span>
-        </div>
       </div>
     </section>
   );

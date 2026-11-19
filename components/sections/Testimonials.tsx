@@ -65,7 +65,7 @@ export const Testimonials: React.FC = () => {
         {/* Section Heading */}
         <div className="text-center mb-6">
           <SectionHeading
-            badge="Sample feedback"
+            badge="Feedback"
             plainText="What Our"
             highlightText="Clients Say"
             subtext="Illustrative examples only; replace with approved customer reviews before publishing."
