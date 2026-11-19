@@ -104,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
     <header className="fixed top-0 left-0 right-0 z-50 flex flex-col">
       {/* Top Utility Bar (Desktop only) - collapses smoothly on scroll */}
       <div
-        className={`hidden lg:flex items-center text-xs transition-all duration-300 ${isTopBarLight
+        className={`hidden xl:flex items-center text-xs transition-all duration-300 ${isTopBarLight
             ? 'bg-white border-b border-gray-200/90 text-gray-700 shadow-xs'
             : 'bg-[#0B0F0D] border-b border-[#1A2420] text-[#9FB0A7]'
           } ${isHeaderScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-b-0' : 'h-10.5 py-1.5 opacity-100'
@@ -200,7 +200,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
             </Link>
 
             {/* Desktop Nav Links */}
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden xl:flex items-center gap-8">
               {navLinks.map((item) => {
                 if (item.hasMegaMenu) {
                   return (
@@ -375,7 +375,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
           </div>
 
           {/* Right Action CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3">
             <Button
               variant="glow"
               size="md"
@@ -387,7 +387,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
           </div>
 
           {/* Mobile Right Controls: Hamburger */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
@@ -410,7 +410,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-            className={`fixed inset-0 z-50 lg:hidden flex flex-col p-6 overflow-y-auto ${isNavLight ? 'bg-white text-[#0B0F0D]' : 'bg-[#0B0F0D] text-white'
+            className={`fixed inset-0 z-50 xl:hidden flex flex-col p-6 overflow-y-auto ${isNavLight ? 'bg-white text-[#0B0F0D]' : 'bg-[#0B0F0D] text-white'
               }`}
           >
             {/* Top Bar with logo and close button */}
