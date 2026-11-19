@@ -13,7 +13,8 @@ export interface ServicePageContent {
   services: {
     eyebrow: string;
     title: string;
-    items: readonly string[];
+    count: string;
+    items: readonly ServiceChannel[];
   };
   why: {
     eyebrow: string;
@@ -32,4 +33,10 @@ export interface ServicePageContent {
     text: string;
     button: string;
   };
+}
+
+export interface ServiceChannel {
+  n: string;
+  tag: string;
+  name: string;
 }

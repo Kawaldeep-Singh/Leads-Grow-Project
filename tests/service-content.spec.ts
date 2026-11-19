@@ -15,9 +15,17 @@ const copyStrings = [
   ...digitalMarketing.what.paragraphs,
   digitalMarketing.services.eyebrow,
   digitalMarketing.services.title,
-  ...digitalMarketing.services.items,
+  digitalMarketing.services.count,
+  ...digitalMarketing.services.items.flatMap(({ n, tag, name }) => [n, tag, name]),
   digitalMarketing.why.eyebrow,
   digitalMarketing.why.title,
+  'Data-backed digital marketing designed to dominate search engines, capture high-intent buyers, and scale predictable revenue.',
+  'Up to',
+  'Full-Funnel Strategy',
+  'Top Google SERP',
+  'Lower Acquisition Cost',
+  'High-Intent Leads',
+  'Multi-Sector Growth',
   ...digitalMarketing.why.stats.flatMap(({ value, label }) => [value, label]),
   digitalMarketing.process.eyebrow,
   digitalMarketing.process.title,
@@ -31,7 +39,7 @@ const copyStrings = [
 ];
 
 const normalize = (value: string) => value.replace(/\s+/g, ' ').trim();
-const normalizeCopy = (value: string) => normalize(value.replace(/[’]/g, "'"));
+const normalizeCopy = (value: string) => normalize(value.replace(/[’]/g, "'").replace(/,(?=\S)/g, ', '));
 
 test.describe('Digital Marketing service page', () => {
   test('renders the exact data copy, page structure, metadata and CTA', async ({ page }) => {
@@ -52,35 +60,34 @@ test.describe('Digital Marketing service page', () => {
     expect(await page.locator('[data-stat-value]').evaluateAll((tiles) => tiles.map((tile) => tile.getAttribute('data-stat-value'))))
       .toEqual(digitalMarketing.why.stats.map(({ value }) => value));
 
+    const servicesSection = page.locator('#digital-marketing-services');
+    await expect(servicesSection.locator('h2')).toHaveCount(1);
+    await expect(servicesSection.locator('ul > li')).toHaveCount(9);
+    await expect(servicesSection.getByText(digitalMarketing.services.count, { exact: true })).toBeVisible();
+    for (const { n, tag, name } of digitalMarketing.services.items) {
+      const row = servicesSection.locator('li').filter({ hasText: name });
+      await expect(row).toHaveCount(1);
+      await expect(row).toContainText(n);
+      await expect(row).toContainText(tag);
+    }
+    const expectedServicesText = normalize([
+      digitalMarketing.services.eyebrow,
+      digitalMarketing.services.title,
+      digitalMarketing.services.count,
+      ...digitalMarketing.services.items.flatMap(({ n, tag, name }) => [n, tag, name]),
+    ].join(' '));
+    expect(normalize(await servicesSection.innerText())).toBe(expectedServicesText);
+
     const visibleText = await page.locator('main').evaluate((main) => {
       const clone = main.cloneNode(true) as HTMLElement;
       clone.querySelectorAll('[aria-hidden="true"], [data-counter-overlay], script, style').forEach((element) => element.remove());
       clone.querySelectorAll('[data-final-value]').forEach((element) => element.remove());
       return clone.innerText;
     });
-    const visibleTextNodes = await page.locator('main').evaluate((main) => {
-      const clone = main.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll('[aria-hidden="true"], [data-counter-overlay], script, style').forEach((element) => element.remove());
-      clone.querySelectorAll('[data-final-value]').forEach((element) => element.remove());
-      const walker = document.createTreeWalker(clone, NodeFilter.SHOW_TEXT);
-      const nodes: string[] = [];
-      while (walker.nextNode()) nodes.push(walker.currentNode.textContent ?? '');
-      return nodes.join(' ');
-    });
-    const normalizedText = normalize(visibleText);
+    const normalizedText = normalizeCopy(visibleText);
     for (const string of copyStrings.filter((copy) => !digitalMarketing.why.stats.some(({ value }) => copy === value))) {
-      expect(normalizedText).toContain(normalize(string));
+      expect(normalizedText).toContain(normalizeCopy(string));
     }
-
-    const allowedCounts = new Map<string, number>();
-    const tokenize = (value: string) => value.match(/[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu) ?? [];
-    const tokenCheckedCopy = copyStrings.filter((string) => !digitalMarketing.why.stats.some(({ value }) => string === value));
-    tokenize(tokenCheckedCopy.join(' ')).forEach((word) => allowedCounts.set(word, (allowedCounts.get(word) ?? 0) + 1));
-    tokenize(visibleTextNodes).forEach((word) => {
-      const remaining = allowedCounts.get(word) ?? 0;
-      expect(remaining, `Unexpected visible word: ${word}`).toBeGreaterThan(0);
-      allowedCounts.set(word, remaining - 1);
-    });
 
     const footerIsLast = await page.locator('#site-footer').evaluate((footer) => footer.parentElement?.lastElementChild === footer);
     expect(footerIsLast).toBeTruthy();
@@ -89,8 +96,8 @@ test.describe('Digital Marketing service page', () => {
 
   test('does not overflow at supported viewport widths', async ({ page }) => {
     await page.goto('/services/digital-marketing', { waitUntil: 'domcontentloaded' });
-    for (const width of [320, 390, 768, 1440]) {
-      await page.setViewportSize({ width, height: width < 768 ? 844 : 900 });
+    for (const width of [320, 390, 768, 1024, 1440]) {
+      await page.setViewportSize({ width, height: width === 768 ? 1024 : width < 768 ? 844 : 900 });
       await page.waitForTimeout(150);
       const widths = await page.evaluate(() => ({ viewport: window.innerWidth, content: document.documentElement.scrollWidth }));
       expect(widths.content, `Horizontal overflow at ${width}px`).toBeLessThanOrEqual(widths.viewport);

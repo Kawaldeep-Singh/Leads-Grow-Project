@@ -122,18 +122,6 @@ export function ServiceOverview({ content }: { content: DigitalMarketingContent 
   );
 }
 
-const serviceMeta = [
-  { tag: 'Organic Search', code: '01' },
-  { tag: 'Brand & Social', code: '02' },
-  { tag: 'High-Intent ROI', code: '03' },
-  { tag: 'Targeted Funnels', code: '04' },
-  { tag: 'B2B Pipeline', code: '05' },
-  { tag: 'Inbound Authority', code: '06' },
-  { tag: 'Instant Outreach', code: '07' },
-  { tag: 'Drip & Retention', code: '08' },
-  { tag: 'Direct Chat Ops', code: '09' },
-];
-
 export function ServiceCatalog({ content }: { content: DigitalMarketingContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<HTMLLIElement[]>([]);
@@ -179,10 +167,9 @@ export function ServiceCatalog({ content }: { content: DigitalMarketingContent }
         <ul className="mt-8 sm:mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 sm:gap-3.5 lg:gap-4">
           {content.services.items.map((service, index) => {
             const Icon = serviceIcons[index % serviceIcons.length];
-            const meta = serviceMeta[index] || { tag: 'Growth Channel', code: String(index + 1).padStart(2, '0') };
             return (
               <li
-                key={service}
+                key={service.n}
                 ref={(element) => { if (element) cardRefs.current[index] = element; }}
                 onPointerMove={(event) => {
                   if (event.pointerType === 'touch') return;
@@ -200,10 +187,10 @@ export function ServiceCatalog({ content }: { content: DigitalMarketingContent }
                 {/* Center: Micro-tag + Service Name */}
                 <div className="relative z-10 flex-1 min-w-0 pr-1">
                   <span className="block font-mono text-[10px] sm:text-[11px] font-semibold text-[#22C55E]/80 uppercase tracking-wider transition-colors duration-200 group-hover:text-[#16A34A]">
-                    {meta.code} • {meta.tag}
+                    {service.n} • {service.tag}
                   </span>
                   <h3 className="mt-0.5 text-[14px] sm:text-[15px] font-bold leading-snug text-white transition-colors duration-200 group-hover:text-[#22C55E] line-clamp-2">
-                    {service}
+                  {service.name}
                   </h3>
                 </div>
 
