@@ -152,7 +152,7 @@ export function WebsiteHero({ content }: { content: WebsiteDevelopmentContent })
         <div ref={eyebrowRef} className="order-1 mb-1 flex min-w-0 items-center lg:col-span-7 lg:col-start-1 lg:row-start-1">
           <ServiceBreadcrumb current="Website Development" />
         </div>
-        <h1 id="website-hero-title" className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1 lg:row-start-2">
+        <h1 id="website-hero-title" className="hero-display-title order-2 m-0 max-[639px]:text-center lg:col-span-7 lg:col-start-1 lg:row-start-2">
           <span ref={(node) => { if (node) lineRefs.current[0] = node; }} className="block">We Turn Your Ideas</span>{' '}
           <span ref={(node) => { if (node) lineRefs.current[1] = node; }} data-outline-line className="block text-transparent" style={{ WebkitTextStroke: '1.5px rgba(255,255,255,.9)', WebkitTextFillColor: 'transparent' }}>into Powerful</span>{' '}
           <span ref={(node) => { if (node) lineRefs.current[2] = node; }} className="block bg-gradient-to-r from-[#22C55E] to-[#16A34A] bg-clip-text text-transparent">Websites.</span>

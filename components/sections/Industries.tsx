@@ -101,7 +101,7 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
                 className="group relative rounded-3xl bg-[#F6FAF7] border border-gray-200/90 p-5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all duration-300 hover:bg-[#111815] hover:border-[#16A34A] hover:shadow-2xl cursor-pointer min-h-[235px]"
               >
                 {/* Top: Icon & Stat Badge (Standardized baseline & 1-line badge) */}
-                <div className="flex items-center justify-between gap-2.5 mb-4 h-12">
+                <div className="flex items-center justify-between gap-2.5 mb-4 h-12 max-[639px]:justify-center">
                   <div className="w-12 h-12 rounded-2xl bg-white border border-gray-200 text-[#16A34A] group-hover:bg-[#16A34A] group-hover:text-white group-hover:border-[#22C55E] flex items-center justify-center transition-all duration-300 shadow-sm shrink-0">
                     <Icon className="h-5 w-5" />
                   </div>
@@ -113,12 +113,12 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
 
                 {/* Middle: Industry Title & Benefit (Uniform Heights) */}
                 <div className="flex-1 flex flex-col justify-center my-1">
-                  <h3 className="text-base sm:text-lg font-extrabold text-[#0B0F0D] group-hover:text-white transition-colors leading-snug min-h-[2.5rem] flex items-center">
+                  <h3 className="text-base sm:text-lg font-extrabold text-[#0B0F0D] group-hover:text-white transition-colors leading-snug min-h-[2.5rem] flex items-center max-[639px]:justify-center max-[639px]:text-center">
                     {industry.name}
                   </h3>
 
                   {/* Benefit microcopy */}
-                  <p className="text-xs text-[#5B6B63] group-hover:text-[#9FB0A7] transition-colors mt-2 leading-relaxed line-clamp-2 min-h-[2rem]">
+                  <p className="text-xs text-[#5B6B63] group-hover:text-[#9FB0A7] transition-colors mt-2 leading-relaxed line-clamp-2 min-h-[2rem] max-[639px]:text-center">
                     {industry.benefit}
                   </p>
                 </div>

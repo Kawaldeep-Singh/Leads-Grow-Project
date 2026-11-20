@@ -103,7 +103,7 @@ export function SectionLabel({ children, tone }: { children: string; tone: Secti
           className={`absolute left-[28%] top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[clamp(5rem,16vw,14rem)] font-extrabold leading-none text-transparent opacity-[0.8] before:content-[attr(data-word)] ${ghostStroke}`}
         />
       </span>
-      <span ref={pillRef} className={`relative z-10 inline-flex h-[3.5rem] w-[min(100%,20rem)] shrink-0 items-center justify-center gap-[0.7em] overflow-hidden rounded-full px-[1.3em] font-display text-[clamp(1.05rem,calc(0.9rem_+_0.8vw),1.6rem)] font-bold leading-none tracking-[0.08em] whitespace-nowrap ${colors.pill}`}>
+      <span ref={pillRef} className={`relative z-10 inline-flex h-[3.5rem] w-[min(100%,20rem)] shrink-0 items-center justify-center gap-[0.7em] overflow-hidden rounded-full px-[1.3em] font-display text-[clamp(1.05rem,calc(0.9rem_+_0.8vw),1.6rem)] font-bold leading-none tracking-[0.08em] whitespace-nowrap max-[639px]:h-11 max-[639px]:w-fit max-[639px]:min-w-48 max-[639px]:px-5 ${colors.pill}`}>
         <span ref={dotRef} aria-hidden="true" className={`relative size-[0.5em] shrink-0 rounded-full ${colors.dot}`}>
           <span ref={ringRef} className={`absolute inset-[-0.35em] rounded-full border border-current opacity-50`} />
         </span>

@@ -89,9 +89,9 @@ export function WebsiteDevelopmentProcess({ content }: { content: WebsiteDevelop
 
   return <section ref={sectionRef} aria-labelledby="website-process-title" className="relative bg-[#F6FAF7] text-[#0B0F0D]">
     <div className="mx-auto w-[90%] max-w-[1280px] py-16 sm:py-24">
-      <Eyebrow tone="ink">{content.process.eyebrow}</Eyebrow>
-      <h2 id="website-process-title" className="mt-5 max-w-[18em] font-display text-[clamp(1.9rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">{content.process.title}</h2>
-      <p className="mt-4 max-w-[44em] text-base leading-[1.65] text-[#5B6B63] sm:text-[18px]">{content.process.text}</p>
+      <div className="max-[639px]:flex max-[639px]:justify-center"><Eyebrow tone="ink">{content.process.eyebrow}</Eyebrow></div>
+      <h2 id="website-process-title" className="mt-5 max-w-[18em] font-display text-[clamp(1.9rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-[-0.03em] max-[639px]:mx-auto max-[639px]:text-center">{content.process.title}</h2>
+      <p className="mt-4 max-w-[44em] text-base leading-[1.65] text-[#5B6B63] sm:text-[18px] max-[639px]:mx-auto max-[639px]:text-center">{content.process.text}</p>
     </div>
     <div ref={trackRef} className={`relative mx-auto w-[90%] max-w-[1280px] pb-16 sm:pb-24 ${reducedMotion ? '' : 'lg:h-[300svh] lg:pb-0'}`}>
       <div ref={stageRef} className={`lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-8 xl:gap-12 ${reducedMotion ? '' : 'lg:sticky lg:top-[76px] lg:h-[calc(100svh-112px)]'}`}>

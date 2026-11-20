@@ -218,7 +218,7 @@ export function ServiceHero({ content }: { content: DigitalMarketingContent }) {
           <FunnelScene reducedMotion={reducedMotion} />
         </div>
         <ol className="order-5 mt-2 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-y-3 lg:col-span-7 lg:col-start-1 lg:mt-8 lg:flex-nowrap lg:gap-5">
-          {content.hero.flow.map((word, index) => <li key={word} ref={(element) => { if (element) flowRefs.current[index] = element; }} className={`relative flex min-h-11 items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors sm:min-h-10 ${index === content.hero.flow.length - 1 ? 'border-[#16A34A] bg-[#16A34A] text-[#0B0F0D]' : 'border-white/20 bg-white/[0.06] text-white'}`}>
+          {content.hero.flow.map((word, index) => <li key={word} ref={(element) => { if (element) flowRefs.current[index] = element; }} className={`relative flex min-h-11 items-center justify-center rounded-full border px-4 py-2 text-base font-semibold transition-colors sm:min-h-10 sm:text-sm ${index === content.hero.flow.length - 1 ? 'border-[#16A34A] bg-[#16A34A] text-[#0B0F0D]' : 'border-white/20 bg-white/[0.06] text-white'}`}>
             {word}
             {index < content.hero.flow.length - 1 && <svg aria-hidden="true" className="absolute left-1/2 top-full h-3 w-4 -translate-x-1/2 rotate-90 sm:left-full sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0 sm:rotate-0" viewBox="0 0 28 12" fill="none"><path d="M1 6h24m-5-4 5 4-5 4" stroke="#22C55E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
           </li>)}

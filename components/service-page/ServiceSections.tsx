@@ -283,9 +283,9 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
       />
 
       <div className="relative z-10 mx-auto w-[85%] max-w-7xl">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl max-[639px]:mx-auto max-[639px]:text-center">
           {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/25 text-[#15803D] text-xs font-mono uppercase tracking-wider mb-4 font-semibold shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/25 text-xs font-mono uppercase tracking-wider mb-4 font-semibold shadow-xs max-[639px]:mx-auto">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#16A34A] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#16A34A]" />
@@ -296,7 +296,7 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
           {/* Title with Gradient Text */}
           <h2
             id="service-proof-title"
-            className="font-display text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#0B0F0D]"
+            className="font-display text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#0B0F0D] max-[639px]:text-center"
           >
             More Than Marketing.{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#16A34A] to-[#22C55E]">
@@ -336,7 +336,7 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
 
                 {/* Top Bar: Icon badge + ArrowUpRight */}
                 <div>
-                  <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center justify-between mb-5 max-[639px]:justify-center">
                     <span
                       aria-hidden="true"
                       className="flex size-11 items-center justify-center rounded-2xl border border-[#16A34A]/25 bg-[#F0FDF4] text-[#16A34A] shadow-xs transition-all duration-300 group-hover:scale-110 group-hover:bg-[#16A34A] group-hover:text-white group-hover:border-[#16A34A] sm:size-12"
@@ -346,7 +346,7 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
 
                     <span
                       aria-hidden="true"
-                      className="flex size-7 items-center justify-center rounded-full bg-[#F4F8F5] border border-[#E2EBE5] text-[#55675E] group-hover:text-[#16A34A] group-hover:border-[#16A34A]/40 group-hover:bg-[#EAF5EE] transition-all duration-300 group-hover:scale-110"
+                      className="flex size-7 items-center justify-center rounded-full bg-[#F4F8F5] border border-[#E2EBE5] text-[#55675E] group-hover:text-[#16A34A] group-hover:border-[#16A34A]/40 group-hover:bg-[#EAF5EE] transition-all duration-300 group-hover:scale-110 max-[639px]:hidden"
                     >
                       <ArrowUpRight className="size-4" strokeWidth={2} />
                     </span>
@@ -360,7 +360,7 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
                   )}
 
                   {/* Middle metric number */}
-                  <div className="mb-2">
+                  <div className="mb-2 max-[639px]:text-center">
                     {/* Default & Final Value Display */}
                     <span
                       data-final-value
@@ -383,17 +383,17 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
                   </div>
 
                   {/* Stat Label */}
-                  <h3 className="text-[14px] sm:text-[15px] font-bold text-[#1E2922] leading-snug group-hover:text-[#0B0F0D] transition-colors">
+                  <h3 className="text-[14px] sm:text-[15px] font-bold text-[#1E2922] leading-snug group-hover:text-[#0B0F0D] transition-colors max-[639px]:text-center">
                     {stat.label}
                   </h3>
                 </div>
 
                 {/* Bottom Tag / Micro-feature */}
-                <div className="mt-5 pt-3.5 border-t border-[#EEF4F0] flex items-center justify-between">
+                <div className="mt-5 pt-3.5 border-t border-[#EEF4F0] flex items-center justify-between max-[639px]:justify-center">
                   <span className="text-[11px] font-semibold text-[#6B7E74] group-hover:text-[#16A34A] transition-colors font-mono">
                     {tag}
                   </span>
-                  <span className="size-1.5 rounded-full bg-[#16A34A]/30 group-hover:bg-[#16A34A] group-hover:scale-125 transition-all" />
+                  <span className="size-1.5 rounded-full bg-[#16A34A]/30 group-hover:bg-[#16A34A] group-hover:scale-125 transition-all max-[639px]:hidden" />
                 </div>
 
                 {/* Bottom Glowing Accent Line on Hover */}
