@@ -5,6 +5,7 @@ import { Gauge, Laptop, ShieldCheck, Smartphone } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import type { WebsiteDevelopmentContent } from '@/data/servicePages';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { ServiceBreadcrumb } from './ServiceBreadcrumb';
 import { gsap, registerGsapPlugins, ScrollTrigger } from '@/lib/gsap-register';
 import { BrowserFrame, CodePanel, LaptopFrame, PhoneFrame, ShieldBadge, UiSkeleton } from './mockups';
 
@@ -117,7 +118,7 @@ function WebsiteBuildScene({ reducedMotion }: { reducedMotion: boolean }) {
 export function WebsiteHero({ content }: { content: WebsiteDevelopmentContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const lineRefs = useRef<HTMLSpanElement[]>([]);
-  const eyebrowRef = useRef<HTMLSpanElement>(null);
+  const eyebrowRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const trustRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
@@ -130,7 +131,7 @@ export function WebsiteHero({ content }: { content: WebsiteDevelopmentContent })
     const eyebrow = eyebrowRef.current;
     const paragraph = paragraphRef.current;
     const trust = trustRef.current;
-    const entranceTargets = [eyebrow, paragraph, trust].filter((target): target is HTMLElement => target !== null);
+    const entranceTargets = [eyebrow, paragraph, trust].filter((target): target is HTMLDivElement | HTMLParagraphElement => target !== null);
     const context = gsap.context(() => {
       gsap.set(entranceTargets, { opacity: 0, y: 14 });
       gsap.set(lines, { opacity: 0, y: 32, rotateX: 40, transformPerspective: 600, transformOrigin: '50% 100%' });
@@ -148,10 +149,8 @@ export function WebsiteHero({ content }: { content: WebsiteDevelopmentContent })
   return (
     <section ref={sectionRef} aria-labelledby="website-hero-title" className="website-development-hero relative isolate min-h-[100svh] overflow-hidden bg-[#0B0F0D] text-white">
       <div className="relative z-10 mx-auto grid min-h-[100svh] w-[85%] max-w-[1280px] grid-cols-1 content-center gap-y-5 pb-10 pt-28 sm:gap-y-7 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0 lg:pb-8 lg:pt-[112px]">
-        <div className="order-1 flex items-center lg:col-span-7 lg:col-start-1 lg:row-start-1">
-          {/* <span ref={eyebrowRef} className="inline-flex items-center gap-2 rounded-full border border-[#22C55E]/30 bg-[#16A34A] px-4 py-2 text-sm font-semibold text-[#0B0F0D] shadow-[0_0_22px_rgba(34,197,94,.16)]">
-            <span aria-hidden="true" className="size-2 rounded-full bg-[#0B0F0D]" />{content.hero.eyebrow}
-          </span> */}
+        <div ref={eyebrowRef} className="order-1 mb-1 flex min-w-0 items-center lg:col-span-7 lg:col-start-1 lg:row-start-1">
+          <ServiceBreadcrumb current="Website Development" />
         </div>
         <h1 id="website-hero-title" className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1 lg:row-start-2">
           <span ref={(node) => { if (node) lineRefs.current[0] = node; }} className="block">We Turn Your Ideas</span>{' '}

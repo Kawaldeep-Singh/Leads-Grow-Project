@@ -6,6 +6,7 @@ import { ChartNoAxesCombined, FileText, Search, Share2 } from 'lucide-react';
 import { FaLinkedinIn } from 'react-icons/fa6';
 import { SiGoogleads, SiMeta } from 'react-icons/si';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { ServiceBreadcrumb } from './ServiceBreadcrumb';
 import { gsap, registerGsapPlugins, ScrollTrigger, SplitText } from '@/lib/gsap-register';
 import type { DigitalMarketingContent } from '@/data/servicePages';
 
@@ -206,11 +207,9 @@ export function ServiceHero({ content }: { content: DigitalMarketingContent }) {
   return (
     <section ref={sectionRef} aria-labelledby="service-hero-title" className="relative isolate min-h-[100svh] overflow-hidden bg-[#0B0F0D] text-white">
       <div className="relative z-10 mx-auto grid min-h-[100svh] w-[85%] max-w-7xl grid-cols-1 content-center gap-y-6 pb-12 pt-32 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0 lg:pb-10 lg:pt-[120px]">
-        {/* <div ref={eyebrowRef} className="order-1 flex items-center gap-3 lg:col-span-7 lg:col-start-1">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#22C55E]/35 bg-[#16A34A] px-4 py-2 text-sm font-semibold text-[#0B0F0D] shadow-[0_0_24px_rgba(34,197,94,.22)]">
-            <span aria-hidden="true" className="size-2 rounded-full bg-[#0B0F0D]" />{content.hero.eyebrow}
-          </span>
-        </div> */}
+        <div ref={eyebrowRef} className="order-1 mb-1 flex min-w-0 items-center lg:col-span-7 lg:col-start-1">
+          <ServiceBreadcrumb current="Digital Marketing" />
+        </div>
         <h1 id="service-hero-title" ref={titleRef} className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1">
           {titleLines.map((line, index) => <span key={line} ref={(element) => { if (element) titleLineRefs.current[index] = element; }} className={`block ${index === 1 ? 'text-transparent' : ''} ${index === 2 ? 'bg-gradient-to-r from-[#22C55E] to-[#16A34A] bg-clip-text text-transparent' : ''}`} style={index === 1 ? { WebkitTextStroke: '1.5px rgba(255,255,255,.92)', WebkitTextFillColor: 'transparent' } : undefined}>{index === 0 ? line : ` ${line}`}</span>)}
         </h1>
