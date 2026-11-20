@@ -229,7 +229,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
 
                 {/* Icon with rotation & scale on hover */}
                 <div
-                  className={`w-13 h-13 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-md ${
+                  className={`w-13 h-13 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-md max-[639px]:mx-auto ${
                     isLight
                       ? 'bg-[#F0FDF4] border border-[#22C55E]/30 text-[#16A34A] group-hover:border-[#22C55E]/60 group-hover:bg-[#16A34A]/15'
                       : 'bg-[#0B0F0D] border border-[#1A2420] text-[#22C55E] group-hover:border-[#22C55E]/40 group-hover:bg-[#16A34A]/20'
@@ -240,7 +240,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
 
                 {/* Title */}
                 <h3
-                  className={`text-xl font-extrabold mb-2 leading-tight transition-colors ${
+                  className={`text-xl font-extrabold mb-2 leading-tight transition-colors max-[639px]:text-center ${
                     isLight
                       ? 'text-[#0B0F0D] group-hover:text-[#16A34A]'
                       : 'text-white group-hover:text-[#22C55E]'

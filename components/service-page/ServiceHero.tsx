@@ -210,7 +210,7 @@ export function ServiceHero({ content }: { content: DigitalMarketingContent }) {
         <div ref={eyebrowRef} className="order-1 mb-1 flex min-w-0 items-center lg:col-span-7 lg:col-start-1">
           <ServiceBreadcrumb current="Digital Marketing" />
         </div>
-        <h1 id="service-hero-title" ref={titleRef} className="hero-display-title order-2 m-0 lg:col-span-7 lg:col-start-1">
+        <h1 id="service-hero-title" ref={titleRef} className="hero-display-title order-2 m-0 max-[639px]:text-center lg:col-span-7 lg:col-start-1">
           {titleLines.map((line, index) => <span key={line} ref={(element) => { if (element) titleLineRefs.current[index] = element; }} className={`block ${index === 1 ? 'text-transparent' : ''} ${index === 2 ? 'bg-gradient-to-r from-[#22C55E] to-[#16A34A] bg-clip-text text-transparent' : ''}`} style={index === 1 ? { WebkitTextStroke: '1.5px rgba(255,255,255,.92)', WebkitTextFillColor: 'transparent' } : undefined}>{index === 0 ? line : ` ${line}`}</span>)}
         </h1>
         <p ref={paragraphRef} className="order-4 mt-1 max-w-[36em] text-base leading-[1.65] text-white/[0.76] sm:text-[17px] lg:col-span-7 lg:col-start-1 lg:mt-6 lg:text-[18px]">{content.hero.text}</p>
