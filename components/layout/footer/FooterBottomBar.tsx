@@ -33,10 +33,10 @@ export const FooterBottomBar: React.FC<FooterBottomBarProps> = ({
       </div>
 
       {/* ── Center: Legal & Sitemap Links (Properly Centered) ── */}
-      <div className="flex items-center justify-center gap-6 text-center">
+      <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 text-center sm:gap-x-4">
         <Link
           href="#"
-          className="hover:text-white transition-colors duration-200"
+          className="inline-flex min-h-11 items-center px-1 hover:text-white transition-colors duration-200"
         >
           Privacy Policy
         </Link>
@@ -45,7 +45,7 @@ export const FooterBottomBar: React.FC<FooterBottomBarProps> = ({
         </span>
         <Link
           href="#"
-          className="hover:text-white transition-colors duration-200"
+          className="inline-flex min-h-11 items-center px-1 hover:text-white transition-colors duration-200"
         >
           Terms of Service
         </Link>
@@ -54,7 +54,7 @@ export const FooterBottomBar: React.FC<FooterBottomBarProps> = ({
         </span>
         <Link
           href="#"
-          className="hover:text-white transition-colors duration-200"
+          className="inline-flex min-h-11 items-center px-1 hover:text-white transition-colors duration-200"
         >
           Sitemap
         </Link>
@@ -66,7 +66,7 @@ export const FooterBottomBar: React.FC<FooterBottomBarProps> = ({
           type="button"
           onClick={onScrollToTop}
           aria-label="Back to top"
-          className="magnetic-target group relative flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#111815] border border-[#1A2420] text-[#9FB0A7] hover:text-white hover:border-[#22C55E]/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-300 cursor-pointer"
+          className="magnetic-target group relative flex min-h-11 items-center gap-2.5 px-4 py-2 rounded-full bg-[#111815] border border-[#1A2420] text-[#9FB0A7] hover:text-white hover:border-[#22C55E]/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-300 cursor-pointer"
         >
           <span className="text-xs font-semibold hidden sm:inline-block">
             Back to top

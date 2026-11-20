@@ -35,7 +35,7 @@ export const Stats: React.FC<StatsProps> = ({ overlap = false, className = '' })
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[380px] bg-[#16A34A]/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1A2420_1px,transparent_1px),linear-gradient(to_bottom,#1A2420_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)] opacity-25 pointer-events-none" />
 
-      <div className="w-[88%] sm:w-[85%] mx-auto relative z-10">
+      <div className="w-[88%] sm:w-[85%] max-w-7xl mx-auto relative z-10">
         {/* Section Header: "You Believe. We Achieve." */}
         <div className="flex flex-col items-center text-center mb-10 sm:mb-14">
           {/* Eyebrow Pill */}

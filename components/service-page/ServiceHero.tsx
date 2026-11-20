@@ -205,7 +205,7 @@ export function ServiceHero({ content }: { content: DigitalMarketingContent }) {
 
   return (
     <section ref={sectionRef} aria-labelledby="service-hero-title" className="relative isolate min-h-[100svh] overflow-hidden bg-[#0B0F0D] text-white">
-      <div className="relative z-10 mx-auto grid min-h-[100svh] w-[85%] grid-cols-1 content-center gap-y-6 pb-12 pt-32 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0 lg:pb-10 lg:pt-[120px]">
+      <div className="relative z-10 mx-auto grid min-h-[100svh] w-[85%] max-w-7xl grid-cols-1 content-center gap-y-6 pb-12 pt-32 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-0 lg:pb-10 lg:pt-[120px]">
         {/* <div ref={eyebrowRef} className="order-1 flex items-center gap-3 lg:col-span-7 lg:col-start-1">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#22C55E]/35 bg-[#16A34A] px-4 py-2 text-sm font-semibold text-[#0B0F0D] shadow-[0_0_24px_rgba(34,197,94,.22)]">
             <span aria-hidden="true" className="size-2 rounded-full bg-[#0B0F0D]" />{content.hero.eyebrow}

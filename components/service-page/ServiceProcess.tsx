@@ -115,7 +115,7 @@ export function ServiceProcess({ content }: { content: DigitalMarketingContent }
     <section ref={sectionRef} aria-labelledby="service-process-title" className="relative bg-[#0B0F0D] py-[15px] text-white">
       <div ref={trackRef} className={`relative ${reducedMotion ? '' : 'lg:h-[260svh]'}`}>
         <div ref={stageRef} className={`relative ${reducedMotion ? '' : 'lg:sticky lg:top-[76px] lg:h-[calc(100svh-76px)]'}`}>
-          <div className="mx-auto flex w-[85%] flex-col py-16 sm:py-20 lg:h-full lg:py-8">
+          <div className="mx-auto flex w-[85%] max-w-7xl flex-col py-16 sm:py-20 lg:h-full lg:py-8">
             <div className="relative z-10">
               <Eyebrow>{content.process.eyebrow}</Eyebrow>
               <h2 id="service-process-title" className="mt-5 max-w-[18em] font-display text-[clamp(1.65rem,3.5vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">{content.process.title}</h2>

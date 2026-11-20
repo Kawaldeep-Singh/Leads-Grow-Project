@@ -66,7 +66,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
         <Link
           href={href}
           onClick={isAnchor ? (e) => onAnchorClick(e, href) : undefined}
-          className="group inline-flex items-center gap-1.5 text-sm leading-5 text-[#9FB0A7] hover:text-white transition-colors duration-200 py-1"
+          className="group inline-flex min-h-11 items-center gap-1.5 text-sm leading-5 text-[#9FB0A7] hover:text-white transition-colors duration-200 py-2"
         >
           <span className="relative transition-transform duration-200 group-hover:translate-x-1">
             {label}
@@ -85,7 +85,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
       <div className="footer-link-col lg:col-span-4 flex flex-col justify-start">
         {/* Brand Logo & Tagline */}
         <div className="mb-6">
-          <Link href="/" className="inline-block relative h-10 w-48 sm:h-11 sm:w-56 mb-3.5 group">
+          <Link href="/" className="inline-block relative h-11 w-48 sm:w-56 mb-3.5 group">
             <Image
               src="/Logo-Light.webp"
               alt="LeadsGrow Logo"
@@ -110,7 +110,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
           <span className="text-[11px] font-bold uppercase tracking-wider text-[#5B6B63] block mb-3 font-mono">
             Connect With Us
           </span>
-          <div className="flex items-center gap-2.5">
+          <div className="flex max-w-full flex-wrap items-center gap-2.5">
             {socialLinks.map((s, idx) => {
               const Icon = s.icon;
               return (
@@ -120,7 +120,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="magnetic-target group relative w-9 h-9 rounded-full bg-[#111815] border border-[#1A2420] text-[#9FB0A7] hover:text-white hover:bg-[#16A34A] hover:border-[#16A34A] hover:shadow-[0_0_18px_rgba(22,163,74,0.5)] flex items-center justify-center transition-all duration-300 cursor-pointer"
+                  className="magnetic-target group relative h-11 w-11 flex-none rounded-full bg-[#111815] border border-[#1A2420] text-[#9FB0A7] hover:text-white hover:bg-[#16A34A] hover:border-[#16A34A] hover:shadow-[0_0_18px_rgba(22,163,74,0.5)] flex items-center justify-center transition-all duration-300 cursor-pointer"
                 >
                   <Icon className="h-3.5 w-3.5 transition-transform duration-500 ease-out group-hover:rotate-[360deg] group-hover:scale-110" />
                 </a>
@@ -160,7 +160,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
             onClick={() => setServicesOpen(!servicesOpen)}
             aria-expanded={servicesOpen}
             aria-controls="mobile-footer-services"
-            className="w-full flex items-center justify-between py-2 text-left"
+            className="min-h-11 w-full flex items-center justify-between py-2 text-left"
           >
             <div className="flex items-center gap-2">
               <div className="w-4 h-0.5 bg-[#22C55E] rounded-full" />
@@ -223,7 +223,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
             onClick={() => setCompanyOpen(!companyOpen)}
             aria-expanded={companyOpen}
             aria-controls="mobile-footer-company"
-            className="w-full flex items-center justify-between py-2 text-left"
+            className="min-h-11 w-full flex items-center justify-between py-2 text-left"
           >
             <div className="flex items-center gap-2">
               <div className="w-4 h-0.5 bg-[#22C55E] rounded-full" />
@@ -340,7 +340,7 @@ export const FooterLinks: React.FC<FooterLinksProps> = ({ onAnchorClick }) => {
             onClick={() => setContactOpen(!contactOpen)}
             aria-expanded={contactOpen}
             aria-controls="mobile-footer-contact"
-            className="w-full flex items-center justify-between py-2 text-left"
+            className="min-h-11 w-full flex items-center justify-between py-2 text-left"
           >
             <div className="flex items-center gap-2">
               <div className="w-4 h-0.5 bg-[#22C55E] rounded-full" />

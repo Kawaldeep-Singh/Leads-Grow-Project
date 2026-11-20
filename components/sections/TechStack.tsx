@@ -128,7 +128,7 @@ export const TechStack: React.FC = () => {
       <div className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-[#16A34A]/10 blur-[130px] pointer-events-none" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-[#3B82F6]/10 blur-[150px] pointer-events-none" />
 
-      <div className="w-[85%] mx-auto relative z-10">
+      <div className="w-[85%] max-w-7xl mx-auto relative z-10">
         {/* Section Heading */}
         <SectionHeading
           badge="Engineered For Growth"
@@ -149,7 +149,7 @@ export const TechStack: React.FC = () => {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-colors whitespace-nowrap cursor-pointer ${
+                  className={`relative min-h-11 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-colors whitespace-nowrap cursor-pointer ${
                     isActive ? 'text-white' : 'text-[#5B6B63] hover:text-[#0B0F0D]'
                   }`}
                 >

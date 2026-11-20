@@ -61,7 +61,7 @@ export const Testimonials: React.FC = () => {
         <FaQuoteLeft className="w-48 h-48 sm:w-72 sm:h-72 opacity-30" />
       </div>
 
-      <div className="w-[92%] sm:w-[85%] mx-auto relative z-10">
+      <div className="w-[92%] sm:w-[85%] max-w-7xl mx-auto relative z-10">
         {/* Section Heading */}
         <div className="text-center mb-6">
           <SectionHeading

@@ -107,7 +107,7 @@ export function ServiceOverview({ content }: { content: DigitalMarketingContent 
   return (
     <section aria-labelledby="service-what-title" className="relative overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-28">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.24] [background-image:radial-gradient(rgba(22,163,74,0.2)_0.75px,transparent_0.75px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_82%,transparent)]" />
-      <div className="mx-auto w-[90%] lg:w-[85%]">
+      <div className="mx-auto w-[90%] lg:w-[85%] max-w-7xl">
         <h2 id="service-what-title" className="max-w-none font-display text-[clamp(1.5rem,2.3vw,2.4rem)] font-extrabold leading-[1.12] tracking-[-0.03em] lg:whitespace-nowrap">{content.what.title}</h2>
         <div className="mt-7 grid grid-cols-1 gap-8 lg:mt-9 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-5">
@@ -282,7 +282,7 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(#16A34A_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.12] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)]"
       />
 
-      <div className="relative z-10 mx-auto w-[85%]">
+      <div className="relative z-10 mx-auto w-[85%] max-w-7xl">
         <div className="max-w-3xl">
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/25 text-[#15803D] text-xs font-mono uppercase tracking-wider mb-4 font-semibold shadow-xs">
@@ -413,7 +413,7 @@ export function ServiceProof({ content }: { content: DigitalMarketingContent }) 
 export function ServiceIndustries({ content, onSelectIndustry }: { content: DigitalMarketingContent; onSelectIndustry: (name: string) => void }) {
   return (
     <section aria-labelledby="service-industries-title" className="overflow-hidden bg-[#F6FAF7] py-20 text-[#0B0F0D] sm:py-24">
-      <div className="mx-auto w-[85%]">
+      <div className="mx-auto w-[85%] max-w-7xl">
         <h2 id="service-industries-title" className="font-display text-[clamp(1.65rem,3.5vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">{content.industries.title}</h2>
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
           {industriesData.map((industry) => <button key={industry.id} type="button" onClick={() => onSelectIndustry(industry.name)} className="group flex min-h-14 items-center justify-between gap-2 rounded-full border border-[#0B0F0D]/10 bg-white px-4 py-3 text-left text-sm font-semibold transition-colors hover:border-[#16A34A]/45 hover:bg-[#0B0F0D] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16A34A] sm:px-5 sm:text-base">
@@ -456,7 +456,7 @@ export function ServiceCTA({ content }: { content: DigitalMarketingContent }) {
         <circle cx="1200" cy="420" r="260" stroke="white" strokeOpacity=".08" strokeWidth="1.5" />
         <path d="M1100 660 1400 210M1230 660 1440 330" stroke="white" strokeOpacity=".1" strokeWidth="5" />
       </svg>
-      <div ref={contentRef} className="relative z-10 mx-auto w-[85%]">
+      <div ref={contentRef} className="relative z-10 mx-auto w-[85%] max-w-7xl">
         <Eyebrow tone="ink">{content.cta.eyebrow}</Eyebrow>
         <h2 id="service-cta-title" className="mt-5 max-w-[16em] font-display text-[clamp(1.65rem,4vw,3.4rem)] font-extrabold leading-[1.06] tracking-[-0.03em]">{content.cta.title}</h2>
         <p className="mt-5 max-w-[40em] text-base leading-[1.65] text-white/90 sm:text-[17px] lg:text-[18px]">{content.cta.text}</p>

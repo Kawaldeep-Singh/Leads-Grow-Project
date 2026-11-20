@@ -71,7 +71,7 @@ export const AboutStory: React.FC = () => {
         </svg>
       </div>
 
-      <div className="relative z-10 mx-auto grid w-[90%] grid-cols-1 gap-14 lg:w-[85%] lg:grid-cols-12 lg:gap-16">
+      <div className="relative z-10 mx-auto grid w-[90%] max-w-7xl grid-cols-1 gap-14 lg:w-[85%] lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
           <SectionLabel tone="dark">{aboutContent.story.eyebrow}</SectionLabel>
           <h2 ref={headingRef} id="about-story-title" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">

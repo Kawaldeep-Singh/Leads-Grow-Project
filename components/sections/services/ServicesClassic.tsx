@@ -73,7 +73,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
 
       {/* Dynamic Grid: Centered gracefully depending on number of filtered cards */}
       <div
-        className={`relative z-10 w-[85%] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 transition-all duration-300 ${
+        className={`relative z-10 w-[85%] max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 transition-all duration-300 ${
           filteredServices.length >= 4
             ? 'lg:grid-cols-4'
             : filteredServices.length === 3
@@ -297,7 +297,7 @@ export const ServicesClassic: React.FC<ServicesClassicProps> = ({
                 <button
                   type="button"
                   onClick={() => onSelectService(service.title)}
-                  className={`inline-flex items-center gap-2 text-xs font-bold transition-colors cursor-pointer ${
+                  className={`inline-flex min-h-12 items-center gap-2 text-xs font-bold transition-colors cursor-pointer ${
                     isLight
                       ? 'text-[#16A34A] group-hover:text-[#15803D]'
                       : 'text-[#22C55E] group-hover:text-[#16A34A]'

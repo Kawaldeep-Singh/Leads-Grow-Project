@@ -126,7 +126,7 @@ export const AboutApproach: React.FC = () => {
   return (
     <section ref={sectionRef} aria-label={aboutContent.approach.eyebrow} className="relative overflow-x-clip bg-[#F6FAF7] py-24 text-[#0B0F0D] sm:py-28 lg:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-[34rem] w-[34rem] rounded-full bg-[#16A34A]/[0.06] blur-[120px]" />
-      <div className="relative z-10 mx-auto w-[90%] lg:w-[85%]">
+      <div className="relative z-10 mx-auto w-[90%] lg:w-[85%] max-w-7xl">
         <div className="mb-12 max-w-3xl sm:mb-16 lg:hidden">
           <SectionLabel tone="light">{aboutContent.approach.eyebrow}</SectionLabel>
           <h2 id="about-approach-title-mobile" className="font-display text-[clamp(1.35rem,4vw,3.1rem)] font-extrabold leading-[1.25] tracking-[-0.03em] sm:leading-[1.2]">

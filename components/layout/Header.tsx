@@ -112,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
           } ${isHeaderScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-b-0' : 'h-10.5 py-1.5 opacity-100'
           }`}
       >
-        <div className="w-[85%] mx-auto flex items-center justify-between">
+        <div className="w-[85%] max-w-7xl mx-auto flex items-center justify-between">
           {/* Left Social Links with Circular Animation */}
           <div className="flex items-center gap-2">
             {socialLinks.map((item) => {
@@ -187,10 +187,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                 : 'bg-[#0B0F0D]/90 backdrop-blur-md border-b border-[#1A2420]/60 py-4 shadow-md shadow-black/20'
             }`}
         >
-          <div className="w-[85%] mx-auto flex items-center justify-between">
+          <div className="w-[85%] max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo on Light/Dark Background */}
             <Link href="/" className="flex items-center gap-2 group relative z-20">
-              <div className="relative h-10 w-48 sm:h-11 sm:w-56">
+              <div className="relative h-11 w-48 sm:w-56">
                 <Image
                   src={isNavLight ? "/Logo-dark.webp" : "/Logo-Light.webp"}
                   alt="LeadsGrow Logo"
@@ -249,7 +249,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 10 }}
                             transition={{ duration: 0.25, ease: 'easeOut' }}
-                            className="absolute -left-48 top-full pt-4 w-[850px] z-50 pointer-events-auto"
+                            className="absolute left-1/2 top-full w-[min(850px,calc(100vw_-_2rem))] -translate-x-1/2 pt-4 z-50 pointer-events-auto"
                           >
                             <div
                               className={`rounded-3xl p-6 shadow-2xl backdrop-blur-xl border ${isNavLight

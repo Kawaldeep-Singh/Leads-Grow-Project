@@ -72,7 +72,7 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectIndustry }) => {
         />
       </div>
 
-      <div className="relative z-10 mx-auto w-[90%] sm:w-[88%] lg:w-[85%]">
+      <div className="relative z-10 mx-auto w-[90%] sm:w-[88%] lg:w-[85%] max-w-7xl">
         {/* Section Heading */}
         <SectionHeading
           // badge="What We Serve"
