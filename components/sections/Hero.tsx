@@ -173,6 +173,10 @@ export function Hero({
               window.location.assign('/services/website-development');
               return;
             }
+            if (serviceTitle === 'App Development') {
+              window.location.assign('/services/app-development');
+              return;
+            }
             onSelectService?.(serviceTitle);
           }}
           theme={theme}

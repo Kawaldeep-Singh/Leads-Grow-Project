@@ -294,7 +294,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                                     ? '/services/digital-marketing'
                                     : svc.slug === 'website-development'
                                       ? '/services/website-development'
-                                      : '/#services';
+                                      : svc.slug === 'app-development'
+                                        ? '/services/app-development'
+                                        : '/#services';
                                 const isCurrentService = pathname === serviceHref;
 
                                 return (
@@ -559,7 +561,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                                   ? '/services/digital-marketing'
                                   : s.slug === 'website-development'
                                     ? '/services/website-development'
-                                    : '/#services';
+                                    : s.slug === 'app-development'
+                                      ? '/services/app-development'
+                                      : '/#services';
                               const isCurrentService = pathname === serviceHref;
 
                               return (

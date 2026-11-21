@@ -18,6 +18,7 @@ import { TechStack } from '@/components/sections/TechStack';
 import { Industries } from '@/components/sections/Industries';
 import { AboutStory } from '@/components/sections/about/AboutStory';
 import { Stats } from '@/components/sections/Stats';
+import { AppDevelopmentPage } from './AppDevelopmentPage';
 
 export function ServiceLandingPage({ content }: { content: ServicePageContent }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,8 +31,10 @@ export function ServiceLandingPage({ content }: { content: ServicePageContent })
     setIsModalOpen(true);
   };
 
-  const sections = content.slug === 'digital-marketing'
-    ? (['hero', 'what', 'services', 'why', 'process', 'industries', 'cta'] as const).map((section) => {
+  const sections = content.slug === 'app-development'
+    ? <AppDevelopmentPage content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
+    : content.slug === 'digital-marketing'
+      ? (['hero', 'what', 'services', 'why', 'process', 'industries', 'cta'] as const).map((section) => {
       switch (section) {
         case 'hero': return <ServiceHero key={section} content={content} />;
         case 'what': return <ServiceOverview key={section} content={content} />;
@@ -41,8 +44,8 @@ export function ServiceLandingPage({ content }: { content: ServicePageContent })
         case 'industries': return <Industries key={section} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />;
         case 'cta': return <ServiceCTA key={section} content={content} />;
       }
-    })
-    : content.sections.map((section) => {
+      })
+      : content.sections.map((section) => {
       switch (section) {
         case 'hero': return <WebsiteHero key={section} content={content} />;
         case 'why': return <WebsiteWhySection key={section} content={content} />;
