@@ -19,8 +19,10 @@ import { Industries } from '@/components/sections/Industries';
 import { AboutStory } from '@/components/sections/about/AboutStory';
 import { Stats } from '@/components/sections/Stats';
 import { AppDevelopmentPage } from './AppDevelopmentPage';
+import { CreativeDesigningPage } from './CreativeDesigningPage';
+import type { ServicesView } from './services-photo/ServicesViewToggle';
 
-export function ServiceLandingPage({ content }: { content: ServicePageContent }) {
+export function ServiceLandingPage({ content, initialCreativeServicesView = 'v1' }: { content: ServicePageContent; initialCreativeServicesView?: ServicesView }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string | undefined>();
   const [modalSource, setModalSource] = useState('service-page-nav-audit');
@@ -33,6 +35,8 @@ export function ServiceLandingPage({ content }: { content: ServicePageContent })
 
   const sections = content.slug === 'app-development'
     ? <AppDevelopmentPage content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
+    : content.slug === 'creative-designing'
+      ? <CreativeDesigningPage content={content} initialServicesView={initialCreativeServicesView} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
     : content.slug === 'digital-marketing'
       ? (['hero', 'what', 'services', 'why', 'process', 'industries', 'cta'] as const).map((section) => {
       switch (section) {

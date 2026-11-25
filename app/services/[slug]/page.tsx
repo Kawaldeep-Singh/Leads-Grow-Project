@@ -17,8 +17,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ServicePage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const { slug } = await params;
+  const query = searchParams ? await searchParams : undefined;
+  const servicesQuery = Array.isArray(query?.services) ? query.services[0] : query?.services;
   const content = servicePages[slug];
   if (!content) notFound();
 
@@ -32,7 +34,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
-      <ServiceLandingPage content={content} />
+      <ServiceLandingPage content={content} initialCreativeServicesView={servicesQuery === 'v2' ? 'v2' : 'v1'} />
     </>
   );
 }

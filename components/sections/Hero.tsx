@@ -177,6 +177,10 @@ export function Hero({
               window.location.assign('/services/app-development');
               return;
             }
+            if (serviceTitle === 'Creative & Designing') {
+              window.location.assign('/services/creative-designing');
+              return;
+            }
             onSelectService?.(serviceTitle);
           }}
           theme={theme}
