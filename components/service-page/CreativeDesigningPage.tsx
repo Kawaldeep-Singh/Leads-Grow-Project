@@ -30,11 +30,11 @@ function HeroStudio({ reducedMotion }: { reducedMotion: boolean }) {
     const board = boardRef.current;
     if (!board) return;
     if (reducedMotion) {
-      const elements = [board, barsRef.current, shapesRef.current, arrowRef.current, swatchesRef.current, burstRef.current, cursorRef.current].filter((element): element is HTMLElement | SVGElement => element !== null);
+      const elements = [board, barsRef.current, shapesRef.current, arrowRef.current, swatchesRef.current, burstRef.current, cursorRef.current].filter((element): element is Exclude<typeof element, null> => element !== null);
       gsap.set(elements, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' });
       return;
     }
-    const entranceElements = [shapesRef.current, arrowRef.current, swatchesRef.current, burstRef.current].filter((element): element is HTMLElement | SVGElement => element !== null);
+    const entranceElements = [shapesRef.current, arrowRef.current, swatchesRef.current, burstRef.current].filter((element): element is Exclude<typeof element, null> => element !== null);
     gsap.set(entranceElements, { opacity: 0, scale: .7, y: 8, transformOrigin: '50% 50%' });
     let observerVisible = false;
     let introComplete = false;

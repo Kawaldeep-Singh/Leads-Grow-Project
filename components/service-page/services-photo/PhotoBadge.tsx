@@ -1,14 +1,13 @@
 'use client';
 
 import { useRef } from 'react';
-import type { TweenVars } from 'gsap';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { gsap } from '@/lib/gsap-register';
 import { serviceIcons, type ServiceIconMotion } from './serviceIcons';
 
 export function playServiceIconMotion(node: SVGSVGElement | null, motion: ServiceIconMotion, reducedMotion: boolean) {
   if (!node || reducedMotion) return;
-  const fromTo = (from: TweenVars, to: TweenVars) => gsap.fromTo(node, from, { ...to, duration: .68, ease: 'power2.out', overwrite: true });
+  const fromTo = (from: Parameters<typeof gsap.fromTo>[2], to: Parameters<typeof gsap.fromTo>[2]) => gsap.fromTo(node, from, { ...to, duration: .68, ease: 'power2.out', overwrite: true });
   switch (motion) {
     case 'draw': fromTo({ rotate: -8, scale: .92 }, { rotate: 0, scale: 1.08 }); break;
     case 'spin': fromTo({ rotate: 0 }, { keyframes: [{ rotate: 20, duration: .28 }, { rotate: 0, duration: .36 }] }); break;
