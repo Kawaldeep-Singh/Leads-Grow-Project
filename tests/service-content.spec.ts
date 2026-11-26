@@ -6,6 +6,7 @@ import { techStackData, techTabs } from '../data/techStack';
 import { statsData } from '../data/stats';
 import { aboutContent } from '../data/about';
 import { appDevelopment } from '../data/servicePages/app-development';
+import { performanceMarketing } from '../data/servicePages/performance-marketing';
 
 const copyStrings = [
   digitalMarketing.hero.eyebrow,
@@ -293,5 +294,57 @@ test.describe('App Development service page', () => {
     await page.getByRole('button', { name: 'Explore Service', exact: true }).nth(2).click({ timeout: 30000 });
     await expect(page).toHaveURL(/\/services\/app-development$/);
     await expect(page.getByRole('link', { name: 'Services', exact: true })).toHaveAttribute('aria-current', 'page');
+  });
+});
+
+test.describe('Performance Marketing service page', () => {
+  test('renders the exact content, SEO metadata, reused sections and one heading', async ({ page }) => {
+    const browserIssues: string[] = [];
+    page.on('console', (message) => {
+      if (message.type() === 'error' || message.type() === 'warning') browserIssues.push(message.text());
+    });
+    page.on('pageerror', (error) => browserIssues.push(error.message));
+    await page.goto('/services/performance-marketing', { waitUntil: 'domcontentloaded' });
+    const normalize = (value: string) => value.replace(/[’]/g, "'").replace(/\s+/g, ' ').trim();
+    await expect(page).toHaveTitle('Performance Marketing | LeadsGrow');
+    await expect(page.locator('main h1')).toHaveCount(1);
+    expect(normalize(await page.locator('main h1').innerText())).toBe(normalize(performanceMarketing.hero.title));
+
+    const expected = [
+      performanceMarketing.hero.eyebrow, performanceMarketing.hero.text,
+      performanceMarketing.why.title, performanceMarketing.why.text, performanceMarketing.why.label,
+      ...performanceMarketing.why.points,
+      performanceMarketing.approach.eyebrow, performanceMarketing.approach.title, performanceMarketing.approach.text,
+      ...performanceMarketing.approach.points,
+      performanceMarketing.whatWeDo.eyebrow, performanceMarketing.whatWeDo.title, performanceMarketing.whatWeDo.text,
+      ...performanceMarketing.whatWeDo.items.flatMap(({ title, text }) => [title, text]),
+      performanceMarketing.platforms.eyebrow, performanceMarketing.platforms.title, performanceMarketing.platforms.text,
+      ...performanceMarketing.platforms.items,
+      'Industries We Serve', ...industriesData.map(({ name }) => name),
+      'Leads Grow was built with a simple idea: businesses need more than just marketing; they need the right strategy, creative thinking and consistent execution to grow.',
+      'We bring together different marketing capabilities, from traditional advertising to modern digital solutions, making it easier for businesses to manage their marketing needs through one growth partner.',
+      'Our focus is simple: understand every business, create the right strategy and deliver solutions that make a difference.',
+    ];
+    const visible = normalize(await page.locator('main').evaluate((main) => {
+      const copy = main.cloneNode(true) as HTMLElement;
+      copy.querySelectorAll('[aria-hidden="true"], script, style').forEach((node) => node.remove());
+      return copy.innerText;
+    }));
+    expected.forEach((copy) => expect(visible).toContain(normalize(copy)));
+    await expect(page.locator('main section[aria-labelledby]')).toHaveCount(6);
+    await expect(page.locator('main #industries')).toHaveCount(1);
+    await expect(page.locator('#site-footer')).toHaveCount(1);
+    expect(browserIssues).toEqual([]);
+  });
+
+  test('keeps the Services nav active and avoids horizontal overflow', async ({ page }) => {
+    await page.goto('/services/performance-marketing', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('link', { name: 'Services', exact: true })).toHaveAttribute('aria-current', 'page');
+    for (const width of [320, 390, 768, 1440]) {
+      await page.setViewportSize({ width, height: width < 768 ? 844 : 900 });
+      await page.waitForTimeout(120);
+      const widths = await page.evaluate(() => ({ viewport: window.innerWidth, content: document.documentElement.scrollWidth }));
+      expect(widths.content, `Horizontal overflow at ${width}px`).toBeLessThanOrEqual(widths.viewport);
+    }
   });
 });

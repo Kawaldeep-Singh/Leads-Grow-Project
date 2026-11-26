@@ -181,6 +181,10 @@ export function Hero({
               window.location.assign('/services/creative-designing');
               return;
             }
+            if (serviceTitle === 'Performance Marketing') {
+              window.location.assign('/services/performance-marketing');
+              return;
+            }
             onSelectService?.(serviceTitle);
           }}
           theme={theme}

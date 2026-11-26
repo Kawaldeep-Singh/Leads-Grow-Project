@@ -33,6 +33,16 @@ interface HeaderProps {
   theme?: 'dark' | 'light' | 'top-light';
 }
 
+const servicePagePaths: Record<string, string> = {
+  'digital-marketing': '/services/digital-marketing',
+  'website-development': '/services/website-development',
+  'app-development': '/services/app-development',
+  'creative-designing': '/services/creative-designing',
+  'performance-marketing': '/services/performance-marketing',
+};
+
+const getServiceHref = (slug: string) => servicePagePaths[slug] ?? '/#services';
+
 export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
   const pathname = usePathname();
   const { activeKey, ariaCurrent } = useActiveNav();
@@ -289,14 +299,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                             {/* 8 Services Grid */}
                             <div className="grid grid-cols-4 gap-4">
                               {servicesData.map((svc) => {
-                                const serviceHref =
-                                  svc.slug === 'digital-marketing'
-                                    ? '/services/digital-marketing'
-                                    : svc.slug === 'website-development'
-                                      ? '/services/website-development'
-                                      : svc.slug === 'app-development'
-                                        ? '/services/app-development'
-                                        : '/#services';
+                                const serviceHref = getServiceHref(svc.slug);
                                 const isCurrentService = pathname === serviceHref;
 
                                 return (
@@ -556,14 +559,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAudit, theme }) => {
                             className="overflow-hidden pl-3 flex flex-col gap-2 pt-2"
                           >
                             {servicesData.map((s) => {
-                              const serviceHref =
-                                s.slug === 'digital-marketing'
-                                  ? '/services/digital-marketing'
-                                  : s.slug === 'website-development'
-                                    ? '/services/website-development'
-                                    : s.slug === 'app-development'
-                                      ? '/services/app-development'
-                                      : '/#services';
+                              const serviceHref = getServiceHref(s.slug);
                               const isCurrentService = pathname === serviceHref;
 
                               return (
