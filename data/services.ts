@@ -86,20 +86,19 @@ export const servicesData: ServiceItem[] = [
     iconKey: 'performance',
     badge: 'Scale ROAS',
   },
-  {
+   {
     id: '06',
     number: '06/08',
-    title: 'Lead Generation',
-    slug: 'lead-generation',
-    shortDescription: 'Predictable, pre-qualified pipeline generation tailored to fuel your sales team with ready-to-buy leads.',
+    title: 'Affiliate Marketing',
+    slug: 'affiliate-marketing',
+    shortDescription: 'We connect your business with the right affiliates and partners who promote your products or services, helping you reach new audiences, generate sales and grow through performance-based marketing.',
     subServices: [
-      'B2B Lead Generation',
-      'B2C Lead Generation',
-      'Sales-Qualified Leads (SQLs)',
-      'Customer Acquisition Funnels',
+      'Affiliate Program Setup',
+      'Affiliate Partner Recruitment',
+      'Influencer & Creator Partnerships',
+      'Affiliate Network Management',
     ],
-    iconKey: 'lead-gen',
-    badge: 'Core Focus',
+    iconKey: 'performance',
   },
   {
     id: '07',
@@ -131,5 +130,6 @@ export const servicesData: ServiceItem[] = [
     iconKey: 'offline',
     badge: 'High ROI',
   },
+  
 ];
 

@@ -21,6 +21,7 @@ import { Stats } from '@/components/sections/Stats';
 import { AppDevelopmentPage } from './AppDevelopmentPage';
 import { CreativeDesigningPage } from './CreativeDesigningPage';
 import { PerformanceMarketingPage } from './PerformanceMarketingPage';
+import { AffiliateMarketingPage } from './AffiliateMarketingPage';
 import type { ServicesView } from './services-photo/ServicesViewToggle';
 
 export function ServiceLandingPage({ content, initialCreativeServicesView = 'v1' }: { content: ServicePageContent; initialCreativeServicesView?: ServicesView }) {
@@ -40,6 +41,8 @@ export function ServiceLandingPage({ content, initialCreativeServicesView = 'v1'
       ? <CreativeDesigningPage content={content} initialServicesView={initialCreativeServicesView} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
     : content.slug === 'performance-marketing'
       ? <PerformanceMarketingPage content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
+    : content.slug === 'affiliate-marketing'
+      ? <AffiliateMarketingPage content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
     : content.slug === 'digital-marketing'
       ? (['hero', 'what', 'services', 'why', 'process', 'industries', 'cta'] as const).map((section) => {
       switch (section) {

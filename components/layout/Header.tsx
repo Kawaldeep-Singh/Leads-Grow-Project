@@ -39,6 +39,7 @@ const servicePagePaths: Record<string, string> = {
   'app-development': '/services/app-development',
   'creative-designing': '/services/creative-designing',
   'performance-marketing': '/services/performance-marketing',
+  'affiliate-marketing': '/services/affiliate-marketing',
 };
 
 const getServiceHref = (slug: string) => servicePagePaths[slug] ?? '/#services';

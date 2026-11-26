@@ -129,8 +129,8 @@ export function Hero({
           {/* Category Filter Tabs */}
           <div className="w-fit max-w-[calc(100vw-2rem)] mx-auto grid grid-cols-2 sm:inline-flex sm:flex-wrap items-center justify-center gap-2 sm:gap-2.5 p-1.5 rounded-2xl bg-[#111815]/90 border border-[#1A2420] backdrop-blur-md shadow-lg shadow-black/40">
             {[
-              { id: 'all' as ServiceCategory, label: 'All Services', count: 8 },
-              { id: 'leads' as ServiceCategory, label: 'Leads & Marketing', count: 5 },
+              { id: 'all' as ServiceCategory, label: 'All Services', count: 9 },
+              { id: 'leads' as ServiceCategory, label: 'Leads & Marketing', count: 6 },
               { id: 'development' as ServiceCategory, label: 'Development', count: 2 },
               { id: 'design' as ServiceCategory, label: 'Creative & Design', count: 1 },
             ].map((cat) => {
@@ -183,6 +183,10 @@ export function Hero({
             }
             if (serviceTitle === 'Performance Marketing') {
               window.location.assign('/services/performance-marketing');
+              return;
+            }
+            if (serviceTitle === 'Affiliate Marketing') {
+              window.location.assign('/services/affiliate-marketing');
               return;
             }
             onSelectService?.(serviceTitle);
