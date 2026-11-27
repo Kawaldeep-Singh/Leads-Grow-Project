@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react';
 import { useGSAP } from '@gsap/react';
-import { ArrowDown, ArrowLeft, ArrowRight, Bell, Check, Heart, Layers3, LockKeyhole, Plug, Smartphone, Sparkles, Activity, Zap, Compass, Star, TrendingUp, ShieldCheck, RefreshCw, Palette } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, Bell, Check, Heart, IndianRupee, Layers3, LockKeyhole, Plug, Smartphone, Sparkles, Activity, Zap, Compass, Star, TrendingUp, ShieldCheck, RefreshCw, Palette } from 'lucide-react';
 import type { AppDevelopmentContent } from '@/data/servicePages/app-development';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { Industries } from '@/components/sections/Industries';
@@ -176,7 +176,7 @@ function AppHero({ content }: { content: AppDevelopmentContent }) {
                   <span>Total Leads Converted</span>
                   <span className="rounded bg-[#B6F23D] px-1 py-0.2 text-[8px] font-extrabold text-[#0B0F0D]">+24%</span>
                 </div>
-                <p className="mt-1 font-mono text-base font-black leading-tight text-white">$24,850<span className="text-[10px] font-normal text-white/70">.00</span></p>
+                <p className="mt-1 inline-flex items-baseline font-mono text-base font-black leading-tight text-white"><IndianRupee aria-hidden="true" className="mr-0.5 size-3.5 self-center" strokeWidth={2.75} />24,850<span className="text-[10px] font-normal text-white/70">.00</span></p>
                 <div className="mt-1.5 flex items-center justify-between border-t border-white/15 pt-1 text-[8px] text-white/85">
                   <span>🟢 Real-Time Active</span>
                   <span className="flex items-center gap-0.5"><TrendingUp className="size-2.5" /> High</span>

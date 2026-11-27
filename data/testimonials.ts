@@ -91,7 +91,7 @@ export const testimonialsData: TestimonialItem[] = [
     highlight: 'Generated 220+ enterprise enterprise demo bookings',
     quote:
       'LeadsGrow understands B2B LinkedIn funnels better than any agency we have worked with. Their content creatives and targeted outreach gave us warm access to Fortune 500 decision makers with zero wasted budget.',
-    metrics: '$1.4M Pipeline Generated',
+    metrics: '₹12Cr+ Pipeline Generated',
   },
 ];
 

@@ -23,8 +23,17 @@ import { CreativeDesigningPage } from './CreativeDesigningPage';
 import { PerformanceMarketingPage } from './PerformanceMarketingPage';
 import { AffiliateMarketingPage } from './AffiliateMarketingPage';
 import type { ServicesView } from './services-photo/ServicesViewToggle';
+import type { PlatformsView } from './PlatformsViewToggle';
 
-export function ServiceLandingPage({ content, initialCreativeServicesView = 'v1' }: { content: ServicePageContent; initialCreativeServicesView?: ServicesView }) {
+export function ServiceLandingPage({
+  content,
+  initialCreativeServicesView = 'v1',
+  initialPlatformsView = 'v1',
+}: {
+  content: ServicePageContent;
+  initialCreativeServicesView?: ServicesView;
+  initialPlatformsView?: PlatformsView;
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string | undefined>();
   const [modalSource, setModalSource] = useState('service-page-nav-audit');
@@ -40,9 +49,9 @@ export function ServiceLandingPage({ content, initialCreativeServicesView = 'v1'
     : content.slug === 'creative-designing'
       ? <CreativeDesigningPage content={content} initialServicesView={initialCreativeServicesView} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
     : content.slug === 'performance-marketing'
-      ? <PerformanceMarketingPage content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
+      ? <PerformanceMarketingPage content={content} initialPlatformsView={initialPlatformsView} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
     : content.slug === 'affiliate-marketing'
-      ? <AffiliateMarketingPage content={content} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
+      ? <AffiliateMarketingPage content={content} initialServicesView={initialCreativeServicesView} onSelectIndustry={(name) => openLeadModal(`Growth for ${name}`, `service-page-industry-${name}`)} />
     : content.slug === 'digital-marketing'
       ? (['hero', 'what', 'services', 'why', 'process', 'industries', 'cta'] as const).map((section) => {
       switch (section) {

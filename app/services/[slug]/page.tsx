@@ -21,6 +21,7 @@ export default async function ServicePage({ params, searchParams }: { params: Pr
   const { slug } = await params;
   const query = searchParams ? await searchParams : undefined;
   const servicesQuery = Array.isArray(query?.services) ? query.services[0] : query?.services;
+  const platformsQuery = Array.isArray(query?.platforms) ? query.platforms[0] : query?.platforms;
   const content = servicePages[slug];
   if (!content) notFound();
 
@@ -34,7 +35,11 @@ export default async function ServicePage({ params, searchParams }: { params: Pr
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
-      <ServiceLandingPage content={content} initialCreativeServicesView={servicesQuery === 'v2' ? 'v2' : 'v1'} />
+      <ServiceLandingPage
+        content={content}
+        initialCreativeServicesView={servicesQuery === 'v2' ? 'v2' : 'v1'}
+        initialPlatformsView={platformsQuery === 'v2' ? 'v2' : 'v1'}
+      />
     </>
   );
 }

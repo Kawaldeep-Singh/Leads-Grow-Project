@@ -11,6 +11,8 @@ import { gsap, registerGsapPlugins, ScrollTrigger } from '@/lib/gsap-register';
 import { Eyebrow } from './ServiceUI';
 import { ServiceBreadcrumb } from './ServiceBreadcrumb';
 import { DashWindow, Donut, FunnelMini, Gauge, KpiTile, LineChart, PlatformVisual, Target } from './mockups/dashboard/DashboardKit';
+import { PlatformsViewToggle, type PlatformsView } from './PlatformsViewToggle';
+import { PerformancePlatformsV2 } from './PerformancePlatformsV2';
 
 const ink = '#0B0F0D';
 const green = '#22C55E';
@@ -21,11 +23,53 @@ function PerformanceHero({ content }: { content: PerformanceMarketingContent }) 
   const dashboardRef = useRef<HTMLDivElement>(null);
   const titleLineRefs = useRef<HTMLSpanElement[]>([]);
   const reducedMotion = useReducedMotion();
+  const [introReady, setIntroReady] = useState(false);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setIntroReady(true);
+      return;
+    }
+
+    let started = false;
+    let fallbackTimer: number | undefined;
+    const start = () => {
+      if (started) return;
+      started = true;
+      window.removeEventListener('leadsgrow:preloaderComplete', start);
+      if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+      setIntroReady(true);
+    };
+
+    let isPreloaded = false;
+    try {
+      isPreloaded = sessionStorage.getItem('lg-preloaded') === 'true';
+    } catch {
+      // Ignore storage errors in restricted contexts
+    }
+    const navEntry =
+      typeof performance !== 'undefined' && performance.getEntriesByType
+        ? (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)
+        : undefined;
+    const isReload = navEntry?.type === 'reload';
+
+    if (isPreloaded && !isReload) {
+      start();
+    } else {
+      window.addEventListener('leadsgrow:preloaderComplete', start, { once: true });
+      fallbackTimer = window.setTimeout(start, 4500);
+    }
+
+    return () => {
+      window.removeEventListener('leadsgrow:preloaderComplete', start);
+      if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+    };
+  }, [reducedMotion]);
 
   useGSAP(() => {
     registerGsapPlugins();
     const section = sectionRef.current;
-    if (!section || reducedMotion) return;
+    if (!section || reducedMotion || !introReady) return;
     const lines = titleLineRefs.current.filter(Boolean);
     const kpis = gsap.utils.toArray<HTMLElement>('[data-pm-kpi]', section);
     const chart = section.querySelector<SVGPathElement>('.pm-chart-line');
@@ -35,7 +79,7 @@ function PerformanceHero({ content }: { content: PerformanceMarketingContent }) 
     const dart = section.querySelector<SVGPathElement>('.pm-dart');
     const hit = section.querySelector<SVGCircleElement>('.pm-target-hit');
     const dashboard = dashboardRef.current;
-    const timeline = gsap.timeline({ delay: .2, scrollTrigger: { trigger: section, start: 'top top', once: true } });
+    const timeline = gsap.timeline({ delay: .15 });
     if (lines.length) timeline.fromTo(lines, { yPercent: 110, rotateX: 38, opacity: 0 }, { yPercent: 0, rotateX: 0, opacity: 1, duration: .76, stagger: .15, ease: 'expo.out' }, 0);
     if (kpis.length) timeline.fromTo(kpis, { y: 22, scale: .92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: .48, stagger: .11, ease: 'back.out(1.5)' }, .25);
     if (chart) {
@@ -49,11 +93,12 @@ function PerformanceHero({ content }: { content: PerformanceMarketingContent }) 
     if (dart) timeline.fromTo(dart, { x: -80, y: -35, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: .58, ease: 'power2.inOut' }, 1.65);
     if (hit) timeline.fromTo(hit, { scale: .4, transformOrigin: '50% 50%' }, { scale: 1.7, duration: .24, yoyo: true, repeat: 1, ease: 'power2.out' }, 2.12);
     const rider = section.querySelector<SVGCircleElement>('.pm-chart-rider');
+    let riderTween: gsap.core.Tween | undefined;
     if (chart && rider) {
       const length = chart.getTotalLength();
       const point = { progress: 0 };
       timeline.call(() => {
-        gsap.to(point, { progress: 1, duration: 8, repeat: -1, ease: 'none', onUpdate: () => {
+        riderTween = gsap.to(point, { progress: 1, duration: 8, repeat: -1, ease: 'none', onUpdate: () => {
           const p = chart.getPointAtLength(point.progress * length);
           gsap.set(rider, { attr: { cx: p.x, cy: p.y } });
         } });
@@ -70,10 +115,10 @@ function PerformanceHero({ content }: { content: PerformanceMarketingContent }) 
       const leave = () => { xTo(-10); yTo(4); };
       dashboard.addEventListener('pointermove', move);
       dashboard.addEventListener('pointerleave', leave);
-      return () => { timeline.scrollTrigger?.kill(); dashboard.removeEventListener('pointermove', move); dashboard.removeEventListener('pointerleave', leave); };
+      return () => { timeline.kill(); riderTween?.kill(); dashboard.removeEventListener('pointermove', move); dashboard.removeEventListener('pointerleave', leave); };
     }
-    return () => timeline.scrollTrigger?.kill();
-  }, { scope: sectionRef, dependencies: [reducedMotion], revertOnUpdate: true });
+    return () => { timeline.kill(); riderTween?.kill(); };
+  }, { scope: sectionRef, dependencies: [introReady, reducedMotion], revertOnUpdate: true });
 
   return <section ref={sectionRef} aria-labelledby="performance-hero-title" className="relative isolate min-h-[100svh] overflow-hidden bg-[#0B0F0D] text-white">
     <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-[20%] h-[460px] w-[460px] rounded-full bg-[#16A34A]/15 blur-[130px]"/>
@@ -213,7 +258,13 @@ function CampaignLoop({ content }: { content: PerformanceMarketingContent }) {
   </section>;
 }
 
-function PerformancePlatforms({ content }: { content: PerformanceMarketingContent }) {
+function PerformancePlatforms({
+  content,
+  onChangeView,
+}: {
+  content: PerformanceMarketingContent;
+  onChangeView: (view: PlatformsView) => void;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<HTMLLIElement[]>([]);
   const [spotlight, setSpotlight] = useState({ x: 50, y: 40 });
@@ -230,7 +281,7 @@ function PerformancePlatforms({ content }: { content: PerformanceMarketingConten
     setSpotlight({ x: ((event.clientX - rect.left) / rect.width) * 100, y: ((event.clientY - rect.top) / rect.height) * 100 });
   };
   return <section ref={sectionRef} aria-labelledby="performance-platforms-title" className="relative overflow-hidden bg-[#0B0F0D] pb-16 pt-28 text-white sm:pb-20 sm:pt-32 lg:pb-24 lg:pt-36">
-    <div className="mx-auto w-[90%] max-w-[1280px]"><Eyebrow>{content.platforms.eyebrow}</Eyebrow><h2 id="performance-platforms-title" className="mt-5 max-w-[24ch] font-display text-[clamp(1.9rem,4vw,3.4rem)] font-extrabold leading-[1.08] tracking-[-.04em]">Your Audience Is Everywhere. <span className="bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-clip-text text-transparent">So Are We.</span></h2><p className="mt-5 max-w-[44em] text-base leading-[1.75] text-white/75 sm:text-lg">{content.platforms.text}</p>
+    <div className="mx-auto w-[90%] max-w-[1280px]"><div className="flex flex-wrap items-center justify-between gap-4"><Eyebrow>{content.platforms.eyebrow}</Eyebrow><PlatformsViewToggle value="v1" onChange={onChangeView}/></div><h2 id="performance-platforms-title" className="mt-5 max-w-[24ch] font-display text-[clamp(1.9rem,4vw,3.4rem)] font-extrabold leading-[1.08] tracking-[-.04em]">Your Audience Is Everywhere. <span className="bg-gradient-to-r from-[#22C55E] to-[#B6F23D] bg-clip-text text-transparent">So Are We.</span></h2><p className="mt-5 max-w-[44em] text-base leading-[1.75] text-white/75 sm:text-lg">{content.platforms.text}</p>
       <ul onPointerMove={moveSpotlight} className="relative mt-10 grid grid-cols-2 gap-3 rounded-[28px] sm:gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-5" style={{ '--spot-x': `${spotlight.x}%`, '--spot-y': `${spotlight.y}%`, background: 'radial-gradient(320px circle at var(--spot-x) var(--spot-y), rgba(34,197,94,.14), transparent 72%)' } as CSSProperties}>
         {content.platforms.items.map((item, index) => <li key={item} data-n={`0${index + 1}`} ref={(node) => { if (node) cardRefs.current[index] = node; }} onMouseEnter={() => setHovered(index)} onMouseLeave={() => setHovered(null)} className={`group/platform relative z-10 flex aspect-[4/5] min-w-0 flex-col overflow-hidden rounded-[22px] border bg-[#111815] transition duration-300 before:absolute before:right-4 before:top-4 before:z-20 before:font-mono before:text-[11px] before:tracking-[.16em] before:text-white/50 before:content-[attr(data-n)] ${hovered !== null && hovered !== index ? 'opacity-75' : 'opacity-100'} ${hovered === index ? 'border-[#22C55E]/65 shadow-[0_24px_55px_rgba(0,0,0,.3)]' : 'border-white/[.08]'} motion-safe:hover:-translate-y-2 lg:aspect-[4/3]`}>
           <div className="relative h-[62%] overflow-hidden bg-gradient-to-br from-[#12331F] via-[#14532D] to-[#0B0F0D]"><PlatformVisual index={index}/><span aria-hidden="true" className="pointer-events-none absolute -left-1/2 top-0 z-10 h-full w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-0 transition-all duration-700 group-hover/platform:left-[150%] group-hover/platform:opacity-100"/></div>
@@ -241,17 +292,52 @@ function PerformancePlatforms({ content }: { content: PerformanceMarketingConten
   </section>;
 }
 
-export function PerformanceMarketingPage({ content, onSelectIndustry }: { content: PerformanceMarketingContent; onSelectIndustry: (name: string) => void }) {
+export function PerformanceMarketingPage({
+  content,
+  onSelectIndustry,
+  initialPlatformsView = 'v1',
+}: {
+  content: PerformanceMarketingContent;
+  onSelectIndustry: (name: string) => void;
+  initialPlatformsView?: PlatformsView;
+}) {
+  const [platformsView, setPlatformsView] = useState<PlatformsView>(initialPlatformsView);
+
+  useEffect(() => {
+    setPlatformsView(initialPlatformsView);
+  }, [initialPlatformsView]);
+
+  useEffect(() => {
+    const syncView = () =>
+      setPlatformsView(new URLSearchParams(window.location.search).get('platforms') === 'v2' ? 'v2' : 'v1');
+    window.addEventListener('popstate', syncView);
+    return () => window.removeEventListener('popstate', syncView);
+  }, []);
+
+  const changePlatformsView = (view: PlatformsView) => {
+    setPlatformsView(view);
+    const url = new URL(window.location.href);
+    if (view === 'v2') url.searchParams.set('platforms', 'v2');
+    else url.searchParams.delete('platforms');
+    window.history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  };
+
   useEffect(() => {
     const frame = requestAnimationFrame(() => ScrollTrigger.refresh());
     return () => cancelAnimationFrame(frame);
-  }, []);
+  }, [platformsView]);
+
   const sectionRegistry = {
     hero: () => <PerformanceHero key="hero" content={content}/> ,
     why: () => <PerformanceWhy key="why" content={content}/> ,
     approach: () => <PerformanceApproach key="approach" content={content}/> ,
     whatWeDo: () => <CampaignLoop key="whatWeDo" content={content}/> ,
-    platforms: () => <PerformancePlatforms key="platforms" content={content}/> ,
+    platforms: () =>
+      platformsView === 'v2' ? (
+        <PerformancePlatformsV2 key="platforms-v2" content={content} onChangeView={changePlatformsView} />
+      ) : (
+        <PerformancePlatforms key="platforms-v1" content={content} onChangeView={changePlatformsView} />
+      ),
     whyLeadsGrow: () => <AboutStory key="whyLeadsGrow"/> ,
     industries: () => <Industries key="industries" onSelectIndustry={onSelectIndustry}/> ,
   };
